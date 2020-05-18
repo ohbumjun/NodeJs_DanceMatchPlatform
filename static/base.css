@@ -97,28 +97,48 @@ main .dancers {
   display: grid;
   -ms-grid-columns: 1fr 1fr;
       grid-template-columns: 1fr 1fr;
-  -ms-grid-rows: (1fr)[3];
-      grid-template-rows: repeat(3, 1fr);
-  height: 100vh;
-}
-
-main .dancers .profile {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-orient: horizontal;
-  -webkit-box-direction: normal;
-      -ms-flex-direction: row;
-          flex-direction: row;
-  -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
+  grid-gap: 1rem;
 }
 
 main .dancers .profile img {
-  width: 80%;
-  height: 80%;
+  width: 100%;
+  height: 40vh;
+}
+
+main .dancers .profile img:hover {
+  opacity: 0.7;
+}
+
+.popup-modal {
+  height: 50vh;
+  width: 50vh;
+  background-color: #fff;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  -webkit-transform: translate(-50%, -50%);
+          transform: translate(-50%, -50%);
+  padding: 1vh;
+  opacity: 0;
+  pointer-events: none;
+  -webkit-transition: all 300ms ease-in-out;
+  transition: all 300ms ease-in-out;
+  z-index: 1011;
+}
+
+.popup-modal.is-visible {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.popup-modal__close {
+  position: absolute;
+  font-size: 1.2rem;
+  top: -10px;
+  cursor: pointer;
+}
+
+.body-blackout {
+  -webkit-filter: blur(0.3vh);
+          filter: blur(0.3vh);
 }

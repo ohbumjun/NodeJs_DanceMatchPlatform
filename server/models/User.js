@@ -1,9 +1,7 @@
 const mongoose = require("mongoose")
 const bcrypt = require('bcrypt')
 const saltRounds = 10
-
 const jwt = require('jsonwebtoken')
-
 
 // Schema 생성하기
 const userSchema = mongoose.Schema({
@@ -48,7 +46,7 @@ userSchema.pre('save', function( next ){
     var user = this
     
     // 우리는 비밀번호 혹은 사용자 정보등을 변경할 때가 있다. 아래와 같은 코드를 추가해주지 않으면, 비밀번호가 아니라 email을 변경해주더라도 , password 를 다시 암호화하는 과정을 거친다. password만 고치면 암호화하게 끔 조건을 주는 것이다.
-    
+
     if( user.isModified('password')){
         // gensalt : salt를 생성한다 ( saltRounds 란 salt 가 몇글자인지를 나타내는 것이다 )
         // Salt를 이용해서 비밀번호를 암호화 한다

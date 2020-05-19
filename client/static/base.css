@@ -111,7 +111,7 @@ main .dancers .profile img:hover {
 
 .popup-modal {
   height: 50vh;
-  width: 50vh;
+  width: 80vw;
   background-color: #fff;
   position: absolute;
   left: 50%;
@@ -141,4 +141,11 @@ main .dancers .profile img:hover {
 .body-blackout {
   -webkit-filter: blur(0.3vh);
           filter: blur(0.3vh);
+}
+
+@media only screen and (max-width: 600px) {
+  main .dancers {
+    -ms-grid-columns: 1fr;
+        grid-template-columns: 1fr;
+  }
 }

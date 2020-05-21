@@ -7,7 +7,7 @@ const port = 4000
 const config = require('./config/key');
 
 // css, js 파일들 적용
-app.use(express.static(__dirname + '/../client/static'))
+app.use(express.static(__dirname + '/../client/static/'))
 // bodyParser: client가 보낸 정보를 Server가 받게 한다
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({extended:true}))
@@ -28,8 +28,13 @@ mongoose.connect( config.mongoURI , {
 
 // 1. root 주소 Route
 app.get('/',function(req,res){
-res.sendFile(path.join(__dirname + "/../client/templates/base.html"))
+res.sendFile(path.join(__dirname + "/../client/static/templates/index.html"))
 })
+
+//login 후 mainpage
+app.get('/main',function(req,res){
+    res.sendFile(path.join(__dirname + "/../client/static/templates/base.html"))
+    })
 
 // 2. 검색 Route
 app.post('/api/users/searchby',function(req,res){

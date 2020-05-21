@@ -91,7 +91,6 @@ userSchema.methods.generateToken = function(cb){
 
     // 비밀번호까지 맞다면 토큰을 생성하기
     user.save(function ( err, user ){
-
         if(err) return cb(err)
         // err 가 없다면, error는 없고, user 정보만 전달해준다
         cb( null, user)

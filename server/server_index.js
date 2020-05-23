@@ -37,8 +37,16 @@ app.get('/main',function(req,res){
     })
 
 // 2. 검색 Route
-app.post('/api/users/searchby',function(req,res){
-res.json(req.body)
+app.post('/ajax_send_test',function(req,res)
+{
+    //검색 개수 보여주기
+    var result = 'ok'
+    var genre=req.body.genre;
+    var loc=req.body.location;
+    var condition=genre+' And '+loc;
+    var respondData={'result':result,'condition':'3 Results'}
+    res.json(respondData)
+
 })
 
 // 3. 회원가입 Route

@@ -4,6 +4,7 @@ var popup = document.body.querySelectorAll('img')
 var modalbg =document.body.querySelector('.modalcontainer')
 var flag =true
 
+//modal창
 background.addEventListener('click',function(e)
 {
     flag = true
@@ -25,8 +26,8 @@ popup.forEach(function(e){
     modalbg.appendChild(clone)
 
     e.addEventListener('click',function(event)
-{   //이미지가 꺼졌다 바로 켜지는 것 방지
-    console.log('flag',flag)
+{   
+    //이미지가 꺼졌다 바로 켜지는 것 방지
     if(flag)
     {
     var modaldata = e.id
@@ -49,6 +50,48 @@ popup.forEach(function(e){
 
 
 }
-)   
+)  
 
+
+//mobile nav bar
+var navbar= document.querySelector('.nav-bar')
+var mobieldropdown = document.querySelector('i')
+var mobileclose = document.querySelector('.close')
+var dropdown = document.querySelector('.dropdown')
+mobieldropdown.addEventListener('click',function(e)
+{
+    dropdown.classList.toggle('hide')
+    dropdown.classList.toggle('active')
+})
+
+mobileclose.addEventListener('click',function(e)
+{
+    dropdown.classList.toggle('hide')
+    dropdown.classList.toggle('active')
+})
+
+//검색결과
+function search(event)
+{
+    event.preventDefault();
+    var data={}
+    document.body.querySelectorAll('select').forEach(function(e){data[e.name]=e.value}) //genre,location
+    data = JSON.stringify(data);
+
+
+    var url='http://localhost:4000/ajax_send_test'
+    
+    var xhr=new XMLHttpRequest()
+    xhr.open('POST',url);
+    xhr.setRequestHeader('Content-Type','application/json')
+    xhr.send(data)
+
+    xhr.addEventListener('load',function()
+    {
+        var result = JSON.parse(xhr.responseText);
+        if(result.result!=='ok'){return;}
+        document.body.querySelector(".result").innerHTML=result.condition
+
+    })
+}
 

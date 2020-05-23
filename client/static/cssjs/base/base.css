@@ -1,4 +1,17 @@
 @import url("https://fonts.googleapis.com/css?family=Balsamiq Sans");
+body {
+  font-family: 'Balsamiq Sans', cursive;
+  margin: 0;
+}
+
+header.mobile {
+  display: none;
+}
+
+.supreme-container {
+  overflow: hidden;
+}
+
 header {
   display: -webkit-box;
   display: -ms-flexbox;
@@ -13,12 +26,12 @@ header {
   border-bottom: black solid 1px;
   height: 8vh;
   font-weight: bold;
-  font-family: 'Balsamiq Sans', cursive;
 }
 
 header .header-left {
   height: 100%;
   font-size: 3vw;
+  margin-left: 1em;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -70,7 +83,7 @@ main {
   display: grid;
   -ms-grid-columns: 1fr 4fr;
       grid-template-columns: 1fr 4fr;
-  padding: 1em;
+  padding-top: 1em;
 }
 
 main .search {
@@ -83,6 +96,33 @@ main .search {
           flex-direction: column;
 }
 
+main .search form {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  margin-bottom: 1em;
+}
+
+main .search form input {
+  width: 80%;
+  border: none;
+  border-radius: 2px;
+  background: lightgreen;
+  color: white;
+}
+
+main .search form input:hover {
+  cursor: pointer;
+  color: black;
+}
+
 main .search .select-title {
   margin-bottom: 0.5em;
 }
@@ -90,6 +130,20 @@ main .search .select-title {
 main .search .search-dance {
   display: block;
   margin-bottom: 2em;
+  width: 80%;
+  border-radius: 2px;
+}
+
+main .search #search-genre {
+  background: lightblue;
+}
+
+main .search #search-loc {
+  background: lightcoral;
+}
+
+main .search .result {
+  text-align: center;
 }
 
 main .dancers {
@@ -98,6 +152,7 @@ main .dancers {
   -ms-grid-columns: 1fr 1fr;
       grid-template-columns: 1fr 1fr;
   grid-gap: 1rem;
+  margin-right: 1em;
 }
 
 main .dancers .profile img {
@@ -111,18 +166,16 @@ main .dancers .profile img:hover {
 
 .popup-modal {
   height: 50vh;
-  width: 80vw;
+  width: 50vw;
   background-color: #fff;
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  -webkit-transform: translate(-50%, -50%);
-          transform: translate(-50%, -50%);
+  position: fixed;
+  left: 25%;
+  top: 25%;
   padding: 1vh;
   opacity: 0;
   pointer-events: none;
-  -webkit-transition: all 300ms ease-in-out;
-  transition: all 300ms ease-in-out;
+  -webkit-transition: opacity 300ms ease-in-out;
+  transition: opacity 300ms ease-in-out;
   z-index: 1011;
 }
 
@@ -144,8 +197,103 @@ main .dancers .profile img:hover {
 }
 
 @media only screen and (max-width: 600px) {
+  header {
+    display: none;
+  }
+  header.mobile {
+    width: 100%;
+    position: fixed;
+    top: 0;
+    height: 5vh;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: horizontal;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: row;
+            flex-direction: row;
+    -webkit-box-pack: justify;
+        -ms-flex-pack: justify;
+            justify-content: space-between;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
+  }
+  header.mobile .mobile-header-left {
+    margin-left: 1em;
+  }
+  header.mobile .nav-bar i {
+    margin-right: 1em;
+  }
+  main {
+    -ms-grid-columns: 1fr;
+        grid-template-columns: 1fr;
+    padding-top: 3em;
+  }
+  main .search .search-dance {
+    margin-bottom: 1em;
+  }
   main .dancers {
     -ms-grid-columns: 1fr;
         grid-template-columns: 1fr;
+    margin: 1em;
   }
+}
+
+nav {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  -webkit-box-pack: end;
+      -ms-flex-pack: end;
+          justify-content: flex-end;
+}
+
+nav .dropdown {
+  position: fixed;
+  background: lightsalmon;
+}
+
+nav .dropdown .my-page {
+  text-align: center;
+}
+
+nav .dropdown .my-page:hover {
+  color: white;
+}
+
+nav .dropdown .close {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  -webkit-box-pack: end;
+      -ms-flex-pack: end;
+          justify-content: flex-end;
+}
+
+.hide {
+  -webkit-transform: translate(200%, 0%);
+          transform: translate(200%, 0%);
+  -webkit-transition: -webkit-transform 0.5s;
+  transition: -webkit-transform 0.5s;
+  transition: transform 0.5s;
+  transition: transform 0.5s, -webkit-transform 0.5s;
+}
+
+.active {
+  display: inline-block;
+  -webkit-transform: translate(0%, 0%);
+          transform: translate(0%, 0%);
+  -webkit-transition: -webkit-transform 0.5s;
+  transition: -webkit-transform 0.5s;
+  transition: transform 0.5s;
+  transition: transform 0.5s, -webkit-transform 0.5s;
 }

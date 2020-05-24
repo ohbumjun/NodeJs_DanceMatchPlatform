@@ -1,5 +1,19 @@
 @import url('https://fonts.googleapis.com/css?family=Balsamiq Sans');
 
+body{
+    font-family: 'Balsamiq Sans', cursive;
+    margin:0;
+
+}
+
+header.mobile{
+    display:none;
+
+}
+
+.supreme-container{
+    overflow:hidden;
+}
 
 header{
     display:flex;
@@ -9,11 +23,12 @@ header{
     height: 8vh;
 
     font-weight:bold;
-    font-family: 'Balsamiq Sans', cursive;
+   
 
     .header-left
     {   height:100%;
         font-size:3vw;
+        margin-left:1em;
         display:flex;
         flex-direction:column;
         justify-content: center;
@@ -43,12 +58,29 @@ header{
 main{
     display:grid;
     grid-template-columns:1fr 4fr;
-    padding:1em;
+    padding-top:1em;
 
     .search{
        
         display:flex;
         flex-direction:column;
+        form{
+            display:flex;
+            flex-direction:column;
+            align-items:center;
+            margin-bottom:1em;
+            input{
+                width:80%;
+                border:none;
+                border-radius:2px;
+                background:lightgreen;
+                color:white;
+                &:hover{
+                    cursor:pointer;
+                    color:black;
+                }
+            }
+        }
 
         .select-title
         {
@@ -57,6 +89,20 @@ main{
         .search-dance{
             display:block;
             margin-bottom:2em;
+            width:80%;
+            border-radius:2px;
+            
+        }
+        #search-genre{
+            background:lightblue
+        }
+
+        #search-loc{
+            background:lightcoral
+        }
+
+        .result{
+            text-align:center;
         }
 
     }
@@ -65,6 +111,7 @@ main{
     display:grid;
     grid-template-columns:1fr 1fr;
     grid-gap: 1rem;
+    margin-right:1em;
     .profile{
         img{
             width:100%;
@@ -84,16 +131,15 @@ main{
 
 .popup-modal {
     height: 50vh;
-    width: 80vw;
+    width: 50vw;
     background-color: #fff;
-    position: absolute;
-    left: 50%;
-    top: 50%;
-    transform: translate(-50%, -50%);
+    position: fixed;
+    left: 25%;
+    top: 25%;
     padding: 1vh;
     opacity: 0;
     pointer-events: none;
-    transition: all 300ms ease-in-out;
+    transition:opacity 300ms ease-in-out;
     z-index: 1011;
     
     &.is-visible {
@@ -115,10 +161,82 @@ main{
 
 
 @media only screen and (max-width: 600px) {
-   
-   main{ .dancers{
+   header{
+       display:none;
+   }
 
+   header.mobile{
+       width:100%;
+    position:fixed;
+    top:0;
+   height: 5vh;
+   display:flex;
+
+   flex-direction:row;
+   justify-content: space-between;
+   align-items: center;
+
+   .mobile-header-left{
+       margin-left:1em;
+   }
+   .nav-bar{
+    i{
+        margin-right:1em;
+    }
+
+   }
+   }
+
+
+   main{
+    grid-template-columns : 1fr;   
+    padding-top:3em;
+    .search{
+        .search-dance{
+            margin-bottom: 1em;
+        }
+    }
+    .dancers{
         grid-template-columns:1fr;
+        margin:1em;
   }
 }
+}
+nav{
+    display:flex;
+    flex-direction:row;
+    justify-content: flex-end;
+    .dropdown
+{
+    position:fixed;
+    background:lightsalmon;
+
+    .my-page{
+        text-align:center;
+        &:hover{
+        color:white;
+    }
+
+    }
+    .close{
+        display:flex;
+        flex-direction:row;
+        justify-content: flex-end;
+    }
+
+}
+
+
+}
+
+.hide{
+transform:translate(200%,0%);
+transition:transform 0.5s;
+}
+
+
+.active{
+    display:inline-block;
+    transform: translate(0%,0%);  
+    transition:transform 0.5s;
 }

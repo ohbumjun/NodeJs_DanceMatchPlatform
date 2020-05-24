@@ -5,10 +5,58 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Login</title>
-    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <link rel="preload" href="css/bootstrap.min.css" rel="stylesheet">
     <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
     <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    
+    <script type = "text/javaScript">
+
+        function login(){
+
+        // 1. 데이터 입력하기 : name, email, username, password, confirm password
+        let Username = $('#username').val();
+        let Password = $('#password').val();
+
+        // 2. 입력사항 검사하기
+            // 2.1 해당 요소 중 하나라도 입력하지 않았을 경우 alert를 띄운다
+            if ( Username === '') {
+                alert('Please Enter Your username');
+                $('#username').focus();
+                return ;
+            } 
+            if ( Password === '') {
+                alert('Please Enter Your password');
+                $('#password').focus();
+                return ;
+            } 
+        // 3. POST에 저장을 요청한다 
+                $.ajax({
+                    type: "POST",
+                    url: '/api/users/login',
+                    // username, password 정보 넘겨주기 
+                    data: { 
+                        password : Password, 
+                        username : Username , 
+                    } ,
+
+                    // 성공시
+                    success : function(response){
+                        if( response["message"] === 'NoUsername' ){
+                            alert('Check the Username')
+                            return ;
+                        // 로그인 페이지로 이동시키기
+                        }else if( response["message"] === 'NoPassword' ){
+                            alert('Check the Password')
+                            return;
+                        }else if( response["message"] === 'success' ){
+                            alert('Login Success')
+                            window.location.href = "http://localhost:4000/main"
+                        }
+                    }
+                })
+            } // function get_user
+        </script>
 </head>
 <body>
         <div id="login">
@@ -29,7 +77,7 @@
                                     </div>
                                     <div class="form-group">
                                         <label for="remember-me" class="text-info"><span>Remember me</span> <span><input id="remember-me" name="remember-me" type="checkbox"></span></label><br>
-                                        <input type="submit" name="submit" class="btn btn-info btn-md" value="submit">
+                                        <input onclick="login()" type="submit" name= "submit" class="btn btn-info btn-md" value="submit">
                                     </div>
                                     <div id="register-link" class="text-right">
                                         <a href="register.html" class="text-info">Register here</a>

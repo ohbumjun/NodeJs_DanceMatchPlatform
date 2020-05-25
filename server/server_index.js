@@ -95,11 +95,12 @@ app.post('/ajax_send_test',function(req,res)
 const { User } = require('./models/User')
 
 app.get('/api/users/register', function( req , res){
+
     res.sendFile(path.join(__dirname + "/../client/static/templates/register.html"))
+
 })
 
 app.post('/api/users/register', function( req , res ){
-
     // 회원 가입 할 때 필요한 정보들을 client에서 가져오면, 그것들을 DB에 넣어준다
     /* 
     body 에는 json 형태로 
@@ -224,4 +225,4 @@ app.post('/api/users/login', function(req,res){
                 })
             }
         })
-    } )
+   

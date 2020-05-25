@@ -26,6 +26,10 @@ mongoose.connect( config.mongoURI , {
     // 아래 코드는 연결ㄹ이 잘 됐는지 안됐는지 확인하기 
 }).then( () => console.log("MongoDB Connected... ")).catch( err => console.log( err ))
 
+var connection = mongoose.connection;
+connection.on('error', console.error.bind(console, 'connection error:'));
+
+
 // 1. root 주소 Route
 app.get('/',function(req,res){
 res.sendFile(path.join(__dirname + "/../client/static/templates/index.html"))
@@ -38,14 +42,25 @@ app.get('/main',function(req,res){
 
 // 2. 검색 Route
 app.post('/ajax_send_test',function(req,res)
-{
-    //검색 개수 보여주기
-    var result = 'ok'
+{   //req parsing
     var genre=req.body.genre;
-    var loc=req.body.location;
-    var condition=genre+' And '+loc;
-    var respondData={'result':result,'condition':'3 Results'}
-    res.json(respondData)
+    var place=req.body.place;
+    var datas;
+    //mongodb query
+    connection.db.collection("dancer", function(err, collection){
+        collection.find({Place:place}).toArray(function(err, data){
+
+                //검색 개수 보여주기
+        var result = 'ok'
+        var numdata=data.length;
+
+        var respondData={'result':result,'data':data,'numdata':`${numdata} Results`}
+        res.json(respondData)
+
+        })   
+
+    });
+
 
 })
 

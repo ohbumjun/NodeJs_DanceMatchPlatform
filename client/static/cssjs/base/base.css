@@ -114,11 +114,21 @@ main .search form input {
   width: 80%;
   border: none;
   border-radius: 2px;
+}
+
+main .search form #namevalue {
+  opacity: 0.2;
+  margin-bottom: 1rem;
+  background: lightcyan;
+  border: 1px solid black;
+}
+
+main .search form #submitdancer {
   background: lightgreen;
   color: white;
 }
 
-main .search form input:hover {
+main .search form #submitdancer:hover {
   cursor: pointer;
   color: black;
 }
@@ -134,12 +144,38 @@ main .search .search-dance {
   border-radius: 2px;
 }
 
+main .search .search-name {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  width: 100%;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+
+main .search .search-name span {
+  margin-right: 8%;
+}
+
+main .search .search-name input {
+  width: 150%;
+}
+
 main .search #search-genre {
   background: lightblue;
 }
 
 main .search #search-loc {
   background: lightcoral;
+}
+
+main .search #search-academy {
+  background: lightyellow;
 }
 
 main .search .result {
@@ -242,10 +278,22 @@ main .dancers .profile .middle .middle-text {
   -webkit-box-pack: justify;
       -ms-flex-pack: justify;
           justify-content: space-between;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
 }
 
 .popup-modal .modal-header .modal-header-text {
   display: inline-block;
+  font-size: 2rem;
+  padding: 0.3em;
+}
+
+.popup-modal .modal-header .close-modal {
+  height: 2rem;
+  margin-right: 1em;
+  background: coral;
+  cursor: pointer;
 }
 
 .popup-modal .modal-main {
@@ -263,6 +311,7 @@ main .dancers .profile .middle .middle-text {
   -ms-flex-pack: distribute;
       justify-content: space-around;
   text-align: center;
+  font-size: 1.5rem;
   border-bottom: solid 3px coral;
 }
 
@@ -332,6 +381,7 @@ main .dancers .profile .middle .middle-text {
   header.mobile {
     width: 100%;
     position: fixed;
+    z-index: 100;
     top: 0;
     height: 5vh;
     display: -webkit-box;
@@ -362,6 +412,12 @@ main .dancers .profile .middle .middle-text {
   main .search .search-dance {
     margin-bottom: 1em;
   }
+  main .search .search-name span {
+    margin-right: 4%;
+  }
+  main .search .search-name span #namecheck {
+    width: 200%;
+  }
   main .dancers {
     -ms-grid-columns: 1fr;
         grid-template-columns: 1fr;
@@ -391,6 +447,9 @@ nav {
 
 nav .dropdown {
   position: fixed;
+  width: 50%;
+  height: 50%;
+  z-index: 101;
   background: lightsalmon;
 }
 

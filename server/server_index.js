@@ -64,9 +64,10 @@ app.post('/ajax_send_test',function(req,res)
     var genre=req.body.genre;
     var place=req.body.place;
     var datas;
+    console.log(req.body)
     //mongodb query
     connection.db.collection("dancer", function(err, collection){
-        collection.find({Place:place}).toArray(function(err, data){
+        collection.find(req.body).toArray(function(err, data){
 
                 //검색 개수 보여주기
         var result = 'ok'

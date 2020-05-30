@@ -64,6 +64,7 @@ main{
        
         display:flex;
         flex-direction:column;
+
         form{
             display:flex;
             flex-direction:column;
@@ -73,6 +74,16 @@ main{
                 width:80%;
                 border:none;
                 border-radius:2px;
+            }
+            
+                #namevalue{
+                    opacity:0.2;    
+                    margin-bottom:1rem;
+                    background:lightcyan;
+                    border:1px solid black;
+                }
+
+                #submitdancer{
                 background:lightgreen;
                 color:white;
                 &:hover{
@@ -80,6 +91,7 @@ main{
                     color:black;
                 }
             }
+            
         }
 
         .select-title
@@ -93,12 +105,28 @@ main{
             border-radius:2px;
             
         }
+        .search-name{
+            display:flex;
+            flex-direction:row;
+            width:100%;
+            justify-content: center;
+            span{
+                margin-right:8%;
+            }
+            input{
+                width:150%;
+            }
+        }
         #search-genre{
             background:lightblue
         }
 
         #search-loc{
             background:lightcoral
+        }
+
+        #search-academy{
+            background:lightyellow;
         }
 
         .result{
@@ -184,8 +212,17 @@ main{
         display:flex;
         flex-direction:row;
         justify-content: space-between;
+        align-items:center;
         .modal-header-text{
             display:inline-block;
+            font-size: 2rem;
+            padding: 0.3em;
+        }
+        .close-modal{
+            height: 2rem;
+            margin-right: 1em;
+            background:coral;
+            cursor:pointer;
         }
     }
 
@@ -196,6 +233,7 @@ main{
             flex-direction: row;
             justify-content: space-around;
             text-align:center;
+            font-size:1.5rem;
             border-bottom : solid 3px coral;
             &:hover{
                 cursor:pointer; 
@@ -251,6 +289,7 @@ section{
    header.mobile{
        width:100%;
     position:fixed;
+    z-index:100;
     top:0;
    height: 5vh;
    display:flex;
@@ -278,6 +317,15 @@ section{
         .search-dance{
             margin-bottom: 1em;
         }
+        .search-name{
+            span{
+                margin-right:4%;
+                #namecheck{
+                    width:200%;
+                }
+            }
+        }
+
     }
     .dancers{
         grid-template-columns:1fr;
@@ -301,6 +349,9 @@ nav{
     .dropdown
 {
     position:fixed;
+    width:50%;
+    height:50%;
+    z-index:101;
     background:lightsalmon;
 
     .my-page{

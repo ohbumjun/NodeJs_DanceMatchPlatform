@@ -69,22 +69,23 @@ res.sendFile(path.join(__dirname + "/../client/static/templates/index.html"))
 app.get('/main',function(req,res){
     res.sendFile(path.join(__dirname + "/../client/static/templates/base.html"))
     })
-
 // 2. 검색 Route
 app.post('/ajax_send_test',function(req,res)
 {   //req parsing
     var genre=req.body.genre;
     var place=req.body.place;
     var datas;
+    
     //mongodb query
     connection.db.collection("dancer", function(err, collection){
         collection.find({Place:place}).toArray(function(err, data){
         //검색 개수 보여주기
-        var result = 'ok'
-        var numdata=data.length;
-        var respondData={'result':result,'data':data,'numdata':`${numdata} Results`}
-        res.json(respondData)
-        })   
+            collection.find(req.body).toArray(function(err, data){
+            var result = 'ok'
+            var numdata=data.length;
+            var respondData={'result':result,'data':data,'numdata':`${numdata} Results`}
+            res.json(respondData)
+            })   
     });
 
 
@@ -361,4 +362,7 @@ app.post('/api/users/login', function(req,res){
 
     app.post('/api/users/resetPassword:token', function( req , res){
         res.sendFile(path.join(__dirname + "/../client/static/templates/resetPassword.html"))
+
+
+        
     })

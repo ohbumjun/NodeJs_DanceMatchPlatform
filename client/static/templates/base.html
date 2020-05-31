@@ -33,20 +33,22 @@
 
         <main>
             <div class="search">
+               
                 <form onsubmit="search(event)" method="post" id="search">
                 <div class="select-title">Genre</div>
-                <select class="search-dance" id='search-genre' name='genre' form="search"><option value="Pop">Pop</option>
+                <select class="search-dance" id='search-genre' name='genre' form="search"><option value="ALL">ALL</option><option value="Hip-Hop">Hip-Hop</option>
                     <option value="Latin">Latin</option>
                     <option value="EDM">EDM</option>
                 </select>
                 <div class="select-title">Academy</div>
-                <select class="search-dance" id='search-academy' name='academy' form="search"><option value="ONEMILLION">ONEMILLION</option>
+                <select class="search-dance" id='search-academy' name='Academy' form="search"><option value="ALL">ALL</option><option value="ONEMILLIONDANCE">ONEMILLIONDANCE</option>
                 </select>
                 <div class="select-title">Location</div>
-                <select class="search-dance" id='search-loc' name='place' form="search"><option value="Seoul">Seoul</option></select>
-                <input type="submit" value="빠끄">
+                <select class="search-dance" id='search-loc' name='Place' form="search"><option value="ALL">ALL</option><option value="Seoul">Seoul</option></select>
+                <div class="select-title search-name"><span><input id="namecheck" type="checkbox"></span><span>NAME</span></div>
+                <input type="text" id="namevalue" disabled="false" value="ALL">
+                <input type="submit" id="submitdancer" value="빠끄">
                 </form>
-
                 <div class="result"></div>
             </div>
 

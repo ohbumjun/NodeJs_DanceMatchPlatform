@@ -2,6 +2,25 @@
 var background = document.body.querySelector('.supreme-container')
 var modalbg =document.body.querySelector('.modalcontainer')
 var flag =true
+var namecheck=document.querySelector('#namecheck')
+var namevalue=document.querySelector('#namevalue')
+
+//name검색기능
+namecheck.addEventListener('click',function(e)
+{
+    console.log('checked',e.currentTarget.checked)
+    if(e.currentTarget.checked)
+    {
+        namevalue.disabled=false
+        namevalue.style.opacity=1;
+        
+    }
+    else{
+        namevalue.disabled=true
+        namevalue.value='ALL'
+        namevalue.style.opacity=0.1;
+    }
+})
 //initial
 initialmakemodal();
 
@@ -126,7 +145,7 @@ popup.forEach(function(e,idx){
 
     })
 
-    clone.querySelector('.dancer-genre').innerHTML=data[idx]['genre'].join(' ')
+    clone.querySelector('.dancer-genre').innerHTML=data[idx]['genre'].join(' & ')
     clone.querySelector('.dancer-place').innerHTML=data[idx]['Place']
     clone.querySelector('.dancer-academy').innerHTML=data[idx]['Academy']
 
@@ -180,9 +199,21 @@ function search(event)
 {
     event.preventDefault();
     var data={}
-    document.body.querySelectorAll('select').forEach(function(e){data[e.name]=e.value}) //genre,location
-    data = JSON.stringify(data);
+    document.body.querySelectorAll('select').forEach(function(e){
+        console.log(e.name)
+        data[e.name]=e.value}) //genre,location
+    
+    //select option filter
+    var filterall = Object.fromEntries(Object.entries(data).filter(([k,v]) => v!=='ALL'));
+    //name search filter
+    var name=document.querySelector('#namevalue').value
+   
 
+    if(name!=='ALL')
+    {
+        filterall['name']={ "$regex": name, "$options": "i" }
+    }
+    data = JSON.stringify(filterall);
 
     var url='http://localhost:4000/ajax_send_test'
     

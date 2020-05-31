@@ -18,7 +18,6 @@
 		<title>Admin</title>
 
 		<script type = "text/javaScript">
-
 			function get_user(){
 			// 1. 데이터 입력하기 : name, email, username, password, confirm password
 			let K_name = $('#k_name').val();
@@ -62,12 +61,15 @@
 					$('#role').focus();
 					return ;
 				}
+				if( Confirmpassword !==  Password){
+					alert("Check the ConfirmPassword Again");
+					$('#confirmpassword').focus();
+					return ;
+				}
 			// 입력 영어이름을 대문자로 바꾸기 
 			E_name = E_name.toUpperCase();
 			// Role을 Number 형태로 바꾸기
 			Role = Number(Role)
-			
-
 			// 2.2 입력내용을 검사한다 
 				// 1) English Name의 길이를 검사한다
 				if( E_name.length < 1 || E_name.length > 50){
@@ -92,12 +94,12 @@
 				success : function(response){
 					// console.log('res',response['success'] )
 					if( response['success'] === 'true' ){
-						alert('Registration Success')
-					// 로그인 페이지로 이동시키기
-						window.location.href = "http://localhost:4000/api/users/login"
-					}else {
+						alert('Check your email and activate account')
+						window.location.replace( "http://localhost:4000/api/users/login");
+					}else if( response['success'] === 'emailexists'){
 						alert('Same username already Exist')
 						$('#username').focus();
+						return false;
 					}
 				}
         	})
@@ -208,7 +210,7 @@
 						</div>
 
 						<div class="form-group ">
-							<input onclick="get_user()" type="submit" value="Submit" id="button" class="btn btn-primary btn-lg btn-block login-button" />
+							<input onclick= "get_user()"" type="submit" value="Submit" id="button" class="btn btn-primary btn-lg btn-block login-button" />
 						</div>
 
 						
@@ -223,3 +225,6 @@
     <script src="js/bootstrap.min.js"></script>
 	</body>
 </html>
+
+
+<script src = "http://ajax.google.com/ajax/libs/jquery/1.12.4/jq"

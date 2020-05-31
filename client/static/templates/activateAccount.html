@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>ActivateAccount</title>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <link rel="preload" href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+    
+    <script type = "text/javaScript">
+        function account(){
+            var url = document.location.href.split('/');
+            var token = url[url.length -1];
+                $.ajax({
+                    type: "POST",
+                    url: '/api/users/activateAccount/:token',
+                    // username, password 정보 넘겨주기 
+                    data: { 
+                       token : token
+                    } ,
+                    // 성공시
+                    success : function(response){
+                        if( response['result'] === "Incorrect or Expired Link" ){
+                            alert("Incorrect or Expired Link, Signup again")
+                            window.location.replace("http://localhost:4000/api/users/register");
+                            return ;
+                        // 로그인 페이지로 이동시키기
+                        }else if( response['result'] === "Error activating Account" ){
+                            alert('Error activating Account')
+                        }else if( response['result'] === "no token" ){
+                            alert('Something went wrong!!')
+                        }else if( response['success'] === 'true'){
+                            alert("Registration Success")
+                            window.location.replace("http://localhost:4000/api/users/login"); 
+                        }
+                    }
+                })
+            } // function get_user
+        </script>
+</head>
+<body>
+        <div id="login">
+                <h3 class="text-center text-white pt-5">Activate Account</h3>
+                <div class="container">
+                    <div id="login-row" class="row justify-content-center align-items-center">
+                        <div id="login-column" class="col-md-6">
+                            <div id="login-box" class="col-md-12">
+                                <div id="login-form" class="form" >
+                                    <h3 class="text-center text-info"></h3>
+                                    <div class="form-group">
+                                        
+                                        <input onclick="account()" type="submit" name= "submit" class="btn btn-info btn-md" value="Click to activate Account">
+                                    </div>
+                                    
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+</body>
+</html>

@@ -9,9 +9,6 @@ const userSchema = mongoose.Schema({
     // user 의 name 은 무엇인지
     k_name : {
         type : String,
-        // maxlength는 자기가 주고 싶은 만큼 주기
-        minlength : 2,
-        maxlength : 50
     },
     e_name : {
         type : String,
@@ -25,6 +22,7 @@ const userSchema = mongoose.Schema({
         type : String,
         // 어떤 분이, john ahn@naver.com 이렇게 쳤고, john 다음에 들어간 빈칸을 사라지게 해준다
         trim : true,
+        unique: 1,
         required: true
     },
     password : {
@@ -44,18 +42,25 @@ const userSchema = mongoose.Schema({
         type : Number,
     },
     image : String,
+
     // 아래와 같은 token을 이용해서, 유효성 같은 것들을 관리할 수 있다
     token : {
         type: String
     },
+
     // token의 유효기간 : token이 사용할 수 있는 기간
     tokenExp : {
         type: Number
+    },
+
+    // 비밀번호찾기위한 데이터
+    resetLink : {
+        data : String,
+        default : ''
     }
 })
 
 userSchema.plugin(require('mongoose-beautiful-unique-validation'));
-
 
 // user 가 입력한 영어이름은 대문자로 바꿔준다
 userSchema.methods.uppercase = function(){
@@ -69,9 +74,11 @@ userSchema.methods.uppercase = function(){
 userSchema.pre('save', function(next) {
 
     //여기서 this는, 위의 userSchema 전체를 가리킨다
-    var user = this;
 
+    var user = this;
     // 그런데, 우리는 비밀번호 혹은 사용자 정보등을 변경할 때가 있다. 아래와 같은 if 조건을 추가해주지 않으면. 비밀번호가 아니라 email을 변경해주더라도 password를 다시 암호화하는 과정을 거친다. 그것을 원치 않기 때문에, 우리는 비밀번호를 수정할 때만, 비밀번호를 다시 암호화하는 과정을 거치게 하고 싶다
+    if( !user.isModified('password')) return next();
+
     if( user.isModified('password') ){
         // 비밀번호를 암호화 시킨다
         // genSalt : Salt를 만들기, saltRounds 가 필요함 
@@ -91,8 +98,6 @@ userSchema.pre('save', function(next) {
     else{ // 비밀번호를 바꾸는 게 아니라, 다른 것을 바꿀 때는 그냥 next 로 가게 한다
         next();
     }
-
-
 })
 
 // 토큰 생성

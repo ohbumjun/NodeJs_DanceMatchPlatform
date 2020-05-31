@@ -39,8 +39,11 @@
                     <option value="Latin">Latin</option>
                     <option value="EDM">EDM</option>
                 </select>
+                <div class="select-title">Academy</div>
+                <select class="search-dance" id='search-academy' name='academy' form="search"><option value="ONEMILLION">ONEMILLION</option>
+                </select>
                 <div class="select-title">Location</div>
-                <select class="search-dance" id='search-loc' name='location' form="search"><option value="Seoul">Seoul</option></select>
+                <select class="search-dance" id='search-loc' name='place' form="search"><option value="Seoul">Seoul</option></select>
                 <input type="submit" value="빠끄">
                 </form>
 
@@ -48,14 +51,17 @@
             </div>
 
             <div class="dancers">
-                <div class="profile">
-                <img src="image/1.jpg"  id="img1" alt="">
+                <div class="profile" id="img1">
+                <img src="image/1.jpg" alt="">
+                <div class="middle">
+                    <div class="middle-text">Hi</div>
                 </div>
-                <div class="profile">
-                <img src="image/2.jpg" id="img2" alt="">
                 </div>
-                <div class="profile">
-                <img src="image/3.jpg" id="img3"alt="">
+                <div class="profile" id="img2">
+                <img src="image/2.jpg" alt="">
+                </div>
+                <div class="profile" id="img3">
+                <img src="image/3.jpg" alt="">
                 </div>
             </div>
         </main>
@@ -63,12 +69,22 @@
 
 
     <div class="modalcontainer">
-        <div class="popup-modal shadow" id="modal">
-            <h1 class="font-weight-bold">
-                Testing
-            </h1>
-            <footer><button class='close-modal'>X</button></footer>
+    </div>
+    <div class="popup-modal shadow" id="modal">
+        <div class="modal-header"><div class='modal-header-text'></div><button class='close-modal'>X</button></div>
+        <div class="modal-main">
+            <div class="select-container"><div class="select-info modal-active">Info</div><div class="select-video">Video</div></div>
+            <section id="info-section" class="section-active"><div class="container-info">
+                <div class="dancer-genre"></div>
+                <div class="dancer-academy"></div>
+                <div class="dancer-place"></div>
+            </div></section>
+            <section id="video-section" class="section-hide">
+                <div class="container-video">
+                </div>
+                </section>
         </div>
+        <footer></footer>
     </div>
 
     </body>

@@ -86,7 +86,6 @@ app.get('/main',function(req,res){
     var login = Object.keys(req.cookies).includes('x_auth')?true:false
     res.render('base',{login:login})
 })
-
 // 2. 검색 Route
 app.post('/ajax_send_test',function(req,res)
 {   //req parsing
@@ -106,12 +105,9 @@ app.post('/ajax_send_test',function(req,res)
 })
 // 3. 회원가입 Route
 const { User } = require('./models/User')
-
 app.get('/api/users/register', function( req , res){
-
     res.sendFile(path.join(__dirname + "/../client/static/templates/register.html"))
 })
-
 app.post('/api/users/register', function( req , res ){
     // 회원 가입 할 때 필요한 정보들을 client에서 가져오면, 그것들을 DB에 넣어준다
     const { k_name, e_name , email, password ,  username, role } = req.body;

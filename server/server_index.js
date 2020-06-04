@@ -21,6 +21,10 @@ const mailgun = require("mailgun-js");
 const DOMAIN = 'sandboxbb6bc74926b942a59d3a57aa4ef125cb.mailgun.org';
 const mg = mailgun({ apiKey: "dfdc195b79c8b6b34660247f60937e06-7fba8a4e-a6d4194a", domain: DOMAIN });
 
+app.set('view engine','ejs')
+app.set('views',path.join(__dirname,'../client/views'))
+
+
 // css, js 파일들 적용
 app.use(express.static(__dirname + '/../client/static/'))
 
@@ -32,9 +36,12 @@ app.use(cors());
 app.use(express.urlencoded({ extended: true }));
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({extended:true}))
+app.use(cookieParser())
 
 // app 실행하기. 4000 port를 listen 하게 되면, 뒤의 내용을 출력하기
 app.listen(port , () => console.log(`Example app Listening on port ${port}!`))
+
+
 
 // ERR_EMPTY_RESPONSE 방지
 app.use(function(req, res, next) {
@@ -68,9 +75,17 @@ res.sendFile(path.join(__dirname + "/../client/static/templates/index.html"))
 })
 
 //login 후 mainpage
+// app.get('/main',function(req,res){
+//     res.sendFile(path.join(__dirname + "/../client/static/templates/base.html"))
+//     })
+//ejs template 사용
 app.get('/main',function(req,res){
-    res.sendFile(path.join(__dirname + "/../client/static/templates/base.html"))
-    })
+    
+    //req.cook
+    console.log(req.cookies)
+    var login = Object.keys(req.cookies).includes('x_auth')?true:false
+    res.render('base',{login:login})
+})
 
 // 2. 검색 Route
 app.post('/ajax_send_test',function(req,res)
@@ -88,8 +103,6 @@ app.post('/ajax_send_test',function(req,res)
         res.json(respondData)
         })   
     });
-
-
 })
 // 3. 회원가입 Route
 const { User } = require('./models/User')
@@ -273,18 +286,21 @@ app.post('/api/users/login', function(req,res){
     })
 
     // 7. 로그아웃
-    app.get('/api/users/logout' , auth , ( req , res ) => {
+    app.get('/api/users/logout' , auth , ( req,res ) => {
+        console.log('logging out')
         // User 모델을 가져와서, user를 찾아서 그 data를 update 시켜준다
-        
-        User.findOneByUpdate( { _id : req.user._id},
+        User.findOneAndUpdate( { _id : req.user._id},
             // 여기서는 token을 지워준다
-            { token : ""})
+            { token : ""}
             , ( err, user) => {
                 if(err) return res.json({ success : false , err});
-                return res.status(200).send({
-                    success: true
-                })
-            }
+                //쿠키지우기
+                res.clearCookie("x_auth")
+                res.redirect('/main')
+                // res.status(200).json({
+                //     success: true
+                // })
+            })
         })
 
     // 8. 비밀번호 찾기
@@ -357,6 +373,7 @@ app.post('/api/users/login', function(req,res){
             });
         })
     })
+
 
     // 8. 비밀번호 reset
     app.get('/api/users/resetPassword/:token', function( req , res){

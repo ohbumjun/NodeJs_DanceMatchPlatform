@@ -45,7 +45,7 @@
 				} 
 				if ( Confirmpassword === ''){
 					alert("Please Enter Your ConfirmPassword");
-					$('#confirmPassword').focus();
+					$('#confirmpassword').focus();
 					return ;
 				}
 				if ( Role === ''){
@@ -54,6 +54,8 @@
 					return ;
 				}
 				if( Confirmpassword !==  Password){
+					console.log('Password',Password)
+					console.log('Confirmpassword',Confirmpassword)
 					alert("Check the ConfirmPassword Again");
 					$('#confirmpassword').focus();
 					return ;
@@ -117,10 +119,7 @@
 			}
 				return true;
 		}
-
-
 		</script>
-		
 
     </script>
 

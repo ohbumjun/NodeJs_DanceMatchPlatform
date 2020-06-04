@@ -1,23 +1,15 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head> 
-		<meta name="viewport" content="width=device-width, initial-scale=1">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <script src="//code.jquery.com/jquery-3.3.1.min.js"></script>
+  
+  <link href = "/../cssjs/register/register.css" rel = "stylesheet"/>
+  <title>Register</title>
 
-		<!-- Website Font style  <link rel="stylesheet" href="../cssjs/register/register.css">-->
-	    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.1/css/font-awesome.min.css">
-		
-		<!-- Google Fonts -->
-		<link href='https://fonts.googleapis.com/css?family=Passion+One' rel='stylesheet' type='text/css'>
-        <link href='https://fonts.googleapis.com/css?family=Oxygen' rel='stylesheet' type='text/css'>
-        
-        <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
-		<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
-		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-        <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
-
-		<title>Admin</title>
-
-		<script type = "text/javaScript">
+	<script type = "text/javaScript">
 			function get_user(){
 			// 1. 데이터 입력하기 : name, email, username, password, confirm password
 			let K_name = $('#k_name').val();
@@ -127,106 +119,140 @@
 			}
 				return true;
 		}
-
-
 		</script>
-	</head>
-	<body>
-		<div class="container">
-			<div class="row main">
-				<div class="main-login main-center">
-				<h1>Register and Enjoy Our Service</h1>
-					<div class="register" >
-						<div class="form-group">
-							<label for="name" class="cols-sm-2 control-label">Your Korean Name</label>
-							<div class="cols-sm-10">
-								<div class="input-group">
-									<span class="input-group-addon"><i class="fa fa-user fa" aria-hidden="true"></i></span>
-									<input type="text" class="form-control" name="k_name" id="k_name"  placeholder="Enter your Korean Name If not, Skip "/>
-								</div>
-							</div>
-						</div>
 
-						<div class="form-group">
-							<label for="name" class="cols-sm-2 control-label">Your English Name( 1 ~ 50 words , Use UPPERCASE)</label>
-							<div class="cols-sm-10">
-								<div class="input-group">
-									<span class="input-group-addon"><i class="fa fa-user fa" aria-hidden="true"></i></span>
-									<input type="text" class="form-control" name="e_name" id="e_name"  placeholder="Enter your English Name"/>
-								</div>
-							</div>
-						</div>
+    </script>
 
-						<div class="form-group">
-							<label for="email" class="cols-sm-2 control-label">Your Email</label>
-							<div class="cols-sm-10">
-								<div class="input-group">
-									<span class="input-group-addon"><i class="fa fa-envelope fa" aria-hidden="true"></i></span>
-									<input type="text" class="form-control" name="email" id="email"  placeholder="Enter your Email"/>
-								</div>
-							</div>
-						</div>
-
-
-						<div class="form-group">
-							<label for="username" class="cols-sm-2 control-label">Username</label>
-							<div class="cols-sm-10">
-								<div class="input-group">
-									<span class="input-group-addon"><i class="fa fa-users fa" aria-hidden="true"></i></span>
-									<input type="text" class="form-control" name="username" id="username"  placeholder="Enter your Username"/>
-								</div>
-							</div>
-						</div>
-
-						<div class="form-group">
-							<label for="password" class="cols-sm-2 control-label">Password  (  7 ~ 15 words by the combination of number and English  )</label>
-							<div class="cols-sm-10">
-								<div class="input-group">
-									<span class="input-group-addon"><i class="fa fa-lock fa-lg" aria-hidden="true"></i></span>
-									<input type="password" class="form-control" name="password" id="password"  placeholder="Enter your Password"/>
-								</div>
-							</div>
-						</div>
-
-						<div class="form-group">
-							<label for="confirm" class="cols-sm-2 control-label">Confirm Password</label>
-							<div class="cols-sm-10">
-								<div class="input-group">
-									<span class="input-group-addon"><i class="fa fa-lock fa-lg" aria-hidden="true"></i></span>
-									<input type="password" class="form-control" name="confirm" id="confirmpassword"  placeholder="Confirm your Password"/>
-								</div>
-							</div>
-						</div>
-						<div class="form-group">
-							<label for="role" class="cols-sm-2 control-label">Role</label>
-							<div class="cols-sm-10">
-								<div class="input-group">
-									<span class="input-group-addon"><i class="far fa-play-circle" aria-hidden="true"></i></span>
-									<select class="form-control" name="role" id="role">
-										<option value='' selected>Choose Your Role</option>
-										<option value = '1' >User</option>
-										<option value = '0' >Dancer</option>
-									</select>
-								</div>
-							</div>
-						</div>
-
-						<div class="form-group ">
-							<input onclick= "get_user()"" type="submit" value="Submit" id="button" class="btn btn-primary btn-lg btn-block login-button" />
-						</div>
-
-						
-					</div>
-				</div>
-			</div>
-		</div>
-
-		 <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-    <!-- Include all compiled plugins (below), or include individual files as needed -->
-    <script src="js/bootstrap.min.js"></script>
-	</body>
+</head>
+<body>
+  <div class="cont">
+    <div class="demo">
+      <div class="login">
+        <div class="login__check"></div>
+        <div class="login__form">
+          <div class="login__row">
+            <svg class="login__icon name svg-icon" viewBox="0 0 20 20">
+              <path d="M0,20 a10,8 0 0,1 20,0z M10,0 a4,4 0 0,1 0,8 a4,4 0 0,1 0,-8" />
+            </svg>
+            <input id = "k_name" type="text" class="login__input name" placeholder="Korean Name( Optional )"/>
+		  </div>
+		  <div class="login__row">
+            <svg class="login__icon name svg-icon" viewBox="0 0 20 20">
+              <path d="M0,20 a10,8 0 0,1 20,0z M10,0 a4,4 0 0,1 0,8 a4,4 0 0,1 0,-8" />
+			</svg>
+            <input id = "e_name" type="text" class="login__input name" placeholder="English Name( Required )"/>
+		  </div>
+		  <div class="login__row">
+            <svg class="login__icon name svg-icon" viewBox="0 0 20 20">
+              <path d="M0,20 a10,8 0 0,1 20,0z M10,0 a4,4 0 0,1 0,8 a4,4 0 0,1 0,-8" />
+            </svg>
+            <input id = "email" type="text" class="login__input name" placeholder="Email"/>
+		  </div>
+		  <div class="login__row">
+            <svg class="login__icon name svg-icon" viewBox="0 0 20 20">
+              <path d="M0,20 a10,8 0 0,1 20,0z M10,0 a4,4 0 0,1 0,8 a4,4 0 0,1 0,-8" />
+            </svg>
+            <input id ="username" type="text" class="login__input name" placeholder="Username"/>
+		  </div>
+		  
+		  <div class="login__row">
+            <svg class="login__icon name svg-icon" viewBox="0 0 20 20">
+              <path d="M0,20 a10,8 0 0,1 20,0z M10,0 a4,4 0 0,1 0,8 a4,4 0 0,1 0,-8" />
+			</svg>
+			<span class = "login__description">  7 ~ 15 words by the combination of number and English  </span>
+            <input id = "password" type="password" class="login__input name" placeholder="Password"/>
+		  </div>
+		  <div class="login__row">
+            <svg class="login__icon name svg-icon" viewBox="0 0 20 20">
+              <path d="M0,20 a10,8 0 0,1 20,0z M10,0 a4,4 0 0,1 0,8 a4,4 0 0,1 0,-8" />
+            </svg>
+            <input id = "confirmpassword" type="password" class="login__input name" placeholder="Confirm Password"/>
+		  </div>
+		  
+          <div class="login__row">
+            <svg class="login__icon pass svg-icon" viewBox="0 0 20 20">
+              <path d="M0,20 20,20 20,8 0,8z M10,13 10,16z M4,8 a6,8 0 0,1 12,0" />
+            </svg>
+            <select class="login__input pass" name="role" id="role">
+				<option value='' selected>Choose Your Role</option>
+				<option value = '1' >User</option>
+				<option value = '0' >Dancer</option>
+			</select>
+		  </div>
+		  
+          <button onclick = "get_user()" type="button" class="login__submit">Sign in</button>
+          <p class="login__signup">Don't have an account? &nbsp;<a href = "/api/users/register">Sign up</a></p>
+        </div>
+      </div>
+      <div class="app">
+        <div class="app__top">
+          <div class="app__menu-btn">
+            <span></span>
+          </div>
+          <svg class="app__icon search svg-icon" viewBox="0 0 20 20">
+            <path d="M20,20 15.36,15.36 a9,9 0 0,1 -12.72,-12.72 a 9,9 0 0,1 12.72,12.72" />
+          </svg>
+          <p class="app__hello">Good Morning!</p>
+          <div class="app__user">
+            <img src="//s3-us-west-2.amazonaws.com/s.cdpn.io/142996/profile/profile-512_5.jpg" alt="" class="app__user-photo" />
+            <span class="app__user-notif">3</span>
+          </div>
+          <div class="app__month">
+            <span class="app__month-btn left"></span>
+            <p class="app__month-name">March</p>
+            <span class="app__month-btn right"></span>
+          </div>
+        </div>
+        <div class="app__bot">
+          <div class="app__days">
+            <div class="app__day weekday">Sun</div>
+            <div class="app__day weekday">Mon</div>
+            <div class="app__day weekday">Tue</div>
+            <div class="app__day weekday">Wed</div>
+            <div class="app__day weekday">Thu</div>
+            <div class="app__day weekday">Fri</div>
+            <div class="app__day weekday">Sad</div>
+            <div class="app__day date">8</div>
+            <div class="app__day date">9</div>
+            <div class="app__day date">10</div>
+            <div class="app__day date">11</div>
+            <div class="app__day date">12</div>
+            <div class="app__day date">13</div>
+            <div class="app__day date">14</div>
+          </div>
+          <div class="app__meetings">
+            <div class="app__meeting">
+              <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/142996/profile/profile-80_5.jpg" alt="" class="app__meeting-photo" />
+              <p class="app__meeting-name">Feed the cat</p>
+              <p class="app__meeting-info">
+                <span class="app__meeting-time">8 - 10am</span>
+                <span class="app__meeting-place">Real-life</span>
+              </p>
+            </div>
+            <div class="app__meeting">
+              <img src="//s3-us-west-2.amazonaws.com/s.cdpn.io/142996/profile/profile-512_5.jpg" alt="" class="app__meeting-photo" />
+              <p class="app__meeting-name">Feed the cat!</p>
+              <p class="app__meeting-info">
+                <span class="app__meeting-time">1 - 3pm</span>
+                <span class="app__meeting-place">Real-life</span>
+              </p>
+            </div>
+            <div class="app__meeting">
+              <img src="//s3-us-west-2.amazonaws.com/s.cdpn.io/142996/profile/profile-512_5.jpg" alt="" class="app__meeting-photo" />
+              <p class="app__meeting-name">FEED THIS CAT ALREADY!!!</p>
+              <p class="app__meeting-info">
+                <span class="app__meeting-time">This button is just for demo ></span>
+              </p>
+            </div>
+          </div>
+        </div>
+        <div class="app__logout">
+          <svg class="app__logout-icon svg-icon" viewBox="0 0 20 20">
+            <path d="M6,3 a8,8 0 1,0 8,0 M10,0 10,12"/>
+          </svg>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
 </html>
-
-
-<script src = "http://ajax.google.com/ajax/libs/jquery/1.12.4/jq"

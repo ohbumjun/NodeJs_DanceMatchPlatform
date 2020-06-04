@@ -1,95 +1,153 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Login</title>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-    <link rel="preload" href="css/bootstrap.min.css" rel="stylesheet">
-    <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
-    <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
-    
-    <script type = "text/javaScript">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href = "/../cssjs/login/login.css" rel = "stylesheet"/>
+  <script src="//code.jquery.com/jquery-3.3.1.min.js"></script>
+  <title>Login</title>
 
-        function login(){
+  <script type = "text/javaScript">
 
-        // 1. 데이터 입력하기 : name, email, username, password, confirm password
-        let Username = $('#username').val();
-        let Password = $('#password').val();
+    function login(){
 
-        // 2. 입력사항 검사하기
-            // 2.1 해당 요소 중 하나라도 입력하지 않았을 경우 alert를 띄운다
-            if ( Username === '') {
-                alert('Please Enter Your username');
-                $('#username').focus();
-                return ;
-            } 
-            if ( Password === '') {
-                alert('Please Enter Your password');
-                $('#password').focus();
-                return ;
-            } 
-        // 3. POST에 저장을 요청한다 
-                $.ajax({
-                    type: "POST",
-                    url: '/api/users/login',
-                    // username, password 정보 넘겨주기 
-                    data: { 
-                        password : Password, 
-                        username : Username , 
-                    } ,
+    // 1. 데이터 입력하기 : email,  password
+    let Email = $('#email').val();
+    let Password = $('#password').val();
 
-                    // 성공시
-                    success : function(response){
-                        if( response["message"] === 'NoUsername' ){
-                            alert('Check the Username')
-                            return ;
-                        // 로그인 페이지로 이동시키기
-                        }else if( response["message"] === 'NoPassword' ){
-                            alert('Check the Password')
-                            return;
-                        }else if( response["message"] === 'success' ){
-                            alert('Login Success')
-                            window.location.href = "http://localhost:4000/main"
-                        }
+    // 2. 입력사항 검사하기
+        // 2.1 해당 요소 중 하나라도 입력하지 않았을 경우 alert를 띄운다
+        if ( Email === '') {
+            alert('Please Enter Your email');
+            $('#email').focus();
+            return ;
+        } 
+        if ( Password === '') {
+            alert('Please Enter Your password');
+            $('#password').focus();
+            return ;
+        } 
+    // 3. POST에 저장을 요청한다 
+            $.ajax({
+                type: "POST",
+                url: '/api/users/login',
+                // username, password 정보 넘겨주기 
+                data: { 
+                    password : Password, 
+                    email : Email , 
+                } ,
+
+                // 성공시
+                success : function(response){
+                    if( response["message"] === 'NoUsername' ){
+                        alert('Check the Username')
+                        return ;
+                    // 로그인 페이지로 이동시키기
+                    }else if( response["message"] === 'NoPassword' ){
+                        alert('Check the Password')
+                        return;
+                    }else if( response["message"] === 'success' ){
+                        alert('Login Success')
+                        window.location.href = "http://localhost:4000/main"
                     }
-                })
-            } // function get_user
-        </script>
+                }
+            })
+        } // function get_user
+    </script>
+
 </head>
 <body>
-        <div id="login">
-                <h3 class="text-center text-white pt-5">Login form</h3>
-                <div class="container">
-                    <div id="login-row" class="row justify-content-center align-items-center">
-                        <div id="login-column" class="col-md-6">
-                            <div id="login-box" class="col-md-12">
-                                <form id="login-form" class="form" action="" method="post">
-                                    <h3 class="text-center text-info">Login</h3>
-                                    <div class="form-group">
-                                        <label for="username" class="text-info">Username:</label><br>
-                                        <input type="text" name="username" id="username" class="form-control">
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="password" class="text-info">Password:</label><br>
-                                        <input type="text" name="password" id="password" class="form-control">
-                                    </div>
-                                    <div class="form-group">
-                                        <input onclick="login()" type="submit" name= "submit" class="btn btn-info btn-md" value="submit">
-                                    </div>
-                                    <div id="register-link" class="text-right">
-                                        <a href="/api/users/register" class="text-info">Register here</a>
-                                    </div>
-                                </br>
-                                    <div id="register-link" class="text-right">
-                                        <a href="/api/users/forgetPassword" class="text-info">Forgot Password</a>
-                                    </div>
-                                </form>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+  <div class="cont">
+    <div class="demo">
+      <div class="login">
+        <div class="login__check"></div>
+        <div class="login__form">
+          <div class="login__row">
+            <svg class="login__icon name svg-icon" viewBox="0 0 20 20">
+              <path d="M0,20 a10,8 0 0,1 20,0z M10,0 a4,4 0 0,1 0,8 a4,4 0 0,1 0,-8" />
+            </svg>
+            <input id = "email" type="text" class="login__input name" placeholder="Email"/>
+          </div>
+          <div class="login__row">
+            <svg class="login__icon pass svg-icon" viewBox="0 0 20 20">
+              <path d="M0,20 20,20 20,8 0,8z M10,13 10,16z M4,8 a6,8 0 0,1 12,0" />
+            </svg>
+            <input id = "password" type="password" class="login__input pass" placeholder="Password"/>
+          </div>
+          <button onclick = "login()" type="button" class="login__submit">Sign in</button>
+          <p class="login__signup">Don't have an account? &nbsp;<a href = "/api/users/register">Sign up</a></p>
+          <p class="login__signup">Forgot Password? &nbsp;<a href = "/api/users/forgetPassword">Find Password</a></p>
+        </div>
+      </div>
+      <div class="app">
+        <div class="app__top">
+          <div class="app__menu-btn">
+            <span></span>
+          </div>
+          <svg class="app__icon search svg-icon" viewBox="0 0 20 20">
+            <path d="M20,20 15.36,15.36 a9,9 0 0,1 -12.72,-12.72 a 9,9 0 0,1 12.72,12.72" />
+          </svg>
+          <p class="app__hello">Good Morning!</p>
+          <div class="app__user">
+            <img src="//s3-us-west-2.amazonaws.com/s.cdpn.io/142996/profile/profile-512_5.jpg" alt="" class="app__user-photo" />
+            <span class="app__user-notif">3</span>
+          </div>
+          <div class="app__month">
+            <span class="app__month-btn left"></span>
+            <p class="app__month-name">March</p>
+            <span class="app__month-btn right"></span>
+          </div>
+        </div>
+        <div class="app__bot">
+          <div class="app__days">
+            <div class="app__day weekday">Sun</div>
+            <div class="app__day weekday">Mon</div>
+            <div class="app__day weekday">Tue</div>
+            <div class="app__day weekday">Wed</div>
+            <div class="app__day weekday">Thu</div>
+            <div class="app__day weekday">Fri</div>
+            <div class="app__day weekday">Sad</div>
+            <div class="app__day date">8</div>
+            <div class="app__day date">9</div>
+            <div class="app__day date">10</div>
+            <div class="app__day date">11</div>
+            <div class="app__day date">12</div>
+            <div class="app__day date">13</div>
+            <div class="app__day date">14</div>
+          </div>
+          <div class="app__meetings">
+            <div class="app__meeting">
+              <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/142996/profile/profile-80_5.jpg" alt="" class="app__meeting-photo" />
+              <p class="app__meeting-name">Feed the cat</p>
+              <p class="app__meeting-info">
+                <span class="app__meeting-time">8 - 10am</span>
+                <span class="app__meeting-place">Real-life</span>
+              </p>
             </div>
+            <div class="app__meeting">
+              <img src="//s3-us-west-2.amazonaws.com/s.cdpn.io/142996/profile/profile-512_5.jpg" alt="" class="app__meeting-photo" />
+              <p class="app__meeting-name">Feed the cat!</p>
+              <p class="app__meeting-info">
+                <span class="app__meeting-time">1 - 3pm</span>
+                <span class="app__meeting-place">Real-life</span>
+              </p>
+            </div>
+            <div class="app__meeting">
+              <img src="//s3-us-west-2.amazonaws.com/s.cdpn.io/142996/profile/profile-512_5.jpg" alt="" class="app__meeting-photo" />
+              <p class="app__meeting-name">FEED THIS CAT ALREADY!!!</p>
+              <p class="app__meeting-info">
+                <span class="app__meeting-time">This button is just for demo ></span>
+              </p>
+            </div>
+          </div>
+        </div>
+        <div class="app__logout">
+          <svg class="app__logout-icon svg-icon" viewBox="0 0 20 20">
+            <path d="M6,3 a8,8 0 1,0 8,0 M10,0 10,12"/>
+          </svg>
+        </div>
+      </div>
+    </div>
+  </div>
 </body>
 </html>

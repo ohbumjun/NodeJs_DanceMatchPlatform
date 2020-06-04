@@ -7,7 +7,7 @@ let auth = (req, res, next) => {
     // 1. client에서 쿠키에서 토큰을 가져오기
     // 저번에 cookie를 넣을 때, x_auth 라는 이름으로 넣었었다
     // token을 x_auth에서 가져오는 것이다 
-    let token = req.cookie.x_auth;
+    let token = req.cookies.x_auth;
 
     // 2. 가져온 토큰을 Decode 한다 . 이후 유저를 찾는다. 토큰을 찾는 method는 User.js 에서 만든다
     // 아래 findByToken은 user model에서 만들어야 한다

@@ -3,12 +3,12 @@ var path = require('path');
 var app = express();
 var bodyParser = require('body-parser')
 const port = 4000
-// resetPassword 에서 object 다루기 위한 lodash
-const _ = require('lodash'); 
 const jwt = require('jsonwebtoken');
+
 // 비밀번호 설정을 위한 코드. key.js 에서 가져온다
 const mongoose = require('mongoose')
 const cookieParser = require( 'cookie-parser' );
+
 // auth 라는 middleware 을 가져온다 ( 인증처리 )
 const { auth } = require( './middleware/auth' );
 const cors = require('cors');
@@ -23,8 +23,10 @@ const mg = mailgun({ apiKey: "dfdc195b79c8b6b34660247f60937e06-7fba8a4e-a6d4194a
 
 // css, js 파일들 적용
 app.use(express.static(__dirname + '/../client/static/'))
+
 // DB 연결코드
 // bodyParser: client가 보낸 정보를 Server가 받게 한다
+
 app.use(express.json());
 app.use(cors());
 app.use(express.urlencoded({ extended: true }));
@@ -69,23 +71,22 @@ res.sendFile(path.join(__dirname + "/../client/static/templates/index.html"))
 app.get('/main',function(req,res){
     res.sendFile(path.join(__dirname + "/../client/static/templates/base.html"))
     })
+
 // 2. 검색 Route
 app.post('/ajax_send_test',function(req,res)
 {   //req parsing
     var genre=req.body.genre;
     var place=req.body.place;
     var datas;
-    
     //mongodb query
     connection.db.collection("dancer", function(err, collection){
         collection.find({Place:place}).toArray(function(err, data){
         //검색 개수 보여주기
-            collection.find(req.body).toArray(function(err, data){
-            var result = 'ok'
-            var numdata=data.length;
-            var respondData={'result':result,'data':data,'numdata':`${numdata} Results`}
-            res.json(respondData)
-            })   
+        var result = 'ok'
+        var numdata=data.length;
+        var respondData={'result':result,'data':data,'numdata':`${numdata} Results`}
+        res.json(respondData)
+        })   
     });
 
 
@@ -208,14 +209,14 @@ app.get('/api/users/login', function( req , res){
 })
 
 app.post('/api/users/login', function(req,res){
-    // 1. 요청된 username을 데이터베이스에서 있는지 찾는다 
-        User.findOne( { username : req.body.username }, ( err , user ) => {
-            // 만일 우리가 요청한 username이 db 에 없다면, user는 Null 값이 될 것이다
+    // 1. 요청된 email을 데이터베이스에서 있는지 찾는다 
+        User.findOne( { email : req.body.email }, ( err , user ) => {
+            // 만일 우리가 요청한 email이 db 에 없다면, user는 Null 값이 될 것이다
             if(!user){
-                console.log("no username")
+                console.log("no email")
                 return res.status(200).json({
                     loginSuccess : false ,
-                    message : "NoUsername"
+                    message : "Noemail"
                 })
             }
             // 2. 요청된 이메일이 데이터 베이스에 있다면 비밀번호가 맞는 비밀번호인지 확인
@@ -272,8 +273,9 @@ app.post('/api/users/login', function(req,res){
     })
 
     // 7. 로그아웃
-    app.get('/api/users/logout' , auth , ( res , req ) => {
+    app.get('/api/users/logout' , auth , ( req , res ) => {
         // User 모델을 가져와서, user를 찾아서 그 data를 update 시켜준다
+        
         User.findOneByUpdate( { _id : req.user._id},
             // 여기서는 token을 지워준다
             { token : ""})
@@ -284,6 +286,7 @@ app.post('/api/users/login', function(req,res){
                 })
             }
         })
+
     // 8. 비밀번호 찾기
     app.get('/api/users/forgetPassword', function( req , res){
         res.sendFile(path.join(__dirname + "/../client/static/templates/forgetPassword.html"))
@@ -318,7 +321,7 @@ app.post('/api/users/login', function(req,res){
                 subject: 'Reset Password Link',
                 html : `
                     <h2>Please click on given link to reset your password</h2>
-                    <a href = "http://localhost:4000/api/users/forgetpassword/${token}">http://localhost:4000/api/users/forgetpassword/${token}</a>
+                    <a href = "http://localhost:4000/api/users/resetPassword/${token}">http://localhost:4000/api/users/resetPassword/${token}</a>
                 `
             };
 
@@ -341,7 +344,7 @@ app.post('/api/users/login', function(req,res){
                             })
                         }
                         console.log("email send success")
-                        return res.status(200).json({message : 'Email has been Sent, kindly follow the instructions'});
+                        return res.status(200).json({message : 'Email has been Sent, kindly follow the instructions', 'success': 'true'});
         /* 만약 성공하면, email로 link가 보내질 거고, user는 그 link를 클릭하면, 비밀번호를 바꾸는 페이지로 이동할 것이다
         client side에서는 다른 route 가 있을 것이고
         그 route에서 비밀번호 변경을 수행할 것이다 
@@ -356,13 +359,77 @@ app.post('/api/users/login', function(req,res){
     })
 
     // 8. 비밀번호 reset
-    app.get('/api/users/resetPassword:token', function( req , res){
+    app.get('/api/users/resetPassword/:token', function( req , res){
         res.sendFile(path.join(__dirname + "/../client/static/templates/resetPassword.html"))
     })
 
-    app.post('/api/users/resetPassword:token', function( req , res){
-        res.sendFile(path.join(__dirname + "/../client/static/templates/resetPassword.html"))
-
+    app.post('/api/users/resetPassword/:token', function( req , res){
 
         
+        // resetLink(token)과 새로 입력한 password 받기 
+        const { resetLink, newPass } = req.body;
+
+        // 만약 link가 존재한다면
+
+    if( resetLink ){
+        // 현재 resetLink는 token이고, 우리는 이 token을 decode 할 것이다
+        // 우리는 forgotPassword에서 token을 만들 때 id를 사용해서 token을 만들었기 때문에, 이를 decode 하면 우리는 다시 id를 얻게 될 것이다 
+
+        jwt.verify( resetLink , "accountactivatekey123" , function( error, decodedData ){
+
+            // 우리는 expire의 기한을 20m으로 주었다. if we get the same link and passed after 20m, even if we send it to reset password with new password , then it's gonna send an error that token has already been expired
+
+            if(error){
+
+                console.log("Incorrect token or it is expired")
+                return res.status(401).json({
+                    error: "Incorrect token or it is expired", "result":"Incorrect token or it is expired"
+                })
+            }
+
+            // error가 없다면 find and user which user we should allow who can change his password
+
+            // token that we send to an email should match this token and this is how we are going to check which user should need to reset 
+            User.findOne( { resetLink } , ( error, user ) => {
+                // we've got user who has to reset his password
+                // error : user exist but user with same token does not exist
+                if( error || !user){
+                    console.log("User with this token does not exist")
+                    return res.status(400).json( { error : "User with this token does not exist", "result": "User with this token does not exist"});
+                }
+                // no error : update a password with new password
+                // create an object which includes password field which we can pass a new password
+                // 참고: lodash library를 활용 : array 뿐만 아니라, object, collection 등을 다룰 때 간편하게 해주기
+                const obj = {
+                    password : newPass
+                }
+
+                // update object in DB, when we pass any kind of properties
+                // by below code, new password is going to be updatd within this user
+                user = _.extend(user, obj )
+                // update 이후 save it into DB
+                user.save( ( error, result) => {
+                    if(error){
+                        console.log("reset password error");
+                        return res.status(400).json({
+                            error: "reset password error", 'result' : 'reset password error'
+                        })
+                    } else{
+                            console.log("Your password has been changed")
+                            return res.status(200).json({ message : "Your password has been changed", 'success': 'true'})
+                        }
+                    })
+                })
+            }); // jwt verify
+        }else{
+            // link가 존재하지 않는다면 에러를 보낸다. ex. client-side haven't sent any kind of token or reset from the URL that we sent
+                console.log("Authentication Error")
+                return res.status(401).json( { error : "Authentication Error", 'result' : 'Authentication Error' });
+        }
+        
+    })
+
+    // 9. profile창 수정하기
+    app.get('/api/users/profile', function( req , res){
+        res.sendFile(path.join(__dirname + "/../client/static/templates/profile.html"))
     })

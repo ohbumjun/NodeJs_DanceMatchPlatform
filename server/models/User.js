@@ -129,8 +129,12 @@ userSchema.methods.comparePassword = function(plainPassword , cb){
     // plainPassword : 1234567 > 암호화된 비밀번호와 같은지 체크해야 하므로, 1234567을 암호화 한 이후에 서로 맞는지를 체크해야 한다
     // 첫번째 인자는 날것 그대로, 두번째 인자는 암호화된 password
     bcrypt.compare(plainPassword , this.password , function(err , isMatch){
-        if(err) return cb(err)
+        if(err){
+            console.log("different password")
+            return cb(err)
+        } 
         // err는 없고, 비밀번호는 같다
+        console.log("Same password")
         cb(null, isMatch)
 
         // 여기에서의 return 값이 server_index.js에서 comparePassword 함수로 간다

@@ -40,6 +40,20 @@ html, body {
     font-size: 50%;
   }
 }
+
+.bgImage{
+  position: absolute;
+ top :0;
+ left:0; 
+ width:100%;
+ height:100%;
+ /* 이렇게만 하면, 사진이 맨 위로 되어 있어서, 
+ 시계던, to Do list 던 하나도 보이지 않는다 */
+z-index: -1;
+/* 이를 통해 bj image를 맨 뒤에 넣는다 */
+animation: fadeIn .5s linear;
+}
+
 svg {
   display: inline-block;
   width: 2rem;
@@ -62,7 +76,7 @@ input, button {
 .cont {
   position: relative;
   height: 100%;
-  background-image: url('https://images.unsplash.com/photo-1551186839-9e4a19b27812?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=900&q=60');
+  // background-image: url('https://images.unsplash.com/photo-1551186839-9e4a19b27812?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=900&q=60');
   background-size: cover;
   background-position: center;
   overflow: auto;
@@ -81,15 +95,13 @@ input, button {
 .login {
   position: relative;
   height: 100%;
-  background: linear-gradient(to bottom, rgba(81, 47, 168, 0.8) 0%, rgba(0,0,0,0.6) 100%);
+  background: linear-gradient(to bottom, rgba(108, 52, 131, 0.8) 0%, rgba(0,0,0,0.6) 100%);
   transition: opacity 0.1s, transform 0.3s cubic-bezier(0.17, -0.65, 0.665, 1.25);
   transform: scale(1);
-  
   &.inactive {
     opacity: 0;
     transform: scale(1.1);
   }
-  
   &__check {
     position: absolute;
     top: 16rem;
@@ -99,7 +111,6 @@ input, button {
     background: #fff;
     transform-origin: 0 100%;
     transform: rotate(-45deg);
-    
     &:before {
       content: "";
       position: absolute;
@@ -109,7 +120,6 @@ input, button {
       height: 5.2rem;
       background: #fff;
       box-shadow: inset -0.2rem -2rem 2rem rgba(0,0,0,0.2);
-      
     }
   }
   

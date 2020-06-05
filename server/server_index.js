@@ -312,16 +312,13 @@ app.post('/api/users/login', function(req,res){
         User.findOne( { email }, ( err, user) => {
             // 해당 이메일이 없는 경우에 대한 error handling
             if( err || !user){
-
                 console.log("User with this email does not exist")
-
                 return res.status(400).json( { error : "User with this email does not exists" , "result" : "User with this email does not exists" });
             }
 
             // email 보내기 , 위의 email account와 달리, token에는 그저 id 만 넣는다. 왜냐하면 난(위에) email도 있고  user 도 있으니까
             const token = jwt.sign({ _id: user._id}, "accountactivatekey123", { expiresIn :"20m" } );
             console.log("token made")
-
             const data = {
                 from: 'danceprojectmb@naver.com',
                 to: email,

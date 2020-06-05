@@ -8,39 +8,96 @@
     <link href ='https://fonts.googleapis.com/css?family=Open+Sans:400,300,700' rel='stylesheet' type='text/css'>
     <script src = "https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"> </script>
     <script src='http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.5/jquery-ui.min.js'></script>
-
-
     <!-- jQuery
   <script src="http://thecodeplayer.com/uploads/js/jquery-1.9.1.min.js" type="text/javascript">
   </script>
   jQuery easing plugin
   <script src="http://thecodeplayer.com/uploads/js/jquery.easing.min.js" type="text/javascript">
   </script> -->
-
     <title>Profile Dancer</title>
-  
 </head>
 <body>
     <!-- multistep form -->
   <form id="msform">
     <!-- progressbar -->
     <ul id="progressbar">
-        <li class="active">Age</li>
-        <li>   Diabetes type</li>
-        <li>Treament type</li>
-    <li>Average Fast Glucose</>
-    <li>Average postprandial Glucose</>
+    <li class="active">Genre</li>
+    <li >Lesson Purpose</li>
+    <li >Lesson Type</li>
+    <li >Lesson Day</li>
+    <li >Lesson Time</li>
+    <li >Age</li>
+    <li> Sex</li>
+    <li> Workplace</li>
+    <li>Contact</li>
     </ul>
     <!-- fieldsets -->
     <fieldset>
-      <h2 class="fs-title">PATIENT AGE</h2>
-      <h3 class="fs-subtitle">This is step 1</h3>
-      <input type="number" name="quantity" min="30" max="50" placeholder="Age?">
-  <input type="button" name="next" class="next action-button" value="Next" />
+      <h2 class="fs-title">Genre</h2>
+      <h3 class="fs-subtitle">Select 3 genres you are expert in</h3>
+      <select>
+    <option value="K_Pop">K_Pop</option>
+    <option value="Hip_Hop">Hip_Hop</option>
+    <option value="Girlish">Girlish</option>
+    <option value="Girls_HipHop">Girls_HipHop</option>
+    <option value="Girls_HipHop">Girls_HipHop</option>
+    <option value="Poppin">Poppin</option>
+    <option value="Locking">Locking</option>
+    <option value="House">House</option>
+    <option value="Breaking">Breaking</option>
+    <option value="Ballet">Ballet</option>
+    <option value="Korea_Dance">Korea_Dance(한국무용)</option>
+    <option value="Modern_Dance">Modern_Dance(현대무용)</option>
+    <option value="Choreography">Choreography</option>
+    <option value="Salsa">Salsa</option>
+    <option value="Dance_Sports">Dance_Sports</option>
+    <option value="Etc">Etc( 그외 )</option>
+  </select>
+    </br>
+    <select>
+      <option value="K_Pop">K_Pop</option>
+      <option value="Hip_Hop">Hip_Hop</option>
+      <option value="Girlish">Girlish</option>
+      <option value="Girls_HipHop">Girls_HipHop</option>
+      <option value="Girls_HipHop">Girls_HipHop</option>
+      <option value="Poppin">Poppin</option>
+      <option value="Locking">Locking</option>
+      <option value="House">House</option>
+      <option value="Breaking">Breaking</option>
+      <option value="Ballet">Ballet</option>
+      <option value="Korea_Dance">Korea_Dance(한국무용)</option>
+      <option value="Modern_Dance">Modern_Dance(현대무용)</option>
+      <option value="Choreography">Choreography</option>
+      <option value="Salsa">Salsa</option>
+      <option value="Dance_Sports">Dance_Sports</option>
+      <option value="Etc">Etc( 그외 )</option>
+    </select>
+      </br>
+      <select>
+        <option value="K_Pop">K_Pop</option>
+        <option value="Hip_Hop">Hip_Hop</option>
+        <option value="Girlish">Girlish</option>
+        <option value="Girls_HipHop">Girls_HipHop</option>
+        <option value="Girls_HipHop">Girls_HipHop</option>
+        <option value="Poppin">Poppin</option>
+        <option value="Locking">Locking</option>
+        <option value="House">House</option>
+        <option value="Breaking">Breaking</option>
+        <option value="Ballet">Ballet</option>
+        <option value="Korea_Dance">Korea_Dance(한국무용)</option>
+        <option value="Modern_Dance">Modern_Dance(현대무용)</option>
+        <option value="Choreography">Choreography</option>
+        <option value="Salsa">Salsa</option>
+        <option value="Dance_Sports">Dance_Sports</option>
+        <option value="Etc">Etc( 그외 )</option>
+      </select>
+        </br>
+      <input type="button" name="next" class="next action-button" value="Next" />
+    </fieldset>
     </fieldset>
     <fieldset>
-      <h2 class="fs-title">Diabetes type</h2>
-      <h3 class="fs-subtitle">What type of diabetes do you have?</h3>
+      <h2 class="fs-title">Lesson Purpose</h2>
+      <h3 class="fs-subtitle">Purpose of Your Lesson</h3>
       <select>
     <option value="a">Diabetes Type A</option>
     <option value="b">Diabetes Type B</option>
@@ -61,6 +118,38 @@
       <input type="button" name="next" class="next action-button" value="Next" />
     </fieldset>
   <fieldset>
+      <h2 class="fs-title">Average Fast Glucose</h2>
+      <h3 class="fs-subtitle"></h3>
+      <input type="number" name="quantity" min="30" max="50" placeholder="Average Fast Glucose?">
+    </br>
+      <input type="button" name="previous" class="previous action-button" value="Previous" />
+      <input type="button" name="next" class="next action-button" value="Next" />
+    </fieldset>
+    <fieldset>
+      <h2 class="fs-title">Average Fast Glucose</h2>
+      <h3 class="fs-subtitle"></h3>
+      <input type="number" name="quantity" min="30" max="50" placeholder="Average Fast Glucose?">
+    </br>
+      <input type="button" name="previous" class="previous action-button" value="Previous" />
+      <input type="button" name="next" class="next action-button" value="Next" />
+    </fieldset>
+    <fieldset>
+      <h2 class="fs-title">Average Fast Glucose</h2>
+      <h3 class="fs-subtitle"></h3>
+      <input type="number" name="quantity" min="30" max="50" placeholder="Average Fast Glucose?">
+    </br>
+      <input type="button" name="previous" class="previous action-button" value="Previous" />
+      <input type="button" name="next" class="next action-button" value="Next" />
+    </fieldset>
+    <fieldset>
+      <h2 class="fs-title">Average Fast Glucose</h2>
+      <h3 class="fs-subtitle"></h3>
+      <input type="number" name="quantity" min="30" max="50" placeholder="Average Fast Glucose?">
+    </br>
+      <input type="button" name="previous" class="previous action-button" value="Previous" />
+      <input type="button" name="next" class="next action-button" value="Next" />
+    </fieldset>
+    <fieldset>
       <h2 class="fs-title">Average Fast Glucose</h2>
       <h3 class="fs-subtitle"></h3>
       <input type="number" name="quantity" min="30" max="50" placeholder="Average Fast Glucose?">

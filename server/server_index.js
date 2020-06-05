@@ -83,16 +83,23 @@ app.post('/ajax_send_test',function(req,res)
     var genre=req.body.genre;
     var place=req.body.place;
     var datas;
+    console.log(req.body)
     //mongodb query
     connection.db.collection("dancer", function(err, collection){
-        collection.find({Place:place}).toArray(function(err, data){
-        //검색 개수 보여주기
+        collection.find(req.body).toArray(function(err, data){
+
+                //검색 개수 보여주기
         var result = 'ok'
         var numdata=data.length;
+
         var respondData={'result':result,'data':data,'numdata':`${numdata} Results`}
         res.json(respondData)
+
         })   
+
     });
+
+
 })
 // 3. 회원가입 Route
 const { User } = require('./models/User')
@@ -132,8 +139,7 @@ app.post('/api/users/register', function( req , res ){
                     "success":"message error"
                 })
             }
-            console.log("last message")
-
+        
                 return res.status(200).json({message : 'Email has been Sent, kindly activate your account' , "success" : "true"})
                 });
             })
@@ -146,7 +152,7 @@ app.get('/api/users/activateAccount/:token:token', function( req , res){
     
 })
 
-app.post('/api/users/activateAccount/:token', function( req , res){
+app.post('/api/users/activateAccount', function( req , res){
     
     var user  = User(req.body);
     console.log("I'm not only one")
@@ -165,7 +171,7 @@ app.post('/api/users/activateAccount/:token', function( req , res){
                     // 20분후에 다시 token이 사라지기 때문에, 이 경우 아래의 메시지가 뜰 것이다 
                     console.log("Incorrect or Expired Link");
                     return res.status(400).json( { error: "Incorrect or Expired Link" });
-                }
+             }
     
             const { k_name, e_name , email, password ,  username, role } = decodedToken;
 
@@ -185,9 +191,11 @@ app.post('/api/users/activateAccount/:token', function( req , res){
                                 return res.status(400).json({ 'result' : "Error activating Account"});
                             }
 
+                            var reigster_who = role===1?'profileUser':'profileDancer'
+
                             console.log("Signup Success . Your info is saved")
                             return res.status(200).json({
-                                message : "Signup success", "success" : "true"
+                                message : "Signup success", "success" : "true",'register_who':reigster_who
                             })
                         })
                     }) // newUser.save

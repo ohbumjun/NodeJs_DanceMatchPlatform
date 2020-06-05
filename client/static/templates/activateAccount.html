@@ -1,42 +1,52 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    
+
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <script src="/../cssjs/all/bg.js" defer ></script>
   <link href = "/../cssjs/activeAccount/activeAccount.css" rel = "stylesheet"/>
-  <script src="//code.jquery.com/jquery-3.3.1.min.js"></script>
+  <script src="/../cssjs/all/bg.js" defer></script>
   <title>activateAccount</title>
+  <script src="//code.jquery.com/jquery-3.3.1.min.js"></script>
+  
+    <script type = "text/javaScript">
+      function account(){
+                  var urlname = document.location.href.split('/');
+                  var token = urlname[urlname.length -1];
+                      $.ajax({
+                          type: "POST",
+                          url: window.origin+'/api/users/activateAccount',
+                          // username, password 정보 넘겨주기 
+                          data: { 
+                          token : token
+                          } ,
+                          // 성공시
+                          success : function(response){
+  
+                            console.log("response['register_who']",response['register_who'])
+  
+                              if( response['result'] === "Incorrect or Expired Link" ){
+                                  alert("Incorrect or Expired Link, Signup again")
+                                  window.location.replace("http://localhost:4000/api/users/register");
+                              // 로그인 페이지로 이동시키기
+                              }else if( response['result'] === "Error activating Account" ){
+                                  alert('Error activating Account')
+                              }else if( response['result'] === "no token" ){
+                                  alert('Something went wrong!!')
+                              }else if( response['success'] === 'true'){
+                                  alert("Registration Success")
+                                  var register_who= response['register_who']
+                                  window.location.replace("http://localhost:4000/api/users/"+register_who); 
+                              }
+                          }
+                      })
+                  } // function get_user
+  
 
-  <script type = "text/javaScript">
-    function account(){
-                var url = document.location.href.split('/');
-                var token = url[url.length -1];
-                    $.ajax({
-                        type: "POST",
-                        url: '/api/users/activateAccount/:token',
-                        // username, password 정보 넘겨주기 
-                        data: { 
-                        token : token
-                        } ,
-                        // 성공시
-                        success : function(response){
-                            if( response['result'] === "Incorrect or Expired Link" ){
-                                alert("Incorrect or Expired Link, Signup again")
-                                window.location.replace("http://localhost:4000/api/users/register");
-                            // 로그인 페이지로 이동시키기
-                            }else if( response['result'] === "Error activating Account" ){
-                                alert('Error activating Account')
-                            }else if( response['result'] === "no token" ){
-                                alert('Something went wrong!!')
-                            }else if( response['success'] === 'true'){
-                                alert("Registration Success")
-                                window.location.replace("http://localhost:4000/api/users/profile"); 
-                            }
-                        }
-                    })
-                } // function get_user
-    </script>
+      </script>
+
 
 </head>
 <body>

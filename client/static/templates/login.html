@@ -3,57 +3,60 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link href = "/../cssjs/login/login.css" rel = "stylesheet"/>
-  <script src="//code.jquery.com/jquery-3.3.1.min.js"></script>
   <title>Login</title>
-
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="/../cssjs/all/bg.js" defer ></script>
+  <link href = "/../cssjs/login/login.css" rel = "stylesheet"/>
   <script type = "text/javaScript">
 
     function login(){
-
-    // 1. 데이터 입력하기 : email,  password
+      
+      // 1. 데이터 입력하기 : email,  password
     let Email = $('#email').val();
     let Password = $('#password').val();
 
     // 2. 입력사항 검사하기
-        // 2.1 해당 요소 중 하나라도 입력하지 않았을 경우 alert를 띄운다
+    // 2.1 해당 요소 중 하나라도 입력하지 않았을 경우 alert를 띄운다
         if ( Email === '') {
-            alert('Please Enter Your email');
-            $('#email').focus();
+          alert('Please Enter Your email');
+          $('#email').focus();
             return ;
-        } 
-        if ( Password === '') {
+          } 
+          if ( Password === '') {
             alert('Please Enter Your password');
             $('#password').focus();
             return ;
-        } 
-    // 3. POST에 저장을 요청한다 
-            $.ajax({
-                type: "POST",
+          } 
+          // 3. POST에 저장을 요청한다 
+          $.ajax({
+            type: "POST",
                 url: '/api/users/login',
                 // username, password 정보 넘겨주기 
                 data: { 
-                    password : Password, 
-                    email : Email , 
+                  password : Password, 
+                  email : Email , 
                 } ,
-
+                
                 // 성공시
                 success : function(response){
-                    if( response["message"] === 'NoUsername' ){
-                        alert('Check the Username')
-                        return ;
+                  if( response["message"] === 'NoUsername' ){
+                    alert('Check the Username')
+                    return ;
                     // 로그인 페이지로 이동시키기
-                    }else if( response["message"] === 'NoPassword' ){
+                  }else if( response["message"] === 'NoPassword' ){
                         alert('Check the Password')
                         return;
-                    }else if( response["message"] === 'success' ){
+                      }else if( response["message"] === 'success' ){
                         alert('Login Success')
                         window.location.href = "http://localhost:4000/main"
+                      }
                     }
-                }
-            })
+                  })
         } // function get_user
-    </script>
+
+
+        
+        </script>
 
 </head>
 <body>
@@ -89,7 +92,7 @@
           </svg>
           <p class="app__hello">Good Morning!</p>
           <div class="app__user">
-            <img src="//s3-us-west-2.amazonaws.com/s.cdpn.io/142996/profile/profile-512_5.jpg" alt="" class="app__user-photo" />
+            <!-- <img src="//s3-us-west-2.amazonaws.com/s.cdpn.io/142996/profile/profile-512_5.jpg" alt="" class="app__user-photo" /> -->
             <span class="app__user-notif">3</span>
           </div>
           <div class="app__month">
@@ -117,7 +120,7 @@
           </div>
           <div class="app__meetings">
             <div class="app__meeting">
-              <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/142996/profile/profile-80_5.jpg" alt="" class="app__meeting-photo" />
+              <!-- <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/142996/profile/profile-80_5.jpg" alt="" class="app__meeting-photo" /> -->
               <p class="app__meeting-name">Feed the cat</p>
               <p class="app__meeting-info">
                 <span class="app__meeting-time">8 - 10am</span>
@@ -125,7 +128,7 @@
               </p>
             </div>
             <div class="app__meeting">
-              <img src="//s3-us-west-2.amazonaws.com/s.cdpn.io/142996/profile/profile-512_5.jpg" alt="" class="app__meeting-photo" />
+              <!-- <img src="//s3-us-west-2.amazonaws.com/s.cdpn.io/142996/profile/profile-512_5.jpg" alt="" class="app__meeting-photo" /> -->
               <p class="app__meeting-name">Feed the cat!</p>
               <p class="app__meeting-info">
                 <span class="app__meeting-time">1 - 3pm</span>
@@ -133,7 +136,7 @@
               </p>
             </div>
             <div class="app__meeting">
-              <img src="//s3-us-west-2.amazonaws.com/s.cdpn.io/142996/profile/profile-512_5.jpg" alt="" class="app__meeting-photo" />
+              <!-- <img src="//s3-us-west-2.amazonaws.com/s.cdpn.io/142996/profile/profile-512_5.jpg" alt="" class="app__meeting-photo" /> -->
               <p class="app__meeting-name">FEED THIS CAT ALREADY!!!</p>
               <p class="app__meeting-info">
                 <span class="app__meeting-time">This button is just for demo ></span>
@@ -149,5 +152,7 @@
       </div>
     </div>
   </div>
+  
+  
 </body>
 </html>

@@ -4,33 +4,26 @@ var app = express();
 var bodyParser = require('body-parser')
 const port = 4000
 const jwt = require('jsonwebtoken');
-
 // 비밀번호 설정을 위한 코드. key.js 에서 가져온다
 const mongoose = require('mongoose')
 const cookieParser = require( 'cookie-parser' );
-
 // auth 라는 middleware 을 가져온다 ( 인증처리 )
 const { auth } = require( './middleware/auth' );
 const cors = require('cors');
 const config = require( './config/key' );
 require('dotenv').config();
-
 // mailgun, email account acivation
 const _ = require('lodash'); 
 const mailgun = require("mailgun-js");
 const DOMAIN = 'sandboxbb6bc74926b942a59d3a57aa4ef125cb.mailgun.org';
 const mg = mailgun({ apiKey: "dfdc195b79c8b6b34660247f60937e06-7fba8a4e-a6d4194a", domain: DOMAIN });
-
 app.set('view engine','ejs')
 app.set('views',path.join(__dirname,'../client/views'))
-
-
 // css, js 파일들 적용
-app.use(express.static(__dirname + '/../client/static/'))
+app.use(express.static(__dirname +'/../client/static'))
 
 // DB 연결코드
 // bodyParser: client가 보낸 정보를 Server가 받게 한다
-
 app.use(express.json());
 app.use(cors());
 app.use(express.urlencoded({ extended: true }));
@@ -40,8 +33,6 @@ app.use(cookieParser())
 
 // app 실행하기. 4000 port를 listen 하게 되면, 뒤의 내용을 출력하기
 app.listen(port , () => console.log(`Example app Listening on port ${port}!`))
-
-
 
 // ERR_EMPTY_RESPONSE 방지
 app.use(function(req, res, next) {
@@ -222,6 +213,10 @@ app.post('/api/users/activateAccount/:token', function( req , res){
 // 5. 로그인 기능 : login
 app.get('/api/users/login', function( req , res){
     res.sendFile(path.join(__dirname + "/../client/static/templates/login.html"))
+})
+
+app.get('/bg.js ', function( req , res){
+    res.sendFile(path.join(__dirname + "/../client/static/templates/bg.js"))
 })
 
 app.post('/api/users/login', function(req,res){

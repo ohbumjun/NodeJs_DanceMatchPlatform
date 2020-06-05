@@ -140,7 +140,7 @@ app.post('/api/users/register', function( req , res ){
                 })
             }
         
-                return res.status(200).json({message : 'Email has been Sent, kindly activate your account' , "success" : "true",'register_who':reigster_who})
+                return res.status(200).json({message : 'Email has been Sent, kindly activate your account' , "success" : "true"})
                 });
             })
         },500) // setTimeout

@@ -141,7 +141,7 @@ app.post('/api/users/register', function( req , res ){
     });
 
     // 4. Account Activation
-app.get('/api/users/activateAccount/:token', function( req , res){
+app.get('/api/users/activateAccount/:token:token', function( req , res){
     res.sendFile(path.join(__dirname + "/../client/static/templates/activateAccount.html"))
     
 })
@@ -386,15 +386,12 @@ app.post('/api/users/login', function(req,res){
         jwt.verify( resetLink , "accountactivatekey123" , function( error, decodedData ){
 
             // 우리는 expire의 기한을 20m으로 주었다. if we get the same link and passed after 20m, even if we send it to reset password with new password , then it's gonna send an error that token has already been expired
-
             if(error){
-
                 console.log("Incorrect token or it is expired")
                 return res.status(401).json({
                     error: "Incorrect token or it is expired", "result":"Incorrect token or it is expired"
                 })
             }
-
             // error가 없다면 find and user which user we should allow who can change his password
 
             // token that we send to an email should match this token and this is how we are going to check which user should need to reset 
@@ -437,7 +434,12 @@ app.post('/api/users/login', function(req,res){
         
     })
 
-    // 9. profile창 수정하기
-    app.get('/api/users/profile', function( req , res){
-        res.sendFile(path.join(__dirname + "/../client/static/templates/profile.html"))
+    // 9. profileDancer
+    app.get('/api/users/profileDancer', function( req , res){
+        res.sendFile(path.join(__dirname + "/../client/static/templates/profileDancer.html"))
+    })
+
+     // 9. profileUser
+     app.get('/api/users/profileUser', function( req , res){
+        res.sendFile(path.join(__dirname + "/../client/static/templates/profileUser.html"))
     })

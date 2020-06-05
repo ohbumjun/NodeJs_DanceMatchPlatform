@@ -3,9 +3,9 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="/../cssjs/all/bg.js" defer ></script>
   <link href = "/../cssjs/activeAccount/activeAccount.css" rel = "stylesheet"/>
   <script src="//code.jquery.com/jquery-3.3.1.min.js"></script>
-  <script src="../cssjs/all/bg.js" defer></script>
   <title>activateAccount</title>
 
   <script type = "text/javaScript">
@@ -31,7 +31,7 @@
                                 alert('Something went wrong!!')
                             }else if( response['success'] === 'true'){
                                 alert("Registration Success")
-                                window.location.replace("http://localhost:4000/api/users/login"); 
+                                window.location.replace("http://localhost:4000/api/users/profile"); 
                             }
                         }
                     })

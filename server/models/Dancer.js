@@ -1,35 +1,89 @@
 const mongoose = require("mongoose")
 
 const DancerSchema = mongoose.Schema({
-    name : {
-        type : String ,
-        maxlength : 50
-    } ,
-    email : {
+    // user 의 name 은 무엇인지
+    k_name : {
         type : String,
-        // trim : 이메일 안에서, 사용자가 작성한 공백을 제거해주기
+    },
+    e_name : {
+        type : String,
+        // maxlength는 자기가 주고 싶은 만큼 주기
+        minlength : 1,
+        maxlength : 50,
+        trim: true,
+        required : true
+    },
+    email: {
+        type : String,
+        // 어떤 분이, john ahn@naver.com 이렇게 쳤고, john 다음에 들어간 빈칸을 사라지게 해준다
         trim : true,
-        // 똑같은 이메일은 쓰지 못하게 하기
-        unique: 1
-    } ,
+        unique: 1,
+        required: true
+    },
     password : {
+        type : String ,
+        minlength : 7,
+        required: true
+    },
+    username : {
         type : String,
-        //최소 8글자 이상 작성하기
-        minlength : 8
+        maxlength : 50,
+        required : true,
+        unique : 1
     },
-    // 0.관리자인지 1.일반유저 2.댄서 인지
+    // 이렇게 role을 주는 이유는, 어떤 user 는 관리자가 될 수도 있고, 일반 user 가 될 수도 있다
     role : {
-        // Number가 1이면 관리자, 0이면 일반 유저
+        // 예를 들어, number 가 1이면 일반 user 인 것이다, 0이면 dancer이다 
         type : Number,
-        // 임의로 지정해주지 않는다면, role은 0으로 주겠다. 일반유저로 지정해주겠다
-        default : 0
+    },
 
-    },
+    // 아래와 같은 token을 이용해서, 유효성 같은 것들을 관리할 수 있다
     token : {
-        type : String
+        type: String
     },
-    // token의 유효기간
+
+    // token의 유효기간 : token이 사용할 수 있는 기간
     tokenExp : {
-        type : Number
+        type: Number
+    },
+
+    // 비밀번호찾기위한 데이터
+    resetLink : {
+        data : String,
+        default : ''
+    },
+
+    // 전문장르
+    genre : {
+        type : String,
+        default: ''
+    } ,
+
+    Lesson_Purpose : {
+        type : String,
+        default :''
+    },
+    Lesson_Type : {
+        type : String,
+        default :''
+    },
+    Lesson_Day : {
+        type : String,
+        default :''
+    },
+    Lesson_Time : {
+        type : String,
+        default :''
+    },
+    Lesson_Purpose : {
+        type : String,
+        default :''
+    },
+    Lesson_Purpose : {
+        type : String,
+        default :''
     }
+
+
+
 })

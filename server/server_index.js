@@ -58,25 +58,28 @@ mongoose.connect( config.mongoURI , {
 
 var connection = mongoose.connection;
 connection.on('error', console.error.bind(console, 'connection error:'));
-
 // 2) Router 들 
 // root, main, 검색
 const root = require('./router/base.js');
 app.use( root )
 
-// 회원가입 route
+// register route
 const register = require('./router/register.js');
 app.use( register)
 
-// 로그인 route
+// activeAccount
+const activeAccount = require('./router/activateAccount.js');
+app.use( activeAccount)
+
+// login route
 const login = require('./router/login.js');
 app.use( login)
 
-// 로그아웃 route
+// logout route
 const logout = require('./router/logout.js');
 app.use( logout )
 
-// 비밀번호 찾기 route
+// passwordFind route
 const forget = require('./router/forgetPassword.js');
 app.use( forget )
 
@@ -87,7 +90,4 @@ app.use( reset )
 // Profile Dancer, User Route
 const profile = require('./router/profile.js');
 app.use( profile )
-
-
-
 

@@ -7,7 +7,7 @@ const { auth } = require( '../middleware/auth' );
 
 // 로그아웃
 router.get('/api/users/logout' , auth , ( req,res ) => {
-    console.log('logging out')
+    
     // User 모델을 가져와서, user를 찾아서 그 data를 update 시켜준다
     User.findOneAndUpdate( { _id : req.user._id},
         // 여기서는 token을 지워준다

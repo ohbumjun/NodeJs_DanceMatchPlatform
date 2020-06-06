@@ -13,7 +13,7 @@ const userSchema = mongoose.Schema({
     e_name : {
         type : String,
         // maxlength는 자기가 주고 싶은 만큼 주기
-        minlength : 3,
+        minlength : 1,
         maxlength : 50,
         trim: true,
         required : true

@@ -3,14 +3,15 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  
-  <script src="../cssjs/all/bg.js" defer></script>
-  <script src="//code.jquery.com/jquery-3.3.1.min.js"></script>
-  
-  <link href = "/../cssjs/register/register.css" rel = "stylesheet"/>
-  <title>Register</title>
+  <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="/../cssjs/all/bg.js" defer></script>
 
+  <link href = "/../cssjs/register/register.css" rel = "stylesheet"/>
+
+  <title>Register</title>
 	<script type = "text/javaScript">
+	
 			function get_user(){
 			// 1. 데이터 입력하기 : name, email, username, password, confirm password
 			let K_name = $('#k_name').val();
@@ -23,41 +24,40 @@
 
 			// 2. 입력사항 검사하기
 				// 2.1 해당 요소 중 하나라도 입력하지 않았을 경우 alert를 띄운다
-				
 				if ( E_name === '') {
-					alert('Please Enter Your E_Name');
+					swal('Please Enter Your E_Name');
 					$('#e_name').focus();
 					return ;
 				} 
 				if ( Email === '') {
-					alert('Please Enter Your Email');
+					swal('Please Enter Your Email');
 					$('#email').focus();
 					return ;
 				} 
 				if ( Username === '') {
-					alert('Please Enter Your Username');
+					swal('Please Enter Your Username');
 					$('#username').focus();
 					return ;
 				} 
 				if ( Password === ''){
-					alert("Please Enter Your Password");
+					swal("Please Enter Your Password");
 					$('#password').focus();
 					return ;
 				} 
 				if ( Confirmpassword === ''){
-					alert("Please Enter Your ConfirmPassword");
+					swal("Please Enter Your ConfirmPassword");
 					$('#confirmpassword').focus();
 					return ;
 				}
 				if ( Role === ''){
-					alert("Please Enter Your Role");
+					swal("Please Enter Your Role");
 					$('#role').focus();
 					return ;
 				}
 				if( Confirmpassword !==  Password){
 					console.log('Password',Password)
 					console.log('Confirmpassword',Confirmpassword)
-					alert("Check the ConfirmPassword Again");
+					swal("Check the ConfirmPassword Again");
 					$('#confirmpassword').focus();
 					return ;
 				}
@@ -68,7 +68,7 @@
 			// 2.2 입력내용을 검사한다 
 				// 1) English Name의 길이를 검사한다
 				if( E_name.length < 1 || E_name.length > 50){
-					alert("Name should be written in 1 ~ 50 words")
+					swal("Name should be written in 1 ~ 50 words")
 				}
 				// 2) Password 를 검사한다 
 				check(Password)
@@ -83,17 +83,25 @@
 					email : Email, 
 					password : Password, 
 					username : Username , 
-					role: Role,
+					role: Role
 				} ,
+
 				// 성공시
 				success : function(response){
 					// console.log('res',response['success'] )
 					if( response['success'] === 'true' ){
-						alert('Check your email and activate account')
-						window.location.replace( "http://localhost:4000/api/users/login");
+						swal('We sent the Authentication Message to your Email. Please Go to your email and follow the instructions')
+						// window.location.replace( "http://localhost:4000/api/users/activateAccount.html");
 					}else if( response['success'] === 'emailexists'){
-						alert('Same username already Exist')
+						swal('Same email already Exist')
+						$('#email').focus();
+						return false;
+					}else if( response['success'] === 'usernameexists'){
+						swal('Same username already Exist')
 						$('#username').focus();
+						return false;
+					}else if( response['success'] === 'Error in signup while saving user info'){
+						swal('Error in signup while saving user info, contact Us!!')
 						return false;
 					}
 				}
@@ -110,12 +118,12 @@
 			var checkEnglish = password.search(/[a-z]/ig);
 
 			if(checkNumber <0 || checkEnglish <0){
-				alert("combine number and english");
+				swal("combine number and english");
 				return ;
 			}
 
 			if(/(\w)\1\1\1/.test(password)){
-				alert('Cannot use word like 444 more than 4 times');
+				swal('Cannot use word like 444 more than 4 times');
 				return ;
 			}
 				return true;
@@ -195,7 +203,7 @@
           </svg>
           <p class="app__hello">Good Morning!</p>
           <div class="app__user">
-            <img src="//s3-us-west-2.amazonaws.com/s.cdpn.io/142996/profile/profile-512_5.jpg" alt="" class="app__user-photo" />
+            <!-- <img src="//s3-us-west-2.amazonaws.com/s.cdpn.io/142996/profile/profile-512_5.jpg" alt="" class="app__user-photo" /> -->
             <span class="app__user-notif">3</span>
           </div>
           <div class="app__month">
@@ -223,7 +231,7 @@
           </div>
           <div class="app__meetings">
             <div class="app__meeting">
-              <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/142996/profile/profile-80_5.jpg" alt="" class="app__meeting-photo" />
+              <!-- <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/142996/profile/profile-80_5.jpg" alt="" class="app__meeting-photo" /> -->
               <p class="app__meeting-name">Feed the cat</p>
               <p class="app__meeting-info">
                 <span class="app__meeting-time">8 - 10am</span>
@@ -231,7 +239,7 @@
               </p>
             </div>
             <div class="app__meeting">
-              <img src="//s3-us-west-2.amazonaws.com/s.cdpn.io/142996/profile/profile-512_5.jpg" alt="" class="app__meeting-photo" />
+              <!-- <img src="//s3-us-west-2.amazonaws.com/s.cdpn.io/142996/profile/profile-512_5.jpg" alt="" class="app__meeting-photo" /> -->
               <p class="app__meeting-name">Feed the cat!</p>
               <p class="app__meeting-info">
                 <span class="app__meeting-time">1 - 3pm</span>
@@ -239,7 +247,7 @@
               </p>
             </div>
             <div class="app__meeting">
-              <img src="//s3-us-west-2.amazonaws.com/s.cdpn.io/142996/profile/profile-512_5.jpg" alt="" class="app__meeting-photo" />
+              <!-- <img src="//s3-us-west-2.amazonaws.com/s.cdpn.io/142996/profile/profile-512_5.jpg" alt="" class="app__meeting-photo" /> -->
               <p class="app__meeting-name">FEED THIS CAT ALREADY!!!</p>
               <p class="app__meeting-info">
                 <span class="app__meeting-time">This button is just for demo ></span>

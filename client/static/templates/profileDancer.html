@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+
+    <meta name = "viewport" content="width=device-width, initial-scale=1.0">
+    <link href = "/../cssjs/profile/profile.css" rel = "stylesheet"/>
+    <link href ='https://fonts.googleapis.com/css?family=Open+Sans:400,300,700' rel='stylesheet' type='text/css'>
+    <script src = "https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"> </script>
+    <script src='http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.5/jquery-ui.min.js'></script>
+    
+  <script type = "text/javaScript">
+  //jQuery time
+  var current_fs, next_fs, previous_fs; //fieldsets
+  var left, opacity, scale; //fieldset properties which we will animate
+  var animating; //flag to prevent quick multi-click glitches
+
+  $(".next").click(function(){
+  if(animating) return false;
+  animating = true;
+
+  current_fs = $(this).parent();
+  next_fs = $(this).parent().next();
+
+  //activate next step on progressbar using the index of next_fs
+  $("#progressbar li").eq($("fieldset").index(next_fs)).addClass("active");
+
+  //show the next fieldset
+  next_fs.show(); 
+  //hide the current fieldset with style
+  current_fs.animate({opacity: 0}, {
+    step: function(now, mx) {
+      //as the opacity of current_fs reduces to 0 - stored in "now"
+      //1. scale current_fs down to 80%
+      scale = 1 - (1 - now) * 0.2;
+      //2. bring next_fs from the right(50%)
+      left = (now * 50)+"%";
+      //3. increase opacity of next_fs to 1 as it moves in
+      opacity = 1 - now;
+      current_fs.css({'transform': 'scale('+scale+')'});
+      next_fs.css({'left': left, 'opacity': opacity});
+    }, 
+    duration: 800, 
+    complete: function(){
+      current_fs.hide();
+      animating = false;
+    }, 
+    //this comes from the custom easing plugin
+    easing: 'easeInOutBack'
+  });
+  });
+
+  $(".previous").click(function(){
+  if(animating) return false;
+  animating = true;
+
+  current_fs = $(this).parent();
+  previous_fs = $(this).parent().prev();
+
+  //de-activate current step on progressbar
+  $("#progressbar li").eq($("fieldset").index(current_fs)).removeClass("active");
+
+  //show the previous fieldset
+  previous_fs.show(); 
+  //hide the current fieldset with style
+  current_fs.animate({opacity: 0}, {
+    step: function(now, mx) {
+      //as the opacity of current_fs reduces to 0 - stored in "now"
+      //1. scale previous_fs from 80% to 100%
+      scale = 0.8 + (1 - now) * 0.2;
+      //2. take current_fs to the right(50%) - from 0%
+      left = ((1-now) * 50)+"%";
+      //3. increase opacity of previous_fs to 1 as it moves in
+      opacity = 1 - now;
+      current_fs.css({'left': left});
+      previous_fs.css({'transform': 'scale('+scale+')', 'opacity': opacity});
+    }, 
+    duration: 800, 
+    complete: function(){
+      current_fs.hide();
+      animating = false;
+    }, 
+    //this comes from the custom easing plugin
+    easing: 'easeInOutBack'
+  });
+  });
+
+  $(".submit").click(function(){
+  return false;
+  })
+
+  </script>
+    
+    <title>Profile Dancer</title>
+</head>
+<body>
+    <!-- multistep form -->
+  <form id="msform">
+    <!-- progressbar -->
+    <ul id="progressbar">
+    <li class="active">Genre</li>
+    <li >Lesson Purpose</li>
+    <li >Lesson Type</li>
+    <li >Lesson Day</li>
+    <li >Lesson Time</li>
+    <li >Age</li>
+    <li> Sex</li>
+    <li> Workplace</li>
+    <li> Youtube links</li>
+    <li>Contact</li>
+    </ul>
+    <!-- fieldsets -->
+    <fieldset>
+      <h2 class="fs-title">Genre</h2>
+      <h3 class="fs-subtitle">Select 3 genres you are expert in</h3>
+      <select>
+    <option value="K_Pop">K_Pop</option>
+    <option value="Hip_Hop">Hip_Hop</option>
+    <option value="Girlish">Girlish</option>
+    <option value="Girls_HipHop">Girls_HipHop</option>
+    <option value="Girls_HipHop">Girls_HipHop</option>
+    <option value="Poppin">Poppin</option>
+    <option value="Locking">Locking</option>
+    <option value="House">House</option>
+    <option value="Breaking">Breaking</option>
+    <option value="Ballet">Ballet</option>
+    <option value="Korea_Dance">Korea_Dance(한국무용)</option>
+    <option value="Modern_Dance">Modern_Dance(현대무용)</option>
+    <option value="Choreography">Choreography</option>
+    <option value="Salsa">Salsa</option>
+    <option value="Dance_Sports">Dance_Sports</option>
+    <option value="Etc">Etc( 그외 )</option>
+  </select>
+    </br>
+    <select>
+      <option value="K_Pop">K_Pop</option>
+      <option value="Hip_Hop">Hip_Hop</option>
+      <option value="Girlish">Girlish</option>
+      <option value="Girls_HipHop">Girls_HipHop</option>
+      <option value="Girls_HipHop">Girls_HipHop</option>
+      <option value="Poppin">Poppin</option>
+      <option value="Locking">Locking</option>
+      <option value="House">House</option>
+      <option value="Breaking">Breaking</option>
+      <option value="Ballet">Ballet</option>
+      <option value="Korea_Dance">Korea_Dance(한국무용)</option>
+      <option value="Modern_Dance">Modern_Dance(현대무용)</option>
+      <option value="Choreography">Choreography</option>
+      <option value="Salsa">Salsa</option>
+      <option value="Dance_Sports">Dance_Sports</option>
+      <option value="Etc">Etc( 그외 )</option>
+    </select>
+      </br>
+      <select>
+        <option value="K_Pop">K_Pop</option>
+        <option value="Hip_Hop">Hip_Hop</option>
+        <option value="Girlish">Girlish</option>
+        <option value="Girls_HipHop">Girls_HipHop</option>
+        <option value="Girls_HipHop">Girls_HipHop</option>
+        <option value="Poppin">Poppin</option>
+        <option value="Locking">Locking</option>
+        <option value="House">House</option>
+        <option value="Breaking">Breaking</option>
+        <option value="Ballet">Ballet</option>
+        <option value="Korea_Dance">Korea_Dance(한국무용)</option>
+        <option value="Modern_Dance">Modern_Dance(현대무용)</option>
+        <option value="Choreography">Choreography</option>
+        <option value="Salsa">Salsa</option>
+        <option value="Dance_Sports">Dance_Sports</option>
+        <option value="Etc">Etc( 그외 )</option>
+      </select>
+        </br>
+      <input type="button" name="next" class="next action-button" value="Next" />
+    </fieldset>
+    </fieldset>
+    <fieldset>
+      <h2 class="fs-title">Lesson Purpose</h2>
+      <h3 class="fs-subtitle">Purpose of Your Lesson</h3>
+      <input type="checkbox" name="chk_info" value="Hobby">Hobby ( 취미 )
+      <input type="checkbox" name="chk_info" value="Entrance">Entrance Examination ( 입시 준비 )
+      <input type="checkbox" name="chk_info" value="Audition">Audition( 오디션 준비 )
+      <input type="checkbox" name="chk_info" value="Etc">Etc ( 기타 )
+    </br>
+      <input type="button" name="previous" class="previous action-button" value="Previous" />
+      <input type="button" name="next" class="next action-button" value="Next" />
+    </fieldset>
+  <fieldset>
+      <h2 class="fs-title">Lesson Type</h2>
+      <h3 class="fs-subtitle">Type of your Lesson</h3>
+      <input type="checkbox" name="chk_info" value="Personal">Personal Lesson(개인레슨)
+      <input type="checkbox" name="chk_info" value="Group">Group Lesson( 그룹 레슨 )
+      <input type="checkbox" name="chk_info" value="Online">Online Lesson ( 온라인/화상 레슨 )
+      <input type="checkbox" name="chk_info" value="Academy"> 학원 (Academy)
+      <input type="checkbox" name="chk_info" value="All"> 무관 ( Doesn't matter )
+      <input type="checkbox" name="chk_info" value="Etc">Etc (기타)
+    </br>
+      <input type="button" name="previous" class="previous action-button" value="Previous" />
+      <input type="button" name="next" class="next action-button" value="Next" />
+    </fieldset>
+  <fieldset>
+      <h2 class="fs-title">Lesson Day</h2>
+      <h3 class="fs-subtitle">When could you provide Lesson?</h3>
+      <input type="checkbox" name="chk_info" value="Weekday"> Weekday(  평일 )
+      <input type="checkbox" name="chk_info" value="Weekends"> Weekends( 주말 )
+    </br>
+      <input type="button" name="previous" class="previous action-button" value="Previous" />
+      <input type="button" name="next" class="next action-button" value="Next" />
+    </fieldset>
+    <fieldset>
+      <h2 class="fs-title">Lesson Time</h2>
+      <h3 class="fs-subtitle">Which Time are you Available</h3>
+      <input type="checkbox" name="chk_info" value="Morning"> Morning ( ~ 12:00 pm )
+      <input type="checkbox" name="chk_info" value="Afternoon"> Afternoon ( 12:00 ~ 18:00 pm )
+      <input type="checkbox" name="chk_info" value="Night"> Night ( 18:00pm ~ )
+    </br>
+      <input type="button" name="previous" class="previous action-button" value="Previous" />
+      <input type="button" name="next" class="next action-button" value="Next" />
+    </fieldset>
+    <fieldset>
+      <h2 class="fs-title">Age</h2>
+      <h3 class="fs-subtitle"></h3>
+      <input type="number" name="quantity" min="10" max="80" placeholder="Age">
+    </br>
+      <input type="button" name="previous" class="previous action-button" value="Previous" />
+      <input type="button" name="next" class="next action-button" value="Next" />
+    </fieldset>
+    <fieldset>
+      <h2 class="fs-title">Sex</h2>
+      <h3 class="fs-subtitle"></h3>
+      <select>
+        <option value="M">Male</option>
+        <option value="F">Femal</option>
+        <option value="Etc">Etc</option>
+        </select>
+    </br>
+      <input type="button" name="previous" class="previous action-button" value="Previous" />
+      <input type="button" name="next" class="next action-button" value="Next" />
+    </fieldset>
+    <fieldset>
+      <h2 class="fs-title">WorkPlace</h2>
+      <h3 class="fs-subtitle">Freely write workplaces you worked in</h3>
+      <input type = "text" name = "Workplace"/>
+    </br>
+      <input type="button" name="previous" class="previous action-button" value="Previous" />
+      <input type="button" name="next" class="next action-button" value="Next" />
+    </fieldset>
+    <fieldset>
+      <h2 class="fs-title">Youtube links</h2>
+      <h3 class="fs-subtitle">Put in Youtube video link that introduces your dance</h3>
+      <h3 class="fs-subtitle">ex. https://www.youtube.com/watch?v=CTHo5LB7HY4</h3>
+      <input type = "text" name = "link"/>
+      <input type = "text" name = "link"/>
+      <input type = "text" name = "link"/>
+    </br>
+      <input type="button" name="previous" class="previous action-button" value="Previous" />
+      <input type="button" name="next" class="next action-button" value="Next" />
+    </fieldset>
+    <fieldset>
+      <h2 class="fs-title">Contact</h2>
+      <h3 class="fs-subtitle">Kakao Id, Instagram Id allowed</h3>
+      <input name="name" placeholder="Contact" class="name" required />
+      <input type="button" name="previous" class="previous action-button" value="Previous" />
+      <input type="submit" name="submit" class="submit action-button" value="Submit" />
+    </fieldset>
+  </form>
+  </form>
+
+
+</body>
+</html>

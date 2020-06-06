@@ -4,6 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Login</title>
+  <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   <script src="/../cssjs/all/bg.js" defer ></script>
   <link href = "/../cssjs/login/login.css" rel = "stylesheet"/>
@@ -18,12 +19,12 @@
     // 2. 입력사항 검사하기
     // 2.1 해당 요소 중 하나라도 입력하지 않았을 경우 alert를 띄운다
         if ( Email === '') {
-          alert('Please Enter Your email');
+          swal('Please Enter Your email');
           $('#email').focus();
             return ;
           } 
           if ( Password === '') {
-            alert('Please Enter Your password');
+            swal('Please Enter Your password');
             $('#password').focus();
             return ;
           } 
@@ -40,14 +41,14 @@
                 // 성공시
                 success : function(response){
                   if( response["message"] === 'NoUsername' ){
-                    alert('Check the Username')
+                    swal('Check the Username')
                     return ;
                     // 로그인 페이지로 이동시키기
                   }else if( response["message"] === 'NoPassword' ){
-                        alert('Check the Password')
+                        swal('Check the Password')
                         return;
                       }else if( response["message"] === 'success' ){
-                        alert('Login Success')
+                        swal('Login Success')
                         window.location.href = "http://localhost:4000/main"
                       }
                     }

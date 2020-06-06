@@ -11,6 +11,7 @@
 
   <title>Register</title>
 	<script type = "text/javaScript">
+	
 			function get_user(){
 			// 1. 데이터 입력하기 : name, email, username, password, confirm password
 			let K_name = $('#k_name').val();
@@ -76,6 +77,7 @@
 			$.ajax({
 				type: "POST",
 				url: '/api/users/register',
+
 				// name, email, username, password 정보 넘겨주기 
 				data: { 
 					k_name : K_name, 
@@ -85,15 +87,19 @@
 					username : Username , 
 					role: Role,
 				} ,
+
 				// 성공시
 				success : function(response){
 					// console.log('res',response['success'] )
 					if( response['success'] === 'true' ){
-						alert('Check your email and activate account')
+						alert('Registration Success')
 						window.location.replace( "http://localhost:4000/api/users/login");
 					}else if( response['success'] === 'emailexists'){
 						alert('Same username already Exist')
 						$('#username').focus();
+						return false;
+					}else if( response['success'] === 'Error in signup while saving user info'){
+						alert('Error in signup while saving user info, contact Us!!')
 						return false;
 					}
 				}

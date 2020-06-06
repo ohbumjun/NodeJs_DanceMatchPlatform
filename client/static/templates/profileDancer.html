@@ -98,71 +98,80 @@
     <fieldset>
       <h2 class="fs-title">Lesson Purpose</h2>
       <h3 class="fs-subtitle">Purpose of Your Lesson</h3>
-      <select>
-    <option value="a">Diabetes Type A</option>
-    <option value="b">Diabetes Type B</option>
-  </select>
+      <input type="checkbox" name="chk_info" value="Hobby">Hobby ( 취미 )
+      <input type="checkbox" name="chk_info" value="Entrance">Entrance Examination ( 입시 준비 )
+      <input type="checkbox" name="chk_info" value="Audition">Audition( 오디션 준비 )
+      <input type="checkbox" name="chk_info" value="Etc">Etc ( 기타 )
     </br>
       <input type="button" name="previous" class="previous action-button" value="Previous" />
       <input type="button" name="next" class="next action-button" value="Next" />
     </fieldset>
   <fieldset>
-      <h2 class="fs-title">Treament Type</h2>
-      <h3 class="fs-subtitle"></h3>
-      <select>
-    <option value="a">Insuline</option>
-    <option value="b">Oral Treament</option>
-  </select>
+      <h2 class="fs-title">Lesson Type</h2>
+      <h3 class="fs-subtitle">Type of your Lesson</h3>
+      <input type="checkbox" name="chk_info" value="Personal">Personal Lesson(개인레슨)
+      <input type="checkbox" name="chk_info" value="Group">Group Lesson( 그룹 레슨 )
+      <input type="checkbox" name="chk_info" value="Online">Online Lesson ( 온라인/화상 레슨 )
+      <input type="checkbox" name="chk_info" value="Academy"> 학원 (Academy)
+      <input type="checkbox" name="chk_info" value="All"> 무관 ( Doesn't matter )
+      <input type="checkbox" name="chk_info" value="Etc">Etc (기타)
     </br>
       <input type="button" name="previous" class="previous action-button" value="Previous" />
       <input type="button" name="next" class="next action-button" value="Next" />
     </fieldset>
   <fieldset>
-      <h2 class="fs-title">Average Fast Glucose</h2>
-      <h3 class="fs-subtitle"></h3>
-      <input type="number" name="quantity" min="30" max="50" placeholder="Average Fast Glucose?">
+      <h2 class="fs-title">Lesson Day</h2>
+      <h3 class="fs-subtitle">When could you provide Lesson?</h3>
+      <input type="checkbox" name="chk_info" value="Weekday"> Weekday(  평일 )
+      <input type="checkbox" name="chk_info" value="Weekends"> Weekends( 주말 )
     </br>
       <input type="button" name="previous" class="previous action-button" value="Previous" />
       <input type="button" name="next" class="next action-button" value="Next" />
     </fieldset>
     <fieldset>
-      <h2 class="fs-title">Average Fast Glucose</h2>
-      <h3 class="fs-subtitle"></h3>
-      <input type="number" name="quantity" min="30" max="50" placeholder="Average Fast Glucose?">
+      <h2 class="fs-title">Lesson Time</h2>
+      <h3 class="fs-subtitle">Which Time are you Available</h3>
+      <input type="checkbox" name="chk_info" value="Morning"> Morning ( ~ 12:00 pm )
+      <input type="checkbox" name="chk_info" value="Afternoon"> Afternoon ( 12:00 ~ 18:00 pm )
+      <input type="checkbox" name="chk_info" value="Night"> Night ( 18:00pm ~ )
     </br>
       <input type="button" name="previous" class="previous action-button" value="Previous" />
       <input type="button" name="next" class="next action-button" value="Next" />
     </fieldset>
     <fieldset>
-      <h2 class="fs-title">Average Fast Glucose</h2>
+      <h2 class="fs-title">Age</h2>
       <h3 class="fs-subtitle"></h3>
-      <input type="number" name="quantity" min="30" max="50" placeholder="Average Fast Glucose?">
+      <input type="number" name="quantity" min="10" max="80" placeholder="Age">
     </br>
       <input type="button" name="previous" class="previous action-button" value="Previous" />
       <input type="button" name="next" class="next action-button" value="Next" />
     </fieldset>
     <fieldset>
-      <h2 class="fs-title">Average Fast Glucose</h2>
+      <h2 class="fs-title">Sex</h2>
       <h3 class="fs-subtitle"></h3>
-      <input type="number" name="quantity" min="30" max="50" placeholder="Average Fast Glucose?">
+      <select>
+        <option value="M">Male</option>
+        <option value="F">Femal</option>
+        <option value="Etc">Etc</option>
+        </select>
     </br>
       <input type="button" name="previous" class="previous action-button" value="Previous" />
       <input type="button" name="next" class="next action-button" value="Next" />
     </fieldset>
     <fieldset>
-      <h2 class="fs-title">Average Fast Glucose</h2>
-      <h3 class="fs-subtitle"></h3>
-      <input type="number" name="quantity" min="30" max="50" placeholder="Average Fast Glucose?">
+      <h2 class="fs-title">WorkPlace</h2>
+      <h3 class="fs-subtitle">Freely write workplaces you worked in</h3>
+      <input type = "text" name = "Workplace"/>
     </br>
       <input type="button" name="previous" class="previous action-button" value="Previous" />
       <input type="button" name="next" class="next action-button" value="Next" />
     </fieldset>
     <fieldset>
-      <h2 class="fs-title">Details</h2>
-      <h3 class="fs-subtitle">HBA1C</h3>
+      <h2 class="fs-title">Contact</h2>
+      <h3 class="fs-subtitle">KakaoId, InstagramId allowed</h3>
       <input name="name" placeholder="HBAA1C" class="name" required />
       <input type="button" name="previous" class="previous action-button" value="Previous" />
-      <input type="submit" name="submit" class="submit action-button" value="Calculate" />
+      <input type="submit" name="submit" class="submit action-button" value="Submit" />
     </fieldset>
   </form>
 

@@ -91,6 +91,17 @@ body {
    color: #666;
    margin-bottom: 20px;
 }
+
+.fs-image{
+   width: 1px; 
+   height: 1px; 
+   padding: 0; 
+   margin: -1px; 
+   overflow: hidden; 
+   clip:rect(0,0,0,0); 
+   border: 0;
+
+}
 /*progressbar*/
 #progressbar {
    margin-bottom: 30px;

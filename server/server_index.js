@@ -1,27 +1,34 @@
 var express = require('express')
 var app = express();
 var bodyParser = require('body-parser')
+const config = require( './config/key' );
 const port = 4000
 const { auth } = require( './middleware/auth' );
-const jwt = require('jsonwebtoken');
 // 비밀번호 설정을 위한 코드. key.js 에서 가져온다
-const mongoose = require('mongoose')
+var mongoose = require('mongoose')
 const cookieParser = require( 'cookie-parser' );
 const path = require('path');
 const cors = require('cors');
-const config = require( './config/key' );
 require('dotenv').config();
-// mailgun, email account acivation
-const _ = require('lodash'); 
-const mailgun = require("mailgun-js");
-const DOMAIN = 'sandboxbb6bc74926b942a59d3a57aa4ef125cb.mailgun.org';
-const mg = mailgun({ apiKey: "dfdc195b79c8b6b34660247f60937e06-7fba8a4e-a6d4194a", domain: DOMAIN });
 app.set('view engine','ejs')
 app.set('views',path.join(__dirname,'../client/views'))
 // css, js 파일들 적용
 app.use(express.static(__dirname +'/../client/static'))
 
 // DB 연결코드
+
+// mongoose.connect( config.mongoURI , {
+//     useNewUrlParser : true ,
+//     useUnifiedTopology : true ,
+//     useCreateIndex : true,
+//     useFindAndModify : false
+//     // 아래 코드는 연결ㄹ이 잘 됐는지 안됐는지 확인하기 
+// }).then( () => console.log("MongoDB Connected... ")).catch( err => console.log( err ))
+
+// var connection = mongoose.connection;
+// connection.on('error', console.error.bind(console, 'connection error:'));
+
+
 // bodyParser: client가 보낸 정보를 Server가 받게 한다
 app.use(express.json());
 app.use(cors());
@@ -46,18 +53,6 @@ app.use(function(req, res, next) {
     }
 });
 
-
-// 1) DB 접속
-mongoose.connect( config.mongoURI , {
-    useNewUrlParser : true ,
-    useUnifiedTopology : true ,
-    useCreateIndex : true,
-    useFindAndModify : false
-    // 아래 코드는 연결ㄹ이 잘 됐는지 안됐는지 확인하기 
-}).then( () => console.log("MongoDB Connected... ")).catch( err => console.log( err ))
-
-var connection = mongoose.connection;
-connection.on('error', console.error.bind(console, 'connection error:'));
 // 2) Router 들 
 // root, main, 검색
 const root = require('./router/base.js');
@@ -71,15 +66,15 @@ app.use( register)
 const activeAccount = require('./router/activateAccount.js');
 app.use( activeAccount)
 
-// login route
+// Login route
 const login = require('./router/login.js');
 app.use( login)
 
-// logout route
+// Logout route
 const logout = require('./router/logout.js');
 app.use( logout )
 
-// passwordFind route
+// Password Find route
 const forget = require('./router/forgetPassword.js');
 app.use( forget )
 
@@ -90,4 +85,3 @@ app.use( reset )
 // Profile Dancer, User Route
 const profile = require('./router/profile.js');
 app.use( profile )
-

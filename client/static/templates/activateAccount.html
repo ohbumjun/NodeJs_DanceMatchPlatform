@@ -25,7 +25,7 @@
                           // 성공시
                           success : function(response){
   
-                            console.log("response['register_who']",response['register_who'])
+    
   
                               if( response['result'] === "Incorrect or Expired Link" ){
                                   alert("Incorrect or Expired Link, Signup again")
@@ -38,6 +38,7 @@
                               }else if( response['success'] === 'true'){
                                   alert("Registration Success")
                                   var register_who= response['register_who']
+                                  var token = response['token']
                                   window.location.replace("http://localhost:4000/api/users/"+register_who); 
                               }
                           }

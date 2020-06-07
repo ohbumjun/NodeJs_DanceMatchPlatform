@@ -47,6 +47,7 @@ router.post('/api/users/login', function(req,res){
                     }
                     // 토큰을 저장한다. 이번에는 쿠키에 저장한다 . x_auth 라는 이름으로
                     console.log("Login Success")
+                    console.log('login token',user.token)
                     return res.cookie("x_auth" , user.token).status(200).json( { 
                         loginSuccess : true , 
                         userId : user._id ,

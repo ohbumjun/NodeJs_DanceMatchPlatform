@@ -83,7 +83,4 @@ const DancerSchema = mongoose.Schema({
         type : String,
         default :''
     }
-
-
-
 })

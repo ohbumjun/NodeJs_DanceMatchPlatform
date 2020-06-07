@@ -247,6 +247,7 @@ app.post('/api/users/login', function(req,res){
                 // generateToken이라는 method는 User.js 에 넣는다
                 user.generateToken( (err, user) => {
                     if(err) {
+                        console.log('err',err)
                         console.log("Token not made")
                         return res.status(400).send(err);
                     }

@@ -8,7 +8,6 @@
   <link href = "/../cssjs/activeAccount/activeAccount.css" rel = "stylesheet"/>
 
   <title>activateAccount</title>
-
   <script src="//code.jquery.com/jquery-3.3.1.min.js"></script>
   <script type = "text/javaScript">
     function account(){
@@ -25,32 +24,47 @@
                           success : function(response){
   
                         if( response['result'] === "LinkError" ){
-                            swal("Incorrect or Expired Link, Signup again")
+                            swal({
+                              title : 'Link Error',
+                              text : "Incorrect or Expired Link, Signup again",
+                              icon : 'warning'
+                            })
                             setTimeout(() => {
                               window.location.replace("http://localhost:4000/api/users/register");
                             }, 3000);
                               
                           // 로그인 페이지로 이동시키기
                           }else if( response['result'] === "User with this email already exist" ){
-                              swal('User with this email already exist, Reregister')
+                              swal({
+                                title : 'Email Error',
+                                text : 'User with this email already exist, Reregister',
+                                icon : 'warning'
+                              })
                               setTimeout(() => {
                               window.location.replace("http://localhost:4000/api/users/register");
                             }, 2000);
                           }else if( response['result'] === "no token" ){
-                              swal('Something went wrong. Reregister or Contact us')
+                              swal({
+                                title : "Retrial",
+                                text : 'Something went wrong. Reregister or Contact us',
+                                icon :'warning'
+                              })
                               setTimeout(() => {
                               window.location.replace("http://localhost:4000/api/users/register");
                             }, 2000);
 
                           }else if( response['success'] === 'true'){
-                              swal("Registration Success. Please write in your specific profiles")
+                              swal({ 
+                                title : 'Success',
+                                text : "Registration Success. Please write in your specific profiles",
+                                icon : 'success' })
                               var register_who= response['register_who']
                               var token = response['token']
 
                               setTimeout(() => {
                                 window.location.replace("http://localhost:4000/api/users/"+register_who); 
                               }, 3000);
-                          }
+                            }
                           }
                       })
                   } // function get_user

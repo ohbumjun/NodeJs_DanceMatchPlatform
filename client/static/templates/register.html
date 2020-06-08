@@ -10,8 +10,7 @@
   <link href = "/../cssjs/register/register.css" rel = "stylesheet"/>
 
   <title>Register</title>
-	<script type = "text/javaScript">
-	
+  <script type = "text/javaScript">
 		function get_user(){
 		// 1. 데이터 입력하기 : name, email, username, password, confirm password
 
@@ -33,40 +32,46 @@
 				return ;
 			} 
 			if ( Email === '') {
-				swal('Please Enter Your Email',
-				icon : 'info');
+				swal({
+				text : 'Please Enter Your Email',
+				icon : 'info'});
 				$('#email').focus();
 				return ;
 			} 
 			if ( Username === '') {
-				swal('Please Enter Your Username',
-				icon : 'info');
+				swal({
+				text : 'Please Enter Your Username',
+				icon : 'info'});
 				$('#username').focus();
 				return ;
 			} 
 			if ( Password === ''){
-				swal("Please Enter Your Password",
-				icon : 'info');
+				swal({
+				text :"Please Enter Your Password",
+				icon : 'info'});
 				$('#password').focus();
 				return ;
 			} 
 			if ( Confirmpassword === ''){
-				swal("Please Enter Your ConfirmPassword",
-				icon : 'info');
+				swal({
+				text : "Please Enter Your ConfirmPassword",
+				icon : 'info'});
 				$('#confirmpassword').focus();
 				return ;
 			}
 			if ( Role === ''){
-				swal("Please Enter Your Role",
-				icon : 'info');
+				swal({
+				text: "Please Enter Your Role",
+				icon : 'info'});
 				$('#role').focus();
 				return ;
 			}
 			if( Confirmpassword !==  Password){
 				console.log('Password',Password)
 				console.log('Confirmpassword',Confirmpassword)
-				swal("Check the ConfirmPassword Again",
-				icon : 'info');
+				swal({
+				text : "Check the ConfirmPassword Again",
+				icon : 'info'});
 				$('#confirmpassword').focus();
 				return ;
 			}
@@ -77,8 +82,9 @@
 		// 2.2 입력내용을 검사한다 
 			// 1) English Name의 길이를 검사한다
 			if( E_name.length < 1 || E_name.length > 50){
-				swal("Name should be written in 1 ~ 50 words",
-				icon : 'info')
+				swal({
+				text : "Name should be written in 1 ~ 50 words",
+				icon : 'info'})
 			}
 			// 2) Password 를 검사한다 
 			check(Password)
@@ -100,22 +106,26 @@
 			success : function(response){
 				// console.log('res',response['success'] )
 				if( response['success'] === 'true' ){
-					swal('We sent the Authentication Message to your Email. Please Go to your email and follow the instructions',
-				icon : 'success')
+					swal({
+					text :'We sent the Authentication Message to your Email. Please Go to your email and follow the instructions',
+				icon : 'success'})
 					// window.location.replace( "http://localhost:4000/api/users/activateAccount.html");
 				}else if( response['success'] === 'emailexists'){
-					swal('Same email already Exist',
-				icon : 'info')
+					swal({
+					text :'Same email already Exist',
+				icon : 'info'})
 					$('#email').focus();
 					return false;
 				}else if( response['success'] === 'usernameexists'){
-					swal('Same username already Exist',
-				icon : 'info')
+					swal({
+					text : 'Same username already Exist',
+					icon : 'info'})
 					$('#username').focus();
 					return false;
 				}else if( response['success'] === 'Error in signup while saving user info'){
-					swal('Error in signup while saving user info, contact Us!!',
-				icon : 'info')
+					swal({
+					text : 'Error in signup while saving user info, contact Us!!',
+					icon : 'info'})
 					return false;
 				}
 			}

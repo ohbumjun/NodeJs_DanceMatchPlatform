@@ -26,7 +26,7 @@ router.post('/api/users/activateAccount/:token', function( req , res){
                     // 20분후에 다시 token이 사라지기 때문에, 이 경우 아래의 메시지가 뜰 것이다 
                     console.log("Incorrect or Expired Link");
 
-                    return res.status(400).json( { "result" : "LinkError" });
+                    return res.status(200).json( { "result" : "LinkError" });
              }
             const { k_name, e_name , email, password ,  username, role } = decodedToken;
                 // 해당 이메일이 DB에 있는 확인하기
@@ -36,7 +36,7 @@ router.post('/api/users/activateAccount/:token', function( req , res){
                     User.findOne({ email }).exec( ( err , user ) => {
                         if(user){
                             console.log("user with this email already exist")
-                            return res.status(400).json( { 'result' : "User with this email already exist"});
+                            return res.status(200).json( { 'result' : "User with this email already exist"});
                         }
                         //user 혹은 dancer profile창으로 redirect하기 위한 get parameter
                         var reigster_who = 'profileUser'
@@ -53,7 +53,7 @@ router.post('/api/users/activateAccount/:token', function( req , res){
                     dancer.findOne({ email}).exec( ( err , user ) => {
                         if(user){
                             console.log("user with this email already exist")
-                            return res.status(400).json( { 'result' : "User with this email already exist"});
+                            return res.status(200).json( { 'result' : "User with this email already exist"});
                         }
                         //logout 때문에 token도 저장해줘야됨
     

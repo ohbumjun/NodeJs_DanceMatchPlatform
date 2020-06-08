@@ -24,6 +24,17 @@ body {
    font-family: montserrat, arial, verdana;
 }
 /*form styles*/
+
+.genre__all{
+   display:grid;
+   grid-template-columns: repeat(2,1fr);
+   padding: 1rem;
+   grid-auto-rows: 7vh;
+   color: gray;
+   font-weight: 500;
+   
+}
+
 #msform {
    width: 400px;
    margin: 50px auto;
@@ -93,14 +104,10 @@ body {
 }
 
 .fs-image{
-   width: 1px; 
-   height: 1px; 
-   padding: 0; 
-   margin: -1px; 
-   overflow: hidden; 
-   clip:rect(0,0,0,0); 
-   border: 0;
-
+   width: 80%; 
+   padding: 10px 20px; 
+   margin: 5px 0; 
+   box-sizing: border-box;
 }
 /*progressbar*/
 #progressbar {

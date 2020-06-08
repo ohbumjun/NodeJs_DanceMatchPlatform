@@ -14,7 +14,7 @@
             <div class="header-left">Connect2Dance</div>
             <div class="header-right">
                     <% if(login) { %>
-                <div class="menu">My Page</div>
+                <div class="menu"><a href="/api/users/mypage">My Page</a></div>
                 <div class="menu"><a href="/api/users/logout">Logout</a></div>
                 <% }
                  else{ %>
@@ -32,7 +32,7 @@
         <div class="dropdown hide">
             <div class='close my-page'>X</div>
             <% if(login) { %>
-            <div class="my-page">My Page</div>
+            <div class="my-page"><a href="/api/users/mypage">My Page</a></div>
             <div class="my-page"><a href="/api/users/logout">Logout</a></div>
             <% }
             else{ %>

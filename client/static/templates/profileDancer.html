@@ -6,12 +6,126 @@
     <meta name = "viewport" content="width=device-width, initial-scale=1.0">
     <script src="/../cssjs/profile/profileDancer.js" defer ></script>
     <link href = "/../cssjs/profile/profile.css" rel = "stylesheet"/>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     <link href ='https://fonts.googleapis.com/css?family=Open+Sans:400,300,700' rel='stylesheet' type='text/css'>
     <script src = "https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"> </script>
     <script src='http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.5/jquery-ui.min.js'></script>
-  
+    
     <title>Profile Dancer</title>
+     
+    <script type = "text/javaScript">
+  
+    // DB 에 저장하는 코드 
+
+    function put_dancer(){
+
+        // Genre 넣기 
+        var GenreValues = [];
+        $("input[class='genre']:checked").each(function(i){
+          GenreValues.push($(this).val())
+        })
+
+        var L_PurposeValues = [];
+        $("input[class='L_Purpose']:checked").each(function(i){
+          L_PurposeValues.push($(this).val())
+        })
+
+        var L_TypeValues = [];
+        $("input[class='L_Type']:checked").each(function(i){
+          L_TypeValues.push($(this).val())
+        })
+
+        var L_DayValues = [];
+        $("input[class='L_Day']:checked").each(function(i){
+          L_DayValues.push($(this).val())
+        })
+
+        var L_TimeValues = [];
+        $("input[class='L_Time']:checked").each(function(i){
+          L_TimeValues.push($(this).val())
+        })
+
+        var L_TimeValues = [];
+        $("input[class='L_Time']:checked").each(function(i){
+          L_TimeValues.push($(this).val())
+        })
+
+        let Age = $('#Age').val();
+
+        let Sex = $('#Sex').val();
+
+        let Img = $('#Img').val();
+
+        let Workplace = $('#Workplace').val();
+
+        var LinkValues = [];
+        $("input[class='link']:checked").each(function(i){
+          LinkValues.push($(this).val())
+        })
+
+        let Contact = $('.Contact').val();
+
+        // 3. POST에 저장을 요청한다 
+        $.ajax({
+            type: "POST",
+            url: '/api/users/profileDancer',
+            data: { 
+                genre : GenreValues,
+                Lesson_Purpose : L_PurposeValues, 
+                Lesson_Type : L_TypeValues, 
+                Lesson_Day : L_DayValues, 
+                Lesson_Time : L_TimeValues , 
+                Age: Age ,
+                Sex: Sex ,
+                Image : Img,
+                Workplace: Workplace,
+                Youtube_Link: LinkValues,
+                Contact: Contact
+            } ,
+          // 성공시
+          success : function(response){
+              // console.log('res',response['success'] )
+              if( response['success'] === 'true' ){
+                  swal({
+                    title : 'Registration Success',
+                    text : 'Registration Success. Login And Enjoy Our services',
+                    icon : 'success'})
+                  setTimeout(() => {
+                    window.location.replace( "http://localhost:4000/api/users/login");
+                  }, 1500);
+              }else if( response['result'] === '"Incorrect or Expired Link"'){
+                  swal({
+                    title : "Link Error" ,
+                    text : "Incorrect or Expired Link. Reregister",
+                    icon : 'Warning'})
+                  alert("Incorrect or Expired Link. Reregister")
+                  setTimeout(() => {
+                    window.location.replace( "http://localhost:4000/api/users/register");
+                  }, 1500);
+                  return false;
+              }else if( response['result'] === 'Error saving Dancer'){
+                  swal({
+                    title: 'Retry',
+                    text : 'Strange Error Happened. Retry or Contact us',
+                    icon : 'warning'})
+                  alert('Strange Error Happened. Retry or Contact us')
+                  $('#email').focus();
+                  return false;
+              }else if( response['success'] === 'Error in signup while saving user info'){
+                  swal({
+                    title: 'Save Error',
+                    text : 'Error in signup while saving user info, contact Us!!',
+                    icon :'warning'}
+                    )
+                  return false;
+              }
+            }
+          })
+        } // function get_dancer
+
+  </script>
 </head>
+
 <body>
     <!-- multistep form -->
   <div id="msform">
@@ -24,7 +138,6 @@
     <li >Lesson Time</li>
     <li >Age</li>
     <li> Sex</li>
-    <li> Image</li>
     <li> Workplace</li>
     <li> Youtube links</li>
     <li>Contact</li>
@@ -32,64 +145,25 @@
     <!-- fieldsets -->
     <fieldset>
       <h2 class="fs-title">Genre</h2>
-      <h3 class="fs-subtitle">Select 3 genres you are expert in</h3>
-      <select class = "genre">
-    <option value="K_Pop">K_Pop</option>
-    <option value="Hip_Hop">Hip_Hop</option>
-    <option value="Girlish">Girlish</option>
-    <option value="Girls_HipHop">Girls_HipHop</option>
-    <option value="Girls_HipHop">Girls_HipHop</option>
-    <option value="Poppin">Poppin</option>
-    <option value="Locking">Locking</option>
-    <option value="House">House</option>
-    <option value="Breaking">Breaking</option>
-    <option value="Ballet">Ballet</option>
-    <option value="Korea_Dance">Korea_Dance(한국무용)</option>
-    <option value="Modern_Dance">Modern_Dance(현대무용)</option>
-    <option value="Choreography">Choreography</option>
-    <option value="Salsa">Salsa</option>
-    <option value="Dance_Sports">Dance_Sports</option>
-    <option value="Etc">Etc( 그외 )</option>
-  </select>
+      <h3 class="fs-subtitle">Select genres you are expert in</h3>
+      <div class="genre__all">
+        <div class = "genre__select"><input class = "genre" type="checkbox" value="K_Pop">K_Pop </div>
+        <div class = "genre__select"><input class = "genre" type="checkbox" value="Hip_Hop">Hip_Hop</div>
+        <div class = "genre__select"><input class = "genre" type="checkbox" value="Girlish">Girlish</div>
+        <div class = "genre__select"><input class = "genre" type="checkbox" value="Girls_HipHop">Girls_HipHop</div>
+        <div class = "genre__select"><input class = "genre" type="checkbox" value="Poppin">Poppin</div>
+        <div class = "genre__select"><input class = "genre" type="checkbox" value="Locking">Locking</div>
+        <div class = "genre__select"><input class = "genre" type="checkbox" value="House">House</div>
+        <div class = "genre__select"><input class = "genre" type="checkbox" value="Breaking">Breaking</div>
+        <div class = "genre__select"><input class = "genre" type="checkbox" value="Ballet">Ballet</div>
+        <div class = "genre__select"><input class = "genre" type="checkbox" value="Korea_Dance">Korea_Dance</div>
+        <div class = "genre__select"><input class = "genre" type="checkbox" value="Modern_Dance">Modern_Dance</div>
+        <div class = "genre__select"><input class = "genre" type="checkbox" value="Choreography">Choreography</div>
+        <div class = "genre__select"><input class = "genre" type="checkbox" value="Salsa">Salsa</div>
+        <div class = "genre__select"><input class = "genre" type="checkbox" value="Dance_Sports">Dance_Sports</div>
+        <div class = "genre__select"><input class = "genre" type="checkbox" value="Etc">Etc( 그 외 )</div>
+      </div>
     </br>
-    <select class = "genre">
-      <option value="K_Pop">K_Pop</option>
-      <option value="Hip_Hop">Hip_Hop</option>
-      <option value="Girlish">Girlish</option>
-      <option value="Girls_HipHop">Girls_HipHop</option>
-      <option value="Girls_HipHop">Girls_HipHop</option>
-      <option value="Poppin">Poppin</option>
-      <option value="Locking">Locking</option>
-      <option value="House">House</option>
-      <option value="Breaking">Breaking</option>
-      <option value="Ballet">Ballet</option>
-      <option value="Korea_Dance">Korea_Dance(한국무용)</option>
-      <option value="Modern_Dance">Modern_Dance(현대무용)</option>
-      <option value="Choreography">Choreography</option>
-      <option value="Salsa">Salsa</option>
-      <option value="Dance_Sports">Dance_Sports</option>
-      <option value="Etc">Etc( 그외 )</option>
-    </select>
-      </br>
-      <select class = "genre">
-        <option value="K_Pop">K_Pop</option>
-        <option value="Hip_Hop">Hip_Hop</option>
-        <option value="Girlish">Girlish</option>
-        <option value="Girls_HipHop">Girls_HipHop</option>
-        <option value="Girls_HipHop">Girls_HipHop</option>
-        <option value="Poppin">Poppin</option>
-        <option value="Locking">Locking</option>
-        <option value="House">House</option>
-        <option value="Breaking">Breaking</option>
-        <option value="Ballet">Ballet</option>
-        <option value="Korea_Dance">Korea_Dance(한국무용)</option>
-        <option value="Modern_Dance">Modern_Dance(현대무용)</option>
-        <option value="Choreography">Choreography</option>
-        <option value="Salsa">Salsa</option>
-        <option value="Dance_Sports">Dance_Sports</option>
-        <option value="Etc">Etc( 그외 )</option>
-      </select>
-        </br>
       <input type="button" name="next" class="next action-button" value="Next" />
     </fieldset>
     </fieldset>
@@ -110,9 +184,9 @@
       <input class = "L_Type" type="checkbox" name="chk_info" value="Personal">Personal Lesson(개인레슨)
       <input class = "L_Type" type="checkbox" name="chk_info" value="Group">Group Lesson( 그룹 레슨 )
       <input class = "L_Type" type="checkbox" name="chk_info" value="Online">Online Lesson ( 온라인/화상 레슨 )
-      <input class = "L_Type" type="checkbox" name="chk_info" value="Academy"> 학원 (Academy)
-      <input class = "L_Type" type="checkbox" name="chk_info" value="All"> 무관 ( Doesn't matter )
-      <input class = "L_Type" type="checkbox" name="chk_info" value="Etc">Etc (기타)
+      <input class = "L_Type" type="checkbox" name="chk_info" value="Academy"> Academy ( 학원 )
+      <input class = "L_Type" type="checkbox" name="chk_info" value="All"> Doesn't matter ( 무관 )
+      <input class = "L_Type" type="checkbox" name="chk_info" value="Etc">Etc ( 기타 )
     </br>
       <input type="button" name="previous" class="previous action-button" value="Previous" />
       <input type="button" name="next" class="next action-button" value="Next" />
@@ -138,7 +212,7 @@
     </fieldset>
     <fieldset>
       <h2 class="fs-title">Age</h2>
-      <h3 class="fs-subtitle"></h3>
+      <h3 class="fs-subtitle">Tell us your age</h3>
     </br>
     <select id = "Age">
       <option value="0s">
@@ -182,17 +256,7 @@
       <input type="button" name="previous" class="previous action-button" value="Previous" />
       <input type="button" name="next" class="next action-button" value="Next" />
     </fieldset>
-    <fieldset>
-      <h2 class="fs-title">Img</h2>
-      <h3 class="fs-subtitle">1) Upload your image Or 2) Put image link that shows you</h3>
-      <h4 class = "fs-subtitle">Upload your image</h4>
-      <input class = "fs-image" id = "Img" type = "file" value = "File Select"name = "Image" accept="image/png, image/jpeg"/>
-      <h4 class="fs-subtitle">Put your image link</h4>
-      <input id = "Img" type = "text" name = "Image"/>
-    </br>
-      <input type="button" name="previous" class="previous action-button" value="Previous" />
-      <input type="button" name="next" class="next action-button" value="Next" />
-    </fieldset>
+    
     <fieldset>
       <h2 class="fs-title">WorkPlace</h2>
       <h3 class="fs-subtitle">Freely write workplaces you worked in</h3>
@@ -217,10 +281,11 @@
       <h3 class="fs-subtitle">Kakao Id, Instagram Id allowed</h3>
       <input name="name" placeholder="Contact" class="Contact" required />
       <input type="button" name="previous" class="previous action-button" value="Previous" />
-      <input onclick = "get_dancer()" type="submit" name="submit" class="submit action-button" value="Submit" />
+      <input onclick = "put_dancer()" type="submit" name="submit" class="submit action-button" value="Submit" />
+    </br>
+      <p class="login__signup">Don't have an account? &nbsp;<a class="login__reregister" href = "/api/users/register">Sign up</a></p>
     </fieldset>
   </div>
-
 
 </body>
 </html>

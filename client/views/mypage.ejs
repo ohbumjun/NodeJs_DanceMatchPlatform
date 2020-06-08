@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link href = "../../cssjs/mypage.css" rel = "stylesheet"/>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+    <title>Document</title>
+</head>
+<body>
+      <div class="container">
+            <div id="logo"><h1 class="logo">hulu</h1>
+      </div>
+            <div class="leftbox">
+              <nav>
+                <a id="profile" class="active"><i class="fa fa-user"></i></a>
+                <a id="payment"><i class="fa fa-credit-card"></i></a>
+                <a id="subscription"><i class="fa fa-tv"></i></a>
+                <a id="privacy"><i class="fa fa-tasks"></i></a>
+                <a id="settings"><i class="fa fa-cog"></i></a>
+              </nav>
+            </div>
+            <div class="rightbox">
+              <div class="profile">
+                <h1>Personal Info</h1>
+                <h2>English Name</h2>
+                <p><input type="text" name="e_name" value="<%= e_name %>"> <button class="btn">update</button></p>
+                <h2>Korean Name</h2>
+                <p><input type="text" name="k_name" value="<%= k_name %>"> <button class="btn">update</button></p>
+                <h2>Gender</h2>
+                <p>                
+                    <select id="gender" name="gender">
+                        <%
+                        var options = [ "F", "M"];
+                        for ( var i = 0; i < options.length; i++ )
+                        {
+                            var selected = ( gender === i ) ? "selected" : "";
+                            %><option value="<%=options[ i ] %>" selected><%=options[ i ]%></option><%
+                        }
+                        %>
+                    </select> <button class="btn">update</button></p>
+                <h2>Place</h2>
+                <p><input type="text" name="place" value="<%= place %>"> <button class="btn">update</button></p>
+                <h2>Genre</h2>
+                <p>
+                  <select id="genre" name="genre">
+                      <option value="K_Pop">K_Pop</option>
+                      <option value="Hip_Hop">Hip_Hop</option>
+                      <option value="Girlish">Girlish</option>
+                      <option value="Girls_HipHop">Girls_HipHop</option>
+                      <option value="Girls_HipHop">Girls_HipHop</option>
+                      <option value="Poppin">Poppin</option>
+                      <option value="Locking">Locking</option>
+                      <option value="House">House</option>
+                      <option value="Breaking">Breaking</option>
+                      <option value="Ballet">Ballet</option>
+                      <option value="Korea_Dance">Korea_Dance(한국무용)</option>
+                      <option value="Modern_Dance">Modern_Dance(현대무용)</option>
+                      <option value="Choreography">Choreography</option>
+                      <option value="Salsa">Salsa</option>
+                      <option value="Dance_Sports">Dance_Sports</option>
+                      <option value="Etc">Etc( 그외 )</option>
+                </select>
+                <button class="btn">update</button></p>
+              </div>
+              
+              <div class="payment noshow">
+                <h1>Payment Info</h1>
+                <h2>Payment Method</h2>
+                <p>Mastercard •••• •••• •••• 0000 <button class="btn">update</button></p>
+                <h2>Billing Address</h2>
+                <p>1234 Example Ave | Seattle, WA <button class="btn">change</button></p>
+                <h2>Zipcode</h2>
+                <p>999000</p>
+                <h2>Billing History</h2>
+                <p>2018<button class="btn">view</button></p>
+                <h2>Redeem Gift Subscription </h2>
+                <p><input type="text" placeholder="Enter Gift Code" /> <button class="btn">Redeem</button></p>
+              </div>
+          
+              <div class="subscription noshow">
+                <h1>Your Subscription</h1>
+                <h2>Payment Date</h2>
+                <p>05-15-2018 <button class="btn">pay now</button></p>
+                <h2>Your Next Charge</h2>
+                <p>$8.48<span> includes tax</span></p>
+                <h2>Hulu Base Plan</h2>
+                <p>Limited Commercials <button class="btn">change plan</button></p>
+                <h2>Add-ons</h2>
+                <p>None <button class="btn">manage</button></p>
+                <h2>Monthly Recurring Total </h2>
+                <p>$7.99/month</p>
+              </div>
+          
+              <div class="privacy noshow">
+                <h1>Privacy Settings</h1>
+                <h2>Manage Email Notifications<button class="btn">manage</button></h2>
+                <p></p>
+                <h2>Manage Privacy Settings<button class="btn">manage</button></h2>
+                <p></p>
+                <h2>View Terms of Use <button class="btn">view</button></h2>
+                <p></p>
+                <h2>Personalize Ad Experience <button class="btn">update</button></h2>
+                <p></p>
+                <h2>Protect Your Account <button class="btn">protect</button></h2>
+                <p></p>
+              </div>
+           <div class="settings noshow">
+                <h1>Account Settings</h1>
+                <h2>Sync Watchlist to My Stuff<button class="btn">sync</button></h2>
+                <p></p>
+                <h2>Hold Your Subscription<button class="btn">hold</button></h2>
+                <p></p>
+                <h2>Cancel Your Subscription <button class="btn">cancel</button></h2>
+                <p></p>
+                <h2>Your Devices <button class="btn">Manage Devices</button></h2>
+                <p></p>
+                <h2>Referrals <button class="btn">get $10</button></h2>
+             <p></p>
+              </div>
+              
+            </div>
+          </div>
+
+          <script src="../../cssjs/mypage/mypage.js"></script> 
+</body>
+</html>
+
+  

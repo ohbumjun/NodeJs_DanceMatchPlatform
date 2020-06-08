@@ -3,7 +3,7 @@ var path = require('path');
 var app = express();
 var bodyParser = require('body-parser')
 const port = 4000
-const jwt = require('jsonwebtoken');
+
 // 비밀번호 설정을 위한 코드. key.js 에서 가져온다
 const mongoose = require('mongoose')
 const cookieParser = require( 'cookie-parser' );
@@ -247,6 +247,7 @@ app.post('/api/users/login', function(req,res){
                 // generateToken이라는 method는 User.js 에 넣는다
                 user.generateToken( (err, user) => {
                     if(err) {
+                        console.log('err',err)
                         console.log("Token not made")
                         return res.status(400).send(err);
                     }

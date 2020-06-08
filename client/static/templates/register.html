@@ -12,101 +12,115 @@
   <title>Register</title>
 	<script type = "text/javaScript">
 	
-			function get_user(){
-			// 1. 데이터 입력하기 : name, email, username, password, confirm password
-			let K_name = $('#k_name').val();
-			let E_name = $('#e_name').val();
-			let Email = $('#email').val();
-			let Username = $('#username').val();
-			let Password = $('#password').val();
-			let Confirmpassword = $('#confirmpassword').val();
-			let Role = $('#role').val();
+		function get_user(){
+		// 1. 데이터 입력하기 : name, email, username, password, confirm password
 
-			// 2. 입력사항 검사하기
-				// 2.1 해당 요소 중 하나라도 입력하지 않았을 경우 alert를 띄운다
-				if ( E_name === '') {
-					swal('Please Enter Your E_Name');
-					$('#e_name').focus();
-					return ;
-				} 
-				if ( Email === '') {
-					swal('Please Enter Your Email');
+		let K_name = $('#k_name').val();
+		let E_name = $('#e_name').val();
+		let Email = $('#email').val();
+		let Username = $('#username').val();
+		let Password = $('#password').val();
+		let Confirmpassword = $('#confirmpassword').val();
+		let Role = $('#role').val();
+
+		// 2. 입력사항 검사하기
+			// 2.1 해당 요소 중 하나라도 입력하지 않았을 경우 alert를 띄운다
+			if ( E_name === ''){
+				swal({
+				text:'Please Enter Your E_Name',
+				icon : 'info'});
+				$('#e_name').focus();
+				return ;
+			} 
+			if ( Email === '') {
+				swal('Please Enter Your Email',
+				icon : 'info');
+				$('#email').focus();
+				return ;
+			} 
+			if ( Username === '') {
+				swal('Please Enter Your Username',
+				icon : 'info');
+				$('#username').focus();
+				return ;
+			} 
+			if ( Password === ''){
+				swal("Please Enter Your Password",
+				icon : 'info');
+				$('#password').focus();
+				return ;
+			} 
+			if ( Confirmpassword === ''){
+				swal("Please Enter Your ConfirmPassword",
+				icon : 'info');
+				$('#confirmpassword').focus();
+				return ;
+			}
+			if ( Role === ''){
+				swal("Please Enter Your Role",
+				icon : 'info');
+				$('#role').focus();
+				return ;
+			}
+			if( Confirmpassword !==  Password){
+				console.log('Password',Password)
+				console.log('Confirmpassword',Confirmpassword)
+				swal("Check the ConfirmPassword Again",
+				icon : 'info');
+				$('#confirmpassword').focus();
+				return ;
+			}
+		// 입력 영어이름을 대문자로 바꾸기 
+		E_name = E_name.toUpperCase();
+		// Role을 Number 형태로 바꾸기
+		Role = Number(Role)
+		// 2.2 입력내용을 검사한다 
+			// 1) English Name의 길이를 검사한다
+			if( E_name.length < 1 || E_name.length > 50){
+				swal("Name should be written in 1 ~ 50 words",
+				icon : 'info')
+			}
+			// 2) Password 를 검사한다 
+			check(Password)
+		// 3. POST에 저장을 요청한다 
+		$.ajax({
+			type: "POST",
+			url: '/api/users/register',
+			// name, email, username, password 정보 넘겨주기 
+			data: { 
+				k_name : K_name, 
+				e_name : E_name, 
+				email : Email, 
+				password : Password, 
+				username : Username , 
+				role: Role
+			} ,
+
+			// 성공시
+			success : function(response){
+				// console.log('res',response['success'] )
+				if( response['success'] === 'true' ){
+					swal('We sent the Authentication Message to your Email. Please Go to your email and follow the instructions',
+				icon : 'success')
+					// window.location.replace( "http://localhost:4000/api/users/activateAccount.html");
+				}else if( response['success'] === 'emailexists'){
+					swal('Same email already Exist',
+				icon : 'info')
 					$('#email').focus();
-					return ;
-				} 
-				if ( Username === '') {
-					swal('Please Enter Your Username');
+					return false;
+				}else if( response['success'] === 'usernameexists'){
+					swal('Same username already Exist',
+				icon : 'info')
 					$('#username').focus();
-					return ;
-				} 
-				if ( Password === ''){
-					swal("Please Enter Your Password");
-					$('#password').focus();
-					return ;
-				} 
-				if ( Confirmpassword === ''){
-					swal("Please Enter Your ConfirmPassword");
-					$('#confirmpassword').focus();
-					return ;
+					return false;
+				}else if( response['success'] === 'Error in signup while saving user info'){
+					swal('Error in signup while saving user info, contact Us!!',
+				icon : 'info')
+					return false;
 				}
-				if ( Role === ''){
-					swal("Please Enter Your Role");
-					$('#role').focus();
-					return ;
-				}
-				if( Confirmpassword !==  Password){
-					console.log('Password',Password)
-					console.log('Confirmpassword',Confirmpassword)
-					swal("Check the ConfirmPassword Again");
-					$('#confirmpassword').focus();
-					return ;
-				}
-			// 입력 영어이름을 대문자로 바꾸기 
-			E_name = E_name.toUpperCase();
-			// Role을 Number 형태로 바꾸기
-			Role = Number(Role)
-			// 2.2 입력내용을 검사한다 
-				// 1) English Name의 길이를 검사한다
-				if( E_name.length < 1 || E_name.length > 50){
-					swal("Name should be written in 1 ~ 50 words")
-				}
-				// 2) Password 를 검사한다 
-				check(Password)
-			// 3. POST에 저장을 요청한다 
-			$.ajax({
-				type: "POST",
-				url: '/api/users/register',
-				// name, email, username, password 정보 넘겨주기 
-				data: { 
-					k_name : K_name, 
-					e_name : E_name, 
-					email : Email, 
-					password : Password, 
-					username : Username , 
-					role: Role
-				} ,
-
-				// 성공시
-				success : function(response){
-					// console.log('res',response['success'] )
-					if( response['success'] === 'true' ){
-						swal('We sent the Authentication Message to your Email. Please Go to your email and follow the instructions')
-						// window.location.replace( "http://localhost:4000/api/users/activateAccount.html");
-					}else if( response['success'] === 'emailexists'){
-						swal('Same email already Exist')
-						$('#email').focus();
-						return false;
-					}else if( response['success'] === 'usernameexists'){
-						swal('Same username already Exist')
-						$('#username').focus();
-						return false;
-					}else if( response['success'] === 'Error in signup while saving user info'){
-						swal('Error in signup while saving user info, contact Us!!')
-						return false;
-					}
-				}
-        	})
-		} // function get_user
+			}
+		})
+	} // function get_user
 
 		// 비밀번호 체크 함수
 		function check(password){
@@ -129,8 +143,6 @@
 				return true;
 		}
 		</script>
-
-    </script>
 
 </head>
 <body>
@@ -184,8 +196,8 @@
             </svg>
             <select class="login__input pass" name="role" id="role">
 				<option value='' selected>Choose Your Role</option>
-				<option value = '1' >User</option>
-				<option value = '0' >Dancer</option>
+				<option value = 1 >User</option>
+				<option value = 0 >Dancer</option>
 			</select>
 		  </div>
 		  
@@ -193,67 +205,8 @@
           <p class="login__signup">Already have an account? &nbsp;<a href = "/api/users/login">Login</a></p>
         </div>
       </div>
-      <div class="app">
-        <div class="app__top">
-          <div class="app__menu-btn">
-            <span></span>
-          </div>
-          <svg class="app__icon search svg-icon" viewBox="0 0 20 20">
-            <path d="M20,20 15.36,15.36 a9,9 0 0,1 -12.72,-12.72 a 9,9 0 0,1 12.72,12.72" />
-          </svg>
-          <p class="app__hello">Good Morning!</p>
-          <div class="app__user">
-            <!-- <img src="//s3-us-west-2.amazonaws.com/s.cdpn.io/142996/profile/profile-512_5.jpg" alt="" class="app__user-photo" /> -->
-            <span class="app__user-notif">3</span>
-          </div>
-          <div class="app__month">
-            <span class="app__month-btn left"></span>
-            <p class="app__month-name">March</p>
-            <span class="app__month-btn right"></span>
-          </div>
-        </div>
-        <div class="app__bot">
-          <div class="app__days">
-            <div class="app__day weekday">Sun</div>
-            <div class="app__day weekday">Mon</div>
-            <div class="app__day weekday">Tue</div>
-            <div class="app__day weekday">Wed</div>
-            <div class="app__day weekday">Thu</div>
-            <div class="app__day weekday">Fri</div>
-            <div class="app__day weekday">Sad</div>
-            <div class="app__day date">8</div>
-            <div class="app__day date">9</div>
-            <div class="app__day date">10</div>
-            <div class="app__day date">11</div>
-            <div class="app__day date">12</div>
-            <div class="app__day date">13</div>
-            <div class="app__day date">14</div>
-          </div>
-          <div class="app__meetings">
-            <div class="app__meeting">
-              <!-- <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/142996/profile/profile-80_5.jpg" alt="" class="app__meeting-photo" /> -->
-              <p class="app__meeting-name">Feed the cat</p>
-              <p class="app__meeting-info">
-                <span class="app__meeting-time">8 - 10am</span>
-                <span class="app__meeting-place">Real-life</span>
-              </p>
-            </div>
-            <div class="app__meeting">
-              <!-- <img src="//s3-us-west-2.amazonaws.com/s.cdpn.io/142996/profile/profile-512_5.jpg" alt="" class="app__meeting-photo" /> -->
-              <p class="app__meeting-name">Feed the cat!</p>
-              <p class="app__meeting-info">
-                <span class="app__meeting-time">1 - 3pm</span>
-                <span class="app__meeting-place">Real-life</span>
-              </p>
-            </div>
-            <div class="app__meeting">
-              <!-- <img src="//s3-us-west-2.amazonaws.com/s.cdpn.io/142996/profile/profile-512_5.jpg" alt="" class="app__meeting-photo" /> -->
-              <p class="app__meeting-name">FEED THIS CAT ALREADY!!!</p>
-              <p class="app__meeting-info">
-                <span class="app__meeting-time">This button is just for demo ></span>
-              </p>
-            </div>
-          </div>
+     
+          
         </div>
         <div class="app__logout">
           <svg class="app__logout-icon svg-icon" viewBox="0 0 20 20">

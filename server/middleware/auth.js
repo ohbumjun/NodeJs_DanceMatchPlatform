@@ -18,6 +18,7 @@ let auth = (req, res, next) => {
         // user 가 있다면
         req.token = token;
         req.user = user;
+        console.log('auth user id',req.user._id)
         next();
     })
 

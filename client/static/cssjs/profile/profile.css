@@ -24,6 +24,17 @@ body {
    font-family: montserrat, arial, verdana;
 }
 /*form styles*/
+
+.genre__all{
+   display:grid;
+   grid-template-columns: repeat(2,1fr);
+   padding: 1rem;
+   grid-auto-rows: 7vh;
+   color: gray;
+   font-weight: 500;
+   
+}
+
 #msform {
    width: 400px;
    margin: 50px auto;
@@ -90,6 +101,13 @@ body {
    font-size: 13px;
    color: #666;
    margin-bottom: 20px;
+}
+
+.fs-image{
+   width: 80%; 
+   padding: 10px 20px; 
+   margin: 5px 0; 
+   box-sizing: border-box;
 }
 /*progressbar*/
 #progressbar {

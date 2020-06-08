@@ -3,7 +3,7 @@ var path = require('path');
 var app = express();
 var bodyParser = require('body-parser')
 const port = 4000
-const jwt = require('jsonwebtoken');
+
 // 비밀번호 설정을 위한 코드. key.js 에서 가져온다
 const mongoose = require('mongoose')
 const cookieParser = require( 'cookie-parser' );

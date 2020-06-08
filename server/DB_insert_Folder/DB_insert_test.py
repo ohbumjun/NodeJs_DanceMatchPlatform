@@ -11,9 +11,9 @@ db = client_server.test
 
 app = Flask(__name__)
 
-db.dancer.drop();
+# db.dancer.drop();
 
-db.dancer.insert_many(
+db.dancers.insert_many(
     [{
         "name" : "SHAWN",
         "genre" : [ "Choreography", "Hip-Hop"],

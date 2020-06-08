@@ -8,6 +8,7 @@
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   <script src="/../cssjs/all/bg.js" defer ></script>
   <link href = "/../cssjs/login/login.css" rel = "stylesheet"/>
+
   <script type = "text/javaScript">
 
     function login(){
@@ -15,17 +16,26 @@
       // 1. 데이터 입력하기 : email,  password
     let Email = $('#email').val();
     let Password = $('#password').val();
+    let Role = $('#role').val();
 
     // 2. 입력사항 검사하기
     // 2.1 해당 요소 중 하나라도 입력하지 않았을 경우 alert를 띄운다
         if ( Email === '') {
-          swal('Please Enter Your email');
+          swal('Please Enter Your email',
+					icon : 'info');
           $('#email').focus();
             return ;
           } 
           if ( Password === '') {
-            swal('Please Enter Your password');
+            swal('Please Enter Your password',
+					icon : 'info');
             $('#password').focus();
+            return ;
+          } 
+          if ( Role === '') {
+            swal('Please Enter Your Role',
+					icon : 'info');
+            $('#role').focus();
             return ;
           } 
           // 3. POST에 저장을 요청한다 
@@ -36,26 +46,30 @@
                 data: { 
                   password : Password, 
                   email : Email , 
+                  role : Role
                 } ,
                 
                 // 성공시
                 success : function(response){
                   if( response["message"] === 'NoUsername' ){
-                    swal('Check the Username')
+                    swal('Check the Username',
+				          	icon : 'info')
                     return ;
                     // 로그인 페이지로 이동시키기
                   }else if( response["message"] === 'NoPassword' ){
-                        swal('Check the Password')
+                        swal('Check the Password',
+                        icon : 'info')
                         return;
                       }else if( response["message"] === 'success' ){
-                        swal('Login Success')
-                        window.location.href = "http://localhost:4000/main"
+                        swal('Login Success',
+				              	icon : 'success')
+                        setTimeout(() => {
+                          window.location.replace( "http://localhost:4000/main" );
+                        }, 1500);
                       }
                     }
                   })
         } // function get_user
-
-
         
         </script>
 
@@ -78,7 +92,17 @@
             </svg>
             <input id = "password" type="password" class="login__input pass" placeholder="Password"/>
           </div>
-          <button onclick = "login()" type="button" class="login__submit">Sign in</button>
+          <div class="login__row">
+            <svg class="login__icon pass svg-icon" viewBox="0 0 20 20">
+              <path d="M0,20 20,20 20,8 0,8z M10,13 10,16z M4,8 a6,8 0 0,1 12,0" />
+            </svg>
+            <select id = "Role" type="Role" class="login__role pass" placeholder="Status">
+              <option value='' selected>Choose Your Status</option>
+              <option value = 1 >User</option>
+              <option value = 0 >Dancer</option>
+              </select>
+          </div>
+          <button onclick = "login()" type="button" class="login__submit">Login</button>
           <p class="login__signup">Don't have an account? &nbsp;<a href = "/api/users/register">Sign up</a></p>
           <p class="login__signup">Forgot Password? &nbsp;<a href = "/api/users/forgetPassword">Find Password</a></p>
         </div>

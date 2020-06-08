@@ -125,7 +125,7 @@ input, button {
   
   &__form {
     position: absolute;
-    top: 50%;
+    top: 40%;
     left: 0;
     width: 100%;
     height: 50%;
@@ -160,16 +160,26 @@ input, button {
     width: 22rem;
     height: 100%;
     padding-left: 1.5rem;
+    font-size: 1.7rem;
+    background: transparent;
+    color: white;
+  }
+
+  &__role{
+    display: inline-block;
+    width: 22rem;
+    height: 100%;
+    padding-left: 1.5rem;
     font-size: 1.5rem;
     background: transparent;
-    color: #FDFCFD;
+    color: gray;
   }
   
   &__submit {
     position: relative;
     width: 100%;
     height: 4rem;
-    margin: 5rem 0 2.2rem;
+    margin: 4rem 0 2.2rem;
     color: black;
     background: lightgray;
     font-size: 1.5rem;
@@ -224,13 +234,21 @@ input, button {
   }
   
   &__signup {
-    font-size: 1.2rem;
+    font-size: 1.4rem;
     color: #ABA8AE;
+    margin-bottom: 0.6rem;
     
     a {
+      text-decoration: none;
       color: #fff;
       cursor: pointer;
     }
+  }
+
+  &__reregister{
+    text-decoration: none;
+    color: gray;
+    cursor: pointer;
   }
   
 }

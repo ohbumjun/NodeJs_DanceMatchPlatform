@@ -31,9 +31,33 @@ res.sendFile(path.join(__dirname + "/../../client/static/templates/profileUser.h
 });
 
 
+router.post('/profile/update_user',function(req,res)
+{
+
+    var x_auth = req.cookies.x_auth
+    //업데이트할 변수명
+    var name = req.body.name
+    //업데이트할 값
+    var value = req.body.value
+    console.log('name')
+    //x-auth token으로 찾아서 update
+    connection.db.collection("users", function(err, collection){
+        collection.updateOne({'token':x_auth},{$set:{[name]:value}}, //변수명을 mongoose column 명으로 사용하고 싶을 때 [name]->e_name
+        {upsert:true });
+        if(err)
+        {
+            console.log(err)
+            res.status(404)
+        }
+        var result='ok'
+        var respondData={'result':result}
+        res.json(respondData)
+})
+})
+
+
 router.get('/api/users/mypage', function( req , res){
 
-    
 var x_auth = req.cookies.x_auth
 console.log('x_auth',x_auth)
 
@@ -48,5 +72,4 @@ connection.db.collection("users", function(err, collection){
 });
 
 module.exports = router;
-
 

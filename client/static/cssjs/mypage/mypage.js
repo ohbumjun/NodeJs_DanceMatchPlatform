@@ -27,3 +27,50 @@ $('nav a').click(function(e) {
     $('.rightbox').children().not('.settings').addClass('noshow');
   }
 });
+
+var buttons = document.body.querySelectorAll("button");
+buttons.forEach(function(button)
+{
+    button.addEventListener('click',function(e)
+    {
+        var changed = e.currentTarget.parentNode.children[0]
+        changed.classList.toggle('changing')
+        console.log('changed',changed)
+      
+        var value = changed.value
+        var name = changed.name
+        var data = {'name':name,'value':value}
+        data = JSON.stringify(data);
+
+        var url='http://localhost:4000/profile/update_user'
+        
+        var xhr=new XMLHttpRequest()
+        xhr.open('POST',url);
+        xhr.setRequestHeader('Content-Type','application/json')
+        xhr.send(data)
+    
+        xhr.addEventListener('load',function()
+        {
+            var result = JSON.parse(xhr.responseText);
+            
+            if(result.result!=='ok'){
+              console.log('currenttarget',e.currentTarget)
+              return
+              }
+          
+          //changed가 call stack에서 빠지므로 즉시실행함수
+          (function (changed)
+          {
+          setTimeout(function()
+          {
+            changed.classList.toggle('changing')
+          },3000)
+          })(changed)
+
+        })
+
+        
+    })
+})
+
+

@@ -31,7 +31,7 @@ router.post('/api/users/activateAccount/:token', function( req , res){
             const { k_name, e_name , email, password ,  username, role } = decodedToken;
                 // 해당 이메일이 DB에 있는 확인하기
                 
-                if( role === 1){
+                if( role === '1'){
                     console.log("Registration process of 'User' is going on" );
                     User.findOne({ email }).exec( ( err , user ) => {
                         if(user){

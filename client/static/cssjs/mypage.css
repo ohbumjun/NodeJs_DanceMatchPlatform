@@ -16,6 +16,8 @@ body {
 }
 
 .logo {
+  position: relative;
+  z-index: 100;
   float: right;
   margin-right: 12px;
   margin-top: 12px;
@@ -24,6 +26,14 @@ body {
   font-weight: 900;
   font-size: 1.5em;
   letter-spacing: 1px;
+}
+
+.logo a {
+  text-decoration: none;
+}
+
+.logo i {
+  color: gray;
 }
 
 .leftbox {
@@ -78,7 +88,7 @@ nav a:first-child {
 
 .rightbox {
   float: right;
-  width: 60%;
+  width: 65%;
   height: 100%;
 }
 
@@ -193,13 +203,52 @@ footer a:hover {
           transform: all 1s ease-in;
 }
 
+label {
+  display: block;
+}
+
+#display-image {
+  height: 50%;
+  width: 70%;
+  border-radius: 30%;
+  margin: 1vh auto;
+  display: block;
+  margin-top: 8vh;
+}
+
+.container-btn {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+
+.btn-deactive {
+  display: none;
+}
+
 @media only screen and (max-width: 600px) {
+  html, body {
+    height: 100%;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+  }
   .container {
     width: 100vw;
     height: 128vh;
   }
   p {
-    width: 100%;
+    width: 90%;
+  }
+  select {
+    width: 60%;
   }
   .leftbox {
     left: 2%;

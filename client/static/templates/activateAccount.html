@@ -51,6 +51,21 @@
                                 window.location.replace("http://localhost:4000/api/users/"+register_who); 
                               }, 3000);
                           }
+                          },
+                          error : function(request, status, error ) {
+                            swal({
+                              title: "Time Expired",
+                              text: "Register Again",
+                              icon: "warning",
+                              buttons: true,
+                              dangerMode: true,
+                            })
+                            .then((willDelete) => {
+                              if (willDelete) {
+                                window.location.replace("http://localhost:4000/api/users/register"); 
+                              } 
+                            });
+                            
                           }
                       })
                   } // function get_user

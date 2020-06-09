@@ -67,28 +67,28 @@ var userSchema = mongoose.Schema({
 
     // 비밀번호찾기위한 데이터
     resetLink : {
-        data : String,
+        type : String,
         default : ''
     },
 
     age : {
-        data : String,
+        type : String,
         default : ''
     },
     place : {
-        data : String,
+        type : String,
         default : ''
     },
     gender : {
-        data : String,
+        type : String,
         default : ''
     },
     genre : {
-        data : [String],
-        default : []
+        type : Array,
+        default: []
     },
     contact:{
-        data : String,
+        type : String,
         default : ''
     }
 
@@ -138,14 +138,12 @@ userSchema.pre('save', function(next) {
 userSchema.methods.generateToken = function(cb){
 
     var user = this;
-    console.log('user',user)
-
     // jsonwebtoken을 이용해서 token 생성하기
     //jsonwebtoken이 담긴 jwt를 sign을 이용하여 합쳐주면 된다
     // 즉, user._id + 'secretToken' => token을 만들어주는 것이다. 그리고 나중에 token을 해석할 때, secretToken을 넣어주면, user._id가 나오게 된다. 즉, 이 사람이 누구인지를 알 수 있게 되는 것이다
     // 나중에 token을 해석할 때, secretToken을 넣어주면, user._id 가 나오는 것이다 ( 다른 말로 하면, token을 decode 하게 되면, user._id 가 나오게 되는 것이다 )
     var token = jwt.sign( user._id.toHexString() , 'accountactivatekey123')
-
+    user.token = token
     console.log('token',token)
     // 그리고 생성한 token을 userSchema의 token field에 넣어준다
     //user.token = token
@@ -155,7 +153,6 @@ userSchema.methods.generateToken = function(cb){
         if (err) {
             console.log("Something wrong when updating data!");
         }
-        console.log('doc',doc);
     });
     cb( null, user)
 

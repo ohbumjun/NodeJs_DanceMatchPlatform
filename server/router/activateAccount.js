@@ -34,12 +34,14 @@ router.post('/api/users/activateAccount/:token', function( req , res){
                 if( role === '1'){
                     console.log("Registration process of 'User' is going on" );
                     User.findOne({ email }).exec( ( err , user ) => {
+
+                        var reigster_who = 'profileUser'
                         if(user){
                             console.log("user with this email already exist")
-                            return res.status(400).json( { 'result' : "User with this email already exist"});
+                            return res.status(200).json( { 'reigster_who':reigster_who,'result' : "User with this email already exist"});
                         }
                         //user 혹은 dancer profile창으로 redirect하기 위한 get parameter
-                        var reigster_who = 'profileUser'
+                        
                         console.log("Signup Success . Your info is saved into cookie")
                         //user profile 정보 저장을 위해 token 저장
                         return res.cookie("x_auth" ,token).status(200).json({
@@ -51,14 +53,16 @@ router.post('/api/users/activateAccount/:token', function( req , res){
                 else{
                     // else: Dancer 일 경우 
                     dancer.findOne({ email}).exec( ( err , user ) => {
+
+                        var reigster_who = 'profileDancer'
                         if(user){
                             console.log("user with this email already exist")
-                            return res.status(400).json( { 'result' : "User with this email already exist"});
+                            return res.status(400).json( {'register_who':reigster_who, 'result' : "User with this email already exist"});
                         }
                         //logout 때문에 token도 저장해줘야됨
     
                         //user 혹은 dancer profile창으로 redirect하기 위한 get parameter
-                        var reigster_who = 'profileDancer'
+                        
 
                         console.log("Signup Success . Your info is saved into cookie")
 

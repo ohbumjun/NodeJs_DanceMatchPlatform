@@ -16,25 +16,27 @@
       // 1. 데이터 입력하기 : email,  password
     let Email = $('#email').val();
     let Password = $('#password').val();
-    let Role = $('#role').val();
+    let Role = $('#Role').val();
+
+    console.log('Role',Role)
 
     // 2. 입력사항 검사하기
     // 2.1 해당 요소 중 하나라도 입력하지 않았을 경우 alert를 띄운다
         if ( Email === '') {
-          swal('Please Enter Your email',
-					icon : 'info');
+          swal({text:'Please Enter Your email',
+					icon : 'info'});
           $('#email').focus();
             return ;
           } 
           if ( Password === '') {
-            swal('Please Enter Your password',
-					icon : 'info');
+            swal({text:'Please Enter Your password',
+					icon : 'info'});
             $('#password').focus();
             return ;
           } 
           if ( Role === '') {
-            swal('Please Enter Your Role',
-					icon : 'info');
+            swal({text:'Please Enter Your Role',
+					icon : 'info'});
             $('#role').focus();
             return ;
           } 
@@ -52,17 +54,22 @@
                 // 성공시
                 success : function(response){
                   if( response["message"] === 'NoUsername' ){
-                    swal('Check the Username',
-				          	icon : 'info')
+                    swal({text:'Check the Username',
+				          	icon : 'info'})
                     return ;
                     // 로그인 페이지로 이동시키기
                   }else if( response["message"] === 'NoPassword' ){
-                        swal('Check the Password',
-                        icon : 'info')
+                        swal({text:'Check the Password',
+                        icon : 'info'})
                         return;
-                      }else if( response["message"] === 'success' ){
-                        swal('Login Success',
-				              	icon : 'success')
+                      }else if( response["message"] === 'Noemail' ){
+                        swal({text:'Email doesn exist',
+                        icon : 'info'})
+                        return;
+                      }
+                      else if( response["message"] === 'success' ){
+                        swal({text:'Login Success',
+				              	icon : 'success'})
                         setTimeout(() => {
                           window.location.replace( "http://localhost:4000/main" );
                         }, 1500);

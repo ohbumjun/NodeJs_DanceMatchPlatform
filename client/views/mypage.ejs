@@ -7,32 +7,64 @@
     <link href = "../../cssjs/mypage.css" rel = "stylesheet"/>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
     <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+<!-- add to document <head> -->
+  <link href="https://unpkg.com/filepond/dist/filepond.css" rel="stylesheet">
+  <link href="https://unpkg.com/filepond-plugin-image-preview/dist/filepond-plugin-image-preview.css" rel="stylesheet">
+
+  <!-- add before </body> -->
+  <script src="https://unpkg.com/filepond-plugin-image-preview/dist/filepond-plugin-image-preview.js"></script>
+  <!-- add before </body> -->
+  <script src="https://unpkg.com/filepond/dist/filepond.js"></script>
+
     <title>Document</title>
 </head>
 <body>
       <div class="container">
-            <div id="logo"><h1 class="logo">hulu</h1>
+            <div id="logo"><h1 class="logo"><a href="/main"><i class="fa fa-home" aria-hidden="true"></i></a></h1>
       </div>
             <div class="leftbox">
               <nav>
                 <a id="profile" class="active"><i class="fa fa-user"></i></a>
+                <a id="privacy"><i class="fa fa-tasks"></i></a>
                 <a id="payment"><i class="fa fa-credit-card"></i></a>
                 <a id="subscription"><i class="fa fa-tv"></i></a>
-                <a id="privacy"><i class="fa fa-tasks"></i></a>
                 <a id="settings"><i class="fa fa-cog"></i></a>
               </nav>
             </div>
             <div class="rightbox">
               <div class="profile">
-                <h1>Personal Info</h1>
-                <h2>English Name</h2>
-                <p><input type="text" name="e_name" value="<%= e_name %>"> <button class="btn">update</button></p>
-                <h2>Korean Name</h2>
-                <p><input type="text" name="k_name" value="<%= k_name %>"> <button class="btn">update</button></p>
+                <div class="user-img">
+                    <img id="display-image" src="https://source.unsplash.com/random/1">
+                   <div class="container-btn">
+                    <button id='upload-btn'>
+                    <label for="upload">
+                      upload
+                     </label>
+                    </button>
+                    <button id='clear-btn' class="btn-deactive">
+                        Clear
+                      </button>
+                     <button id='submit-btn'>
+                        Submit
+                      </button>
+                    </div>
+                     <input type="file" name="image" id="upload" onChange="handleImageUpload()" style="display:none;"/>
+                
+
+                </div>
                 <h2>User Name</h2>
                 <p><input type="text" name="username" value="<%= username %>"> <button class="btn">update</button></p>
                 <h2>Email</h2>
                 <p><input type="text" name="age" value="<%= email %>"> <button class="btn">update</button></p>
+                <h2>Contact</h2>
+                <p><input type="text" name="contact" value="<%= contact %>"> <button class="btn">update</button></p>
+              </div>
+              <div class="privacy noshow">
+                <h1>Other Info</h1>
+                <h2>English Name</h2>
+                <p><input type="text" name="e_name" value="<%= e_name %>"> <button class="btn">update</button></p>
+                <h2>Korean Name</h2>
+                <p><input type="text" name="k_name" value="<%= k_name %>"> <button class="btn">update</button></p>
                 <h2>Age</h2>
                 <p>
                     <select name='age' id='age'>
@@ -204,19 +236,7 @@
                 <p>$7.99/month</p>
               </div>
           
-              <div class="privacy noshow">
-                <h1>Privacy Settings</h1>
-                <h2>Manage Email Notifications<button class="btn">manage</button></h2>
-                <p></p>
-                <h2>Manage Privacy Settings<button class="btn">manage</button></h2>
-                <p></p>
-                <h2>View Terms of Use <button class="btn">view</button></h2>
-                <p></p>
-                <h2>Personalize Ad Experience <button class="btn">update</button></h2>
-                <p></p>
-                <h2>Protect Your Account <button class="btn">protect</button></h2>
-                <p></p>
-              </div>
+             
            <div class="settings noshow">
                 <h1>Account Settings</h1>
                 <h2>Sync Watchlist to My Stuff<button class="btn">sync</button></h2>

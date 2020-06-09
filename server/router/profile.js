@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const path = require('path');
-const { dancer }   = require('../models/Dancer');
+const { Dancer }   = require('../models/Dancer');
 const { User }   = require('../models/User');
 const config = require( '../config/key' );
 var mongoose = require('mongoose');
@@ -28,21 +28,15 @@ router.get('/api/users/profileDancer', function( req , res){
 })
 
 router.post('/api/users/profileDancer', function( req , res){
-
     console.log("Dancer Server is working");
-
     connection.db.collection("dancer", function(err, collection){
 
         console.log("Dancer collection connected");
-
         if(err){
             console.log("Dancer Collection connection Error");
         }
-
         var token = req.cookies.x_auth;
-
         console.log("token brought");
-
         //token decoding
         jwt.verify(token, "accountactivatekey123", function( err, decodedToken){
             if(err){
@@ -71,7 +65,7 @@ router.post('/api/users/profileDancer', function( req , res){
                 console.log("new info brought from req.body")
 
                 setTimeout(function(){
-                    let newDancer =  new dancer( 
+                    let newDancer =  new Dancer( 
                         { 
                         k_name, 
                         e_name , 
@@ -125,7 +119,7 @@ router.get('/api/users/profileUser', function( req , res){
 res.sendFile(path.join(__dirname + "/../../client/static/templates/profileUser.html"))
 });
 
-router.post('/api/users/save_user_info',function(req,res){
+router.post('/api/users/profileUser',function(req,res){
     //x_auth 설정해주면서 main 창에서 로그인으로 인식됨
 
     var token = req.cookies.x_auth;
@@ -156,45 +150,7 @@ router.post('/api/users/save_user_info',function(req,res){
 })
 
 
-router.post('/profile/update_user',function(req,res)
-{
 
-    var x_auth = req.cookies.x_auth
-    //업데이트할 변수명
-    var name = req.body.name
-    //업데이트할 값
-    var value = req.body.value
-    console.log('name')
-    //x-auth token으로 찾아서 update
-    connection.db.collection("users", function(err, collection){
-        collection.updateOne({'token':x_auth},{$set:{[name]:value}}, //변수명을 mongoose column 명으로 사용하고 싶을 때 [name]->e_name
-        {upsert:true });
-        if(err)
-        {
-            console.log(err)
-            res.status(404)
-        }
-        var result='ok'
-        var respondData={'result':result}
-        res.json(respondData)
-})
-})
-
-
-router.get('/api/users/mypage', function( req , res){
-
-var x_auth = req.cookies.x_auth
-console.log('x_auth',x_auth)
-
-connection.db.collection("users", function(err, collection){
-    collection.find({token:x_auth}).toArray(function(err, data){
-        //검색 개수 보여주기
-    console.log(data[0])
-    res.render('mypage',data[0])
-    })   
-});
-
-});
 
 module.exports = router;
 

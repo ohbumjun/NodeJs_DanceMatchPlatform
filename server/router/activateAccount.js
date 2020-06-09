@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 const path = require('path');
 const { User } = require('../models/User')
-const { dancer } = require('../models/Dancer')
+const { Dancer } = require('../models/Dancer')
 const jwt = require('jsonwebtoken');
 const cookieParser = require( 'cookie-parser' );
 // auth 라는 middleware 을 가져온다 ( 인증처리 )
@@ -50,7 +50,7 @@ router.post('/api/users/activateAccount/:token', function( req , res){
                 }// if : user 일 경우
                 else{
                     // else: Dancer 일 경우 
-                    dancer.findOne({ email}).exec( ( err , user ) => {
+                    Dancer.findOne({ email}).exec( ( err , user ) => {
                         if(user){
                             console.log("user with this email already exist")
                             return res.status(200).json( { 'result' : "User with this email already exist"});

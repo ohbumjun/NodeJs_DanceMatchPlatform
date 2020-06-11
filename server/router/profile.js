@@ -97,6 +97,8 @@ router.post('/api/users/profileDancer', function( req , res){
 
                                 console.log("Dancer Profile Input Success")
 
+                                res.cookie("role" , newDancer.role).redirect('/main')
+
                                 return res.status(200).json({
 
                                     message : "Signup success", "success" : "true"
@@ -133,24 +135,79 @@ router.post('/api/users/profileUser',function(req,res){
      }
 
     const { k_name, e_name , email, password ,  username, role } = decodedToken;
-        User.findOneAndUpdate({email: email}, {$set:req.body},(err, doc) => {
-        if (err) {
-            console.log("Something wrong when updating data!");
+
+    var user_data = {'k_name':k_name,'e_name':e_name , 'email':email, 'password':password , 'username':username, 'role':role}
+    var user_total = Object.assign({}, user_data, req.body);
+    var user = new User(user_total);
+
+    user.save(function (err) {
+        if (err)
+        {
+            console.log(err)
         }
-    
-        console.log('doc',doc);
-    });
 
-    
+        user.generateToken( (err, user) => {
+            if(err) {
+                console.log("Token not made")
+                return res.status(400).send(err);
+            }
+        //active accoutn token 은 expire되므로 token바꿔줘야됨
+        res.cookie('x_auth',user.token)
+        res.cookie("role" , user.role).redirect('/main')
+        // saved!
+      });
     })
+})})
 
 
-    res.redirect('/main')
+<<<<<<< HEAD
 
+=======
+router.post('/profile/update_user',function(req,res)
+{
+
+    var x_auth = req.cookies.x_auth
+    //업데이트할 변수명
+    var name = req.body.name
+    //업데이트할 값
+    var value = req.body.value
+    console.log('name')
+    //x-auth token으로 찾아서 update
+    connection.db.collection("users", function(err, collection){
+        collection.updateOne({'token':x_auth},{$set:{[name]:value}}, //변수명을 mongoose column 명으로 사용하고 싶을 때 [name]->e_name
+        {upsert:true });
+        if(err)
+        {
+            console.log(err)
+            res.status(404)
+        }
+        var result='ok'
+        var respondData={'result':result}
+        res.json(respondData)
+})
 })
 
 
+router.get('/api/users/mypage', function( req , res){
 
+var x_auth = req.cookies.x_auth
+var role = req.cookies.role;
+
+//role이 user라면
+if(role==='1')
+{
+    connection.db.collection("users", function(err, collection){
+        collection.find({token:x_auth}).toArray(function(err, data){
+            //검색 개수 보여주기
+        console.log(data[0])
+        res.render('mypage',data[0])
+        })   
+    });
+}
+
+
+});
+>>>>>>> 1033aa2f1a0b59004c69914ce29a2859f968c8f2
 
 module.exports = router;
 

@@ -28,7 +28,7 @@ $('nav a').click(function(e) {
   }
 });
 
-var buttons = document.body.querySelectorAll("button");
+var buttons = document.body.querySelectorAll(".btn");
 buttons.forEach(function(button)
 {
     button.addEventListener('click',function(e)
@@ -74,3 +74,31 @@ buttons.forEach(function(button)
 })
 
 
+//user image preview
+
+
+var uplbtn = document.body.querySelector("#upload-btn")
+var clrbtn =document.body.querySelector("#clear-btn")
+
+function handleImageUpload() 
+{
+
+var image = document.getElementById("upload").files[0];
+
+    var reader = new FileReader();
+
+    reader.onload = function(e) {
+      document.getElementById("display-image").src = e.target.result;
+    }
+
+    reader.readAsDataURL(image);
+    uplbtn.classList.toggle('btn-deactive')
+    clrbtn.classList.toggle('btn-deactive')
+} 
+
+clrbtn.addEventListener('click',function(e){
+  var uplbtn = document.body.querySelector("#upload-btn")
+  e.currentTarget.classList.toggle('btn-deactive')
+  uplbtn.classList.toggle('btn-deactive')
+  document.getElementById("display-image").src= "https://source.unsplash.com/random/1"
+})

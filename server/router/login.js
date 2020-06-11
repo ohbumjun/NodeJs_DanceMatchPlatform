@@ -16,11 +16,26 @@ router.get('/bg.js ', function( req , res){
 })
 
 router.post('/api/users/login', function(req,res){
+<<<<<<< HEAD
     const { role } = req.body
     console.log("0th process: role is being checked ")
     console.log( `login process : role is ${role}`)
     // user 일 경우 
     if( role === 1){
+=======
+
+    
+    console.log('req.body',req.body)
+
+    const { role } = req.body
+
+    console.log('role',role)
+
+    // user 일 경우 
+    if( role === '1'){
+        console.log('here')
+
+>>>>>>> 1033aa2f1a0b59004c69914ce29a2859f968c8f2
         // 1. 요청된 email을 데이터베이스에서 있는지 찾는다 
             User.findOne( { email : req.body.email }, ( err , user ) => {
                 // 만일 우리가 요청한 email이 db 에 없다면, user는 Null 값이 될 것이다
@@ -54,6 +69,7 @@ router.post('/api/users/login', function(req,res){
                         // 토큰을 저장한다. 이번에는 쿠키에 저장한다 . x_auth 라는 이름으로
                         console.log("Login Success")
                         console.log('login token',user.token)
+                        res.cookie('role',user.role)
                         return res.cookie("x_auth" , user.token).status(200).json( { 
                             loginSuccess : true , 
                             userId : user._id ,
@@ -109,8 +125,15 @@ router.post('/api/users/login', function(req,res){
 
                                 // 토큰을 저장한다. 이번에는 쿠키에 저장한다 . x_auth 라는 이름으로
                                 console.log("Login Success")
+<<<<<<< HEAD
                                 console.log('login token',Dancer.token)
                                 return res.cookie("x_auth" , Dancer.token).status(200).json( { 
+=======
+                                console.log('login token',user.token)
+                                //multiple cookie setting을 위해서 send하기 전에 cookie 개별적으로 설정
+                                res.cookie('role',user.role)
+                                return res.cookie("x_auth" , user.token).status(200).json( { 
+>>>>>>> 1033aa2f1a0b59004c69914ce29a2859f968c8f2
                                     loginSuccess : true , 
                                     userId : Dancer._id ,
                                     message : "success"

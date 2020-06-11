@@ -90,6 +90,11 @@ var userSchema = mongoose.Schema({
     contact:{
         type : String,
         default : ''
+    },
+
+    profile_img:{
+        type : String,
+        default : ''
     }
 
 })

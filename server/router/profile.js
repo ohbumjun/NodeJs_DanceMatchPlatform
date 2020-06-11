@@ -6,6 +6,11 @@ const { User }   = require('../models/User');
 const config = require( '../config/key' );
 var mongoose = require('mongoose');
 const jwt = require('jsonwebtoken');
+const multer = require('multer');
+const GridFsStorage = require('multer-gridfs-storage');
+const Grid = require('gridfs-stream')
+const crypto=require('crypto')
+
 
 // 1) DB 접속
 mongoose.connect( config.mongoURI , {
@@ -14,10 +19,39 @@ mongoose.connect( config.mongoURI , {
     useCreateIndex : true,
     useFindAndModify : false
     // 아래 코드는 연결ㄹ이 잘 됐는지 안됐는지 확인하기 
-}).then( () => console.log("MongoDB Connected... ")).catch( err => console.log( err ))
+}).then( () => {
+console.log("MongoDB Connected... ")}).catch( err => console.log( err ))
 
+
+let gfs;
 var connection = mongoose.connection;
-connection.on('error', console.error.bind(console, 'connection error:'));
+connection.once('open',function(){
+    gfs = Grid(connection.db,mongoose.mongo)
+    gfs.collection('users')
+})
+//connection.on('error', console.error.bind(console, 'connection error:'));
+//initialize stream
+
+
+var storage = new GridFsStorage({
+    url: config.mongoURI,
+    file: (req, file) => {
+      return new Promise((resolve, reject) => {
+        crypto.randomBytes(16, (err, buf) => {
+          if (err) {
+            return reject(err);
+          }
+          const filename = buf.toString('hex') + path.extname(file.originalname);
+          const fileInfo = {
+            filename: filename,
+            bucketName: 'users'
+          };
+          resolve(fileInfo);
+        });
+      });
+    }
+  });
+  const upload = multer({ storage });
 
 // 9. profileDancer
 router.get('/api/users/profileDancer', function( req , res){
@@ -188,8 +222,52 @@ router.post('/profile/update_user',function(req,res)
 })
 
 
-router.get('/api/users/mypage', function( req , res){
 
+//gfs에 저장된 파일들 다 불러오기
+//안쓰는 router 지워도됨
+router.get('/files',(req,res)=>{
+    gfs.files.find().toArray((err,files)=>{
+        if(!files||files.length===0)
+        {
+            return res.status(404).json({err:'nofile'})
+        }
+        return res.json(files);
+    })
+})
+
+
+//image info json
+//안쓰는 router 지워도됨
+router.get('/files/:filename',(req,res)=>{
+    gfs.files.findOne({filename:req.params.filename},(err,file)=>{
+        if(!file||file.length===0)
+        {
+            return res.status(404).json({err:'nofile'})
+        }
+        return res.json(file);
+    })
+})
+
+//image get request
+router.get('/image/:filename',(req,res)=>{
+    gfs.files.findOne({filename:req.params.filename},(err,file)=>{
+        if(!file||file.length===0)
+        {
+            return res.status(404).json({err:'nofile'})
+        }
+    if(file.contentType==='image/jpeg' || file.contentType==='image/png' ||  file.contentType==='image/jpg' )
+    { 
+       const readstream = gfs.createReadStream(file.filename);
+       readstream.pipe(res)
+
+    }
+    else{
+        res.status(404).json({err:'Not an image'})
+    }
+    })
+})
+
+router.get('/api/users/mypage', function( req , res){
 var x_auth = req.cookies.x_auth
 var role = req.cookies.role;
 
@@ -208,6 +286,27 @@ if(role==='1')
 
 });
 >>>>>>> 1033aa2f1a0b59004c69914ce29a2859f968c8f2
+
+
+
+//image 저장 : upload.singe(input name), upload는 multer const
+router.post('/api/users/mypage',upload.single('image'),function( req , res){
+    var x_auth = req.cookies.x_auth
+    var role = req.cookies.role;
+    
+    //role이 user라면
+    if(role==='1')
+    {
+        //img get request 주소
+        img_path = '/image/'+req.file.filename
+        User.findOneAndUpdate({token:x_auth},{profile_img:img_path},{new:true},function(err,updateprofile)
+        { //new:true=>updated document return
+            if(err){return res.status(404).json({err:'Something went wrong'})}
+            res.render('mypage',updateprofile)
+        })
+    
+    }
+})
 
 module.exports = router;
 

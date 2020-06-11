@@ -34,8 +34,14 @@
             <div class="rightbox">
               <div class="profile">
                 <div class="user-img">
-                    <img id="display-image" src="https://source.unsplash.com/random/1">
-                   <div class="container-btn">
+                    <% if(profile_img) { %>
+                    <img id="display-image" src=<%= profile_img %>>
+                    <% }
+                    else{ %>
+                      <img id="display-image" src="https://source.unsplash.com/random/1">
+                     <% } %>
+                   
+                    <div class="container-btn">
                     <button id='upload-btn'>
                     <label for="upload">
                       upload
@@ -43,12 +49,14 @@
                     </button>
                     <button id='clear-btn' class="btn-deactive">
                         Clear
-                      </button>
-                     <button id='submit-btn'>
-                        Submit
-                      </button>
+                    </button>
+                    <form action="/api/users/mypage" method="POST" enctype="multipart/form-data">
+                      <input type="file" name="image" id="upload" onChange="handleImageUpload()" class="btn-deactive"/>
+                      <input type="submit" id="submit-btn" class='btn-deactive' />
+                    </form>
                     </div>
-                     <input type="file" name="image" id="upload" onChange="handleImageUpload()" style="display:none;"/>
+    
+             
                 
 
                 </div>

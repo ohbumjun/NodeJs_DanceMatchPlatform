@@ -79,12 +79,12 @@ buttons.forEach(function(button)
 
 var uplbtn = document.body.querySelector("#upload-btn")
 var clrbtn =document.body.querySelector("#clear-btn")
+var sbmbtn =  document.body.querySelector("#submit-btn")
 
 function handleImageUpload() 
 {
 
-var image = document.getElementById("upload").files[0];
-
+    var image = document.getElementById("upload").files[0];
     var reader = new FileReader();
 
     reader.onload = function(e) {
@@ -94,11 +94,16 @@ var image = document.getElementById("upload").files[0];
     reader.readAsDataURL(image);
     uplbtn.classList.toggle('btn-deactive')
     clrbtn.classList.toggle('btn-deactive')
+    sbmbtn.classList.toggle('btn-deactive')
 } 
 
 clrbtn.addEventListener('click',function(e){
   var uplbtn = document.body.querySelector("#upload-btn")
   e.currentTarget.classList.toggle('btn-deactive')
   uplbtn.classList.toggle('btn-deactive')
+  sbmbtn.classList.toggle('btn-deactive')
+  //원래 기본 이미지로 되돌려줘야됨
   document.getElementById("display-image").src= "https://source.unsplash.com/random/1"
+
+
 })

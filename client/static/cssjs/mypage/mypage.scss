@@ -1,4 +1,4 @@
-$logo: #3DBB3D;
+$logo: black;
 $gray: #777777;
 $black: #070707;
 $green: #7ED386;
@@ -12,7 +12,8 @@ $heading: 'Montserrat', sans-serif;
 $body: 'Roboto', sans-serif;
 
 body {
-  background: linear-gradient(to right, $aqua, $green);
+  background-color: #5b6467;
+  background-image: linear-gradient(315deg, #5b6467 0%, #8b939a 74%);
 }
 
 .container {
@@ -51,7 +52,7 @@ body {
   position: absolute;
   width: 15%;
   height: 110%;
-  background: $green;
+  background: #5b6467;
   box-shadow: 3px 3px 10px rgba($gray, .5);
 }
 nav{
@@ -68,7 +69,7 @@ nav a {
   display: block;
   transition: all .3s ease-in-out;
   &:hover {
-    color: $aqua;
+    color: #D9D9D9;
     transform: scale(1.2);
     cursor: pointer;
   }
@@ -78,7 +79,7 @@ nav a {
 }
 
 .active {
-  color: $aqua;
+  color: $logo;
 }
 
 .rightbox {
@@ -96,7 +97,7 @@ nav a {
 
 h1 {
   font-family: $heading;
-  color: $green;
+  color:  #7d7d7d;
   font-size: 3em;
   margin-top: 40px;
   margin-bottom: 35px;
@@ -115,7 +116,7 @@ p {
 
   border-width: 1px;
   border-style: solid;
-  border-image: linear-gradient(to right, $aqua, rgba($green,.5)) 1 0%;
+  border-image: linear-gradient(to right, #8b939a, rgba(#7d7d7d,.5)) 1 0%;
   border-top: 0;
   width: 80%;
   font-family: $heading;
@@ -138,7 +139,7 @@ select{
   text-transform: uppercase;
   font-size: 0.8em;
   border: none;
-  color: $aqua;
+  color:black;
 }
 
 .btn:hover {

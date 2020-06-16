@@ -75,3 +75,6 @@ app.use( reset )
 // Profile Dancer, User Route
 const profile = require('./router/profile.js');
 app.use( profile )
+
+const board = require('./router/board.js')
+app.use(board)

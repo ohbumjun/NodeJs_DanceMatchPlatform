@@ -217,19 +217,19 @@
               </div>
               
               <div class="payment noshow">
-                <h1>Payment Info</h1>
-                <h2>Payment Method</h2>
-                <p>Mastercard •••• •••• •••• 0000 <button class="btn">update</button></p>
-                <h2>Billing Address</h2>
-                <p>1234 Example Ave | Seattle, WA <button class="btn">change</button></p>
-                <h2>Zipcode</h2>
-                <p>999000</p>
-                <h2>Billing History</h2>
-                <p>2018<button class="btn">view</button></p>
-                <h2>Redeem Gift Subscription </h2>
-                <p><input type="text" placeholder="Enter Gift Code" /> <button class="btn">Redeem</button></p>
+                <h1>내 게시물</h1>
+                <div id="cards-container">
+                </div>
+                <div id ="card-copy" class="card-container">
+                  <div id="card">
+                      <div id="card-place" class='card-info'></div>
+                      <div id="card-writer" class='card-info'></div>
+                      <div id="card-time" class='card-info'></div>
+                      <div id="card-genre" class='card-info'></div>
+                  </div>
+                  <div class="open-update"><div class="card-button btn-update">수정하기</div><div class="card-button btn-delete">삭제하기</div>
               </div>
-          
+            </div>
               <div class="subscription noshow">
                 <h1>Your Subscription</h1>
                 <h2>Payment Date</h2>
@@ -261,6 +261,18 @@
               
             </div>
           </div>
+        </div>
+
+          <div class="modalcontainer">
+            </div>
+            <div id="modal" class="delete-modal modal-hide">
+                <div class="modal-header">정말 삭제할거에요? ㅠㅠ</div>
+                <div class="modal-main">
+                  <button>Yes?</button>
+                  <button>No?</button>
+                </div>
+            </div>
+
           <script>
             
                   var gender = "<%= gender %>";

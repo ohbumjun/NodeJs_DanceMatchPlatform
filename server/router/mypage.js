@@ -21,7 +21,6 @@ connection.on('error', console.error.bind(console, 'connection error:'));
 // 1. User
 router.post('/profile/update_user',function(req,res)
 {
-
     var x_auth = req.cookies.x_auth
     //업데이트할 변수명
     var name = req.body.name
@@ -58,7 +57,6 @@ router.get('/api/users/mypage', function( req , res){
         })   
     });
 });
-
 
 // 2. Dancer
 router.get('/api/users/mypageDancer', function( req , res){

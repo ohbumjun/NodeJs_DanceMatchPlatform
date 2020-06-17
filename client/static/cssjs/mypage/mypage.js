@@ -107,3 +107,73 @@ clrbtn.addEventListener('click',function(e){
 
 
 })
+
+
+
+//내 게시물 가져오기
+console.log('hahahahah')
+var url='http://localhost:4000/my_posts'
+var xhr_2=new XMLHttpRequest()
+xhr_2.open('POST',url);
+xhr_2.setRequestHeader('Content-Type','application/json')
+xhr_2.send()
+xhr_2.addEventListener('load',function()
+{
+    var result = JSON.parse(xhr_2.responseText);
+    //내 게시글 만들기
+    mydrawing(result.result);
+    drawDelModal(result.result);
+})
+
+function mydrawing(data)
+{
+  let cards_container = document.body.querySelector('#cards-container');
+  data.reverse().forEach(function(e,idx)
+  {
+      //id도 복사되네?
+      let card = document.body.querySelector('#card-copy').cloneNode(true)
+      card.id = 'card'+String(idx)
+      card.querySelector('#card-place').innerHTML='안녕'
+      card.querySelector('#card-writer').innerHTML=e['author']
+      card.querySelector('#card-time').innerHTML=e['board_date']
+      card.querySelector('#card-genre').innerHTML='ㅋㅋ'
+      cards_container.appendChild(card)
+  })
+}
+
+
+var background =document.body.querySelector('body')
+var modalbg =document.body.querySelector('.modalcontainer')
+var flag =true
+
+function drawDelModal(data)
+{
+ //만들어진 카드 개수만큼 modal을 만든다
+var popup = document.body.querySelectorAll('#cards-container .card-container')
+popup.forEach(function(e,idx){
+      //modal template clone 한 다음에 modal 정보 입력
+      var clone = document.body.querySelector('#modal').cloneNode(true)    
+      clone.id = 'modal'+ e.id
+      modalbg.appendChild(clone)
+      var delete_button = e.querySelector(".btn-delete");
+      delete_button.addEventListener('click',function(e){
+        e.preventDefault();
+        e.stopPropagation();
+        clone.classList.remove('modal-hide')
+        clone.classList.add('modal-active')
+        document.body.querySelector('.container').classList.toggle('blackout')
+      })
+})
+
+document.body.querySelector('.container').addEventListener('click',function(e)
+{
+    var modalActive=document.body.querySelector('.modal-active')
+    if(modalActive)
+    {
+      modalActive.classList.toggle('modal-active')
+      modalActive.classList.toggle('modal-hide')
+      document.body.querySelector('.container').classList.toggle('blackout')
+    }
+
+})
+}

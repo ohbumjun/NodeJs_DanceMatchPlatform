@@ -52,7 +52,7 @@
 
         let Age = $('#Age').val();
 
-        let Sex = $('#Sex').val();
+        let Gender = $('#Gender').val();
 
         let Img = $('#Img').val();
 
@@ -76,7 +76,7 @@
                 Lesson_Day : L_DayValues, 
                 Lesson_Time : L_TimeValues , 
                 Age: Age ,
-                Sex: Sex ,
+                Gender: Gender ,
                 Image : Img,
                 Workplace: Workplace,
                 Youtube_Link: LinkValues,
@@ -103,6 +103,7 @@
                     window.location.replace( "http://localhost:4000/api/users/register");
                   }, 1500);
                   return false;
+
               }else if( response['result'] === 'Error saving Dancer'){
                   swal({
                     title: 'Retry',
@@ -137,7 +138,7 @@
     <li >Lesson Day</li>
     <li >Lesson Time</li>
     <li >Age</li>
-    <li> Sex</li>
+    <li> Gender</li>
     <li> Workplace</li>
     <li> Youtube links</li>
     <li>Contact</li>
@@ -245,9 +246,9 @@
       <input type="button" name="next" class="next action-button" value="Next" />
     </fieldset>
     <fieldset>
-      <h2 class="fs-title">Sex</h2>
-      <h3 class="fs-subtitle">Pick your Sex</h3>
-      <select id = "Sex">
+      <h2 class="fs-title">Gender</h2>
+      <h3 class="fs-subtitle">Pick your Gender</h3>
+      <select id = "Gender">
         <option value="M">Male</option>
         <option value="F">Femal</option>
         <option value="Etc">Etc</option>

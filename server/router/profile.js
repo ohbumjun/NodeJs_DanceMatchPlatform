@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const path = require('path');
-const { dancer }   = require('../models/Dancer');
+const { Dancer }   = require('../models/Dancer');
 const { User }   = require('../models/User');
 const config = require( '../config/key' );
 var mongoose = require('mongoose');
@@ -20,7 +20,7 @@ mongoose.connect( config.mongoURI , {
     useFindAndModify : false
     // 아래 코드는 연결ㄹ이 잘 됐는지 안됐는지 확인하기 
 }).then( () => {
-console.log("MongoDB Connected... ")}).catch( err => console.log( err ))
+console.log("MongoDB Connected...in profile.js ")}).catch( err => console.log( err ))
 
 
 let gfs;
@@ -29,8 +29,7 @@ connection.once('open',function(){
     gfs = Grid(connection.db,mongoose.mongo)
     gfs.collection('users')
 })
-//connection.on('error', console.error.bind(console, 'connection error:'));
-//initialize stream
+
 
 
 var storage = new GridFsStorage({
@@ -62,21 +61,15 @@ router.get('/api/users/profileDancer', function( req , res){
 })
 
 router.post('/api/users/profileDancer', function( req , res){
-
     console.log("Dancer Server is working");
-
     connection.db.collection("dancer", function(err, collection){
 
         console.log("Dancer collection connected");
-
         if(err){
             console.log("Dancer Collection connection Error");
         }
-
         var token = req.cookies.x_auth;
-
         console.log("token brought");
-
         //token decoding
         jwt.verify(token, "accountactivatekey123", function( err, decodedToken){
             if(err){
@@ -97,7 +90,7 @@ router.post('/api/users/profileDancer', function( req , res){
                     Lesson_Day,
                     Lesson_Time,
                     Age,
-                    Sex,
+                    Gender,
                     Workplace,
                     Youtube_Link,
                     Contact } = req.body;
@@ -105,7 +98,7 @@ router.post('/api/users/profileDancer', function( req , res){
                 console.log("new info brought from req.body")
 
                 setTimeout(function(){
-                    let newDancer =  new dancer( 
+                    let newDancer =  new Dancer( 
                         { 
                         k_name, 
                         e_name , 
@@ -119,7 +112,7 @@ router.post('/api/users/profileDancer', function( req , res){
                         Lesson_Day,
                         Lesson_Time,
                         Age,
-                        Sex,
+                        Gender,
                         Workplace,
                         Youtube_Link,
                         Contact 
@@ -161,7 +154,7 @@ router.get('/api/users/profileUser', function( req , res){
 res.sendFile(path.join(__dirname + "/../../client/static/templates/profileUser.html"))
 });
 
-router.post('/api/users/save_user_info',function(req,res){
+router.post('/api/users/profileUser',function(req,res){
     //x_auth 설정해주면서 main 창에서 로그인으로 인식됨
 
     var token = req.cookies.x_auth;

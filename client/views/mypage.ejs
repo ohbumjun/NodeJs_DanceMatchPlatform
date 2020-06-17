@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link href = "../../cssjs/mypage.css" rel = "stylesheet"/>
+    <link href = "../../cssjs/mypage/mypage.css" rel = "stylesheet"/>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
     <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 <!-- add to document <head> -->
@@ -34,12 +34,12 @@
             <div class="rightbox">
               <div class="profile">
                 <div class="user-img">
-                    <% if(profile_img) { %>
+                    <!-- <% if(profile_img) { %>
                     <img id="display-image" src=<%= profile_img %>>
                     <% }
                     else{ %>
                       <img id="display-image" src="https://source.unsplash.com/random/1">
-                     <% } %>
+                     <% } %> -->
                    
                     <div class="container-btn">
                     <button id='upload-btn'>
@@ -55,10 +55,6 @@
                       <input type="submit" id="submit-btn" class='btn-deactive' />
                     </form>
                     </div>
-    
-             
-                
-
                 </div>
                 <h2>User Name</h2>
                 <p><input type="text" name="username" value="<%= username %>"> <button class="btn">update</button></p>
@@ -278,7 +274,7 @@
                   var gender = "<%= gender %>";
                   document.body.querySelector('#gender').value=gender;
                   var genres_gui = document.body.querySelectorAll('.genre');
-                  var genres_data = <%- JSON.stringify(genre) %>;
+                  var genres_data = <%-JSON.stringify(genre)%>;
                   
           
           </script>

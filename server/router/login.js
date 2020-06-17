@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 const path = require('path');
 const { User } = require('../models/User')
-const { dancer } = require('../models/Dancer')
+const { Dancer } = require('../models/Dancer')
 // auth 라는 middleware 을 가져온다 ( 인증처리 )
 const { auth } = require( '../middleware/auth' );
 
@@ -16,20 +16,12 @@ router.get('/bg.js ', function( req , res){
 })
 
 router.post('/api/users/login', function(req,res){
-
-    
-    console.log('req.body',req.body)
-
     const { role } = req.body
-
-    console.log('role',role)
-
+    console.log("0th process: role is being checked ")
+    console.log( `login process : role is ${role}`)
     // user 일 경우 
-    if( role === '1'){
-        console.log('here')
-
+    if( role === 1){
         // 1. 요청된 email을 데이터베이스에서 있는지 찾는다 
-    
             User.findOne( { email : req.body.email }, ( err , user ) => {
                 // 만일 우리가 요청한 email이 db 에 없다면, user는 Null 값이 될 것이다
                 if(!user){
@@ -75,19 +67,24 @@ router.post('/api/users/login', function(req,res){
                 //dancer 일 경우 
 
                 // 1. 요청된 email을 데이터베이스에서 있는지 찾는다 
-            
-                    dancer.findOne( { email : req.body.email }, ( err , user ) => {
-                        // 만일 우리가 요청한 email이 db 에 없다면, user는 Null 값이 될 것이다
-                        if(!user){
+                    console.log("1st process : Email Check in DB is ongoing")
+                    Dancer.findOne( { email : req.body.email }, ( err , dancer ) => {
+                        // 만일 우리가 요청한 email이 db 에 없다면, dancer는 Null 값이 될 것이다
+                        // dancer 라는 객체를 생성한다 
+                        if(!dancer){
+
                             console.log("no email")
+
                             return res.status(200).json({
                                 loginSuccess : false ,
                                 message : "Noemail"
                             })
                         }
+
                         // 2. 요청된 이메일이 데이터 베이스에 있다면 비밀번호가 맞는 비밀번호인지 확인
-                        // 아래 user 에는 각종 이메일 , 비밀번호 등이 모두 있을 것이다
-                        user.comparePassword( req.body.password , ( err , isMatch ) => {
+                        // 아래 dancer 에는 각종 이메일 , 비밀번호 등이 모두 있을 것이다
+                        console.log("2nd process : Password check is ongoing")
+                        dancer.comparePassword( req.body.password , ( err , isMatch ) => {
                             // 2번째 argument는 callback function이다
                             // db안에 들어있는 비밀번호를 비교한다 . 만약 맞다면, 비밀번호가 맞다는 것을 isMatch로 가져온다 
                             // method는 user model에서 만든다 
@@ -98,21 +95,25 @@ router.post('/api/users/login', function(req,res){
                                     message : "NoPassword"
                                 })
                             }
-                            // 비밀번호까지 맞다면 토큰을 생성하기
+
+                            // 3.비밀번호까지 맞다면 토큰을 생성하기
                             // generateToken이라는 method는 User.js 에 넣는다
-                            user.generateToken( (err, user) => {
+                            console.log("3rd process : Token is being genrerated")
+                            dancer.generateToken( (err, Dancer) => {
+                                
+                                // 성공시 user 라는 객체에 token을 넣어준다 ( generatetoken 함수 참고)
+
                                 if(err) {
                                     console.log("Token not made")
                                     return res.status(400).send(err);
                                 }
+
                                 // 토큰을 저장한다. 이번에는 쿠키에 저장한다 . x_auth 라는 이름으로
                                 console.log("Login Success")
-                                console.log('login token',user.token)
-                                //multiple cookie setting을 위해서 send하기 전에 cookie 개별적으로 설정
-                                res.cookie('role',user.role)
-                                return res.cookie("x_auth" , user.token).status(200).json( { 
+                                console.log('login token',Dancer.token)
+                                return res.cookie("x_auth" , Dancer.token).status(200).json( { 
                                     loginSuccess : true , 
-                                    userId : user._id ,
+                                    userId : Dancer._id ,
                                     message : "success"
                                     })
                                 })
@@ -142,5 +143,65 @@ router.post('/api/users/login', function(req,res){
         })
         // 이렇게 정보를 전달해주면, 어떤 페이지에서든지 그 정보를 사용할 수 있다 
     })
+
+    
+// 로그아웃
+router.get('/api/users/logout' , auth , ( req,res ) => {
+    let token = req.cookies.x_auth;
+    console.log("token brought")
+
+    // token에서 role을 빼내서, user인지, dancer 인지를 파악한다
+    jwt.verify(token, "accountactivatekey123", function( err, decodedToken){
+
+        if(err){
+            // 20분후에 다시 token이 사라지기 때문에, 이 경우 아래의 메시지가 뜰 것이다 
+            console.log("Incorrect or Expired Link");
+            return res.status(200).json( { "result" : "LinkError" });
+        }
+        const { role } = decodedToken;
+
+        console.log( ` role is ${role} `)
+    
+        if( role === 1){
+    
+            User.findOneAndUpdate( { token },
+                // 여기서는 token을 지워준다
+                {$set:{token:''}}
+                , ( err, user) => {
+                    if(err){
+                        console.log("token related error")
+                        return res.json({ success : false , err});
+                    } 
+                    //쿠키지우기
+                    res.clearCookie("x_auth")
+
+                    console.log("cookie deleted")
+
+                    res.redirect('/main')
+                    // res.status(200).json({
+                    //     success: true
+                    // })
+                })
+            }else{
+                // : req.token
+                Dancer.findOneAndUpdate( { _id : req.dancer._id },
+                    // 여기서는 token을 지워준다
+                    {$set:{token:''}}
+                    , ( err, dancer) => {
+                        if(err){
+                            console.log("token related error")
+                            return res.json({ success : false , err});
+                        }
+                        //쿠키지우기
+                        res.clearCookie("x_auth")
+                        console.log("cookie deleted")
+                        res.redirect('/main')
+                        // res.status(200).json({
+                        //     success: true
+                        // })
+                        })
+                    }
+             })
+        })
 
     module.exports = router;

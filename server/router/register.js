@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 const path = require('path');
 const { User } = require('../models/User')
-const { dancer } = require('../models/Dancer')
+const { Dancer } = require('../models/Dancer')
 const jwt = require('jsonwebtoken');
 // mailgun, email account acivation
 const _ = require('lodash'); 
@@ -77,7 +77,7 @@ router.post('/api/users/register', function( req , res ){
 
             // email account activaiton
         setTimeout( function(){
-            dancer.findOne( { email }).exec( ( err, user ) => {
+            Dancer.findOne( { email }).exec( ( err, user ) => {
             // email이나 username이 db에 이미 있으면, user가 true 가 될 것이다
             if(user){
                 console.log("User with this email already exists");
@@ -85,7 +85,7 @@ router.post('/api/users/register', function( req , res ){
                     error : "User with this email already exists", "success" : "emailexists"
                 });
             }
-                dancer.findOne( { username }).exec( ( err, user ) => {
+                Dancer.findOne( { username }).exec( ( err, user ) => {
                     // email이나 username이 db에 이미 있으면, user가 true 가 될 것이다
                     if(user){
                         console.log("User with this username already exists");

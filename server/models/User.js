@@ -21,6 +21,10 @@ var userSchema = mongoose.Schema({
     // user 의 name 은 무엇인지
     k_name : {
         type : String,
+        minlength: 1,
+        maxlength: 10,
+        trim: true,
+        required: true 
     },
     e_name : {
         type : String,
@@ -42,35 +46,21 @@ var userSchema = mongoose.Schema({
         minlength : 7,
         required: true
     },
-    username : {
-        type : String,
-        maxlength : 50,
-        required : true,
-        unique : 1
-    },
-    // 이렇게 role을 주는 이유는, 어떤 user 는 관리자가 될 수도 있고, 일반 user 가 될 수도 있다
-    role : {
-        // 예를 들어, number 가 1이면 일반 user 인 것이다, 0이면 dancer이다 
-        type : Number,
-    },
-    image : String,
 
+    image : String,
     // 아래와 같은 token을 이용해서, 유효성 같은 것들을 관리할 수 있다
     token : {
         type: String
     },
-
     // token의 유효기간 : token이 사용할 수 있는 기간
     tokenExp : {
         type: Number
     },
-
     // 비밀번호찾기위한 데이터
     resetLink : {
         type : String,
         default : ''
     },
-
     age : {
         type : String,
         default : ''
@@ -83,20 +73,34 @@ var userSchema = mongoose.Schema({
         type : String,
         default : ''
     },
-    genre : {
-        type : Array,
-        default: []
-    },
     contact:{
         type : String,
         default : ''
     },
-
     profile_img:{
         type : String,
         default : ''
+    }, 
+    profile_videos:{
+        type : String,
+        default : ''
+    }, 
+    friends:{
+        type : String,
+        default : ''
+    }, 
+    boards:{
+        type : String,
+        default : ''
+    }, 
+    Univ:{
+        type : String,
+        default : ''
+    },
+    Major:{
+        type : String,
+        default : ''
     }
-
 })
 
 userSchema.plugin(require('mongoose-beautiful-unique-validation'));
@@ -148,10 +152,9 @@ userSchema.methods.generateToken = function(cb){
     // 즉, user._id + 'secretToken' => token을 만들어주는 것이다. 그리고 나중에 token을 해석할 때, secretToken을 넣어주면, user._id가 나오게 된다. 즉, 이 사람이 누구인지를 알 수 있게 되는 것이다
     // 나중에 token을 해석할 때, secretToken을 넣어주면, user._id 가 나오는 것이다 ( 다른 말로 하면, token을 decode 하게 되면, user._id 가 나오게 되는 것이다 )
     var token = jwt.sign( user._id.toHexString() , 'accountactivatekey123')
-    user.token = token
     console.log('token',token)
     // 그리고 생성한 token을 userSchema의 token field에 넣어준다
-    //user.token = token
+    user.token = token
 
     //email을 primary key로 생성된 token update
     User.findOneAndUpdate({email: user.email},  {$set:{token:token}},(err, doc) => {
@@ -172,9 +175,7 @@ userSchema.methods.generateToken = function(cb){
 }
 
 userSchema.methods.comparePassword = function(plainPassword , cb){
-
     var user = this;
-
     // plainPassword : 1234567 > 암호화된 비밀번호와 같은지 체크해야 하므로, 1234567을 암호화 한 이후에 서로 맞는지를 체크해야 한다
     // 첫번째 인자는 날것 그대로, 두번째 인자는 암호화된 password
     bcrypt.compare(plainPassword , this.password , function(err , isMatch){
@@ -192,24 +193,18 @@ userSchema.methods.comparePassword = function(plainPassword , cb){
 
 // findByToken 함수를 만든다
 userSchema.statics.findByToken = function( token , cb){
-
     var user = this;
-
     // 토큰을 복호화(decode) 하는 과정 
     jwt.verify( token , 'accountactivatekey123', function(err , decoded){
         console.log('token',token)
         console.log('decoded',decoded)
         // 여기서 decoded 가 바로 복호화된 토큰을 의미한다 . user._id 가 된다
         // 유저 아이디를 이용해서 유저를 찾은 다음에, 클라이언트에서 가져온 token과 DB에 보관된 토큰이 일치하는지 확인한다 
-
         // 찾는 방법은 id와 token으로 찾을 것이다
-        user.findOne( {"token" : token } , function( err , user){
-
+        User.findOne( {"token" : token } , function( err , user){
             if(err) return cb(err)
             cb(null , user)
-
         } )
-
     } )
 }
 

@@ -88,6 +88,9 @@ router.post('/board', function (req, res) {
     var board = new Board();
     board.title = req.body.title;
     board.contents = req.body.contents;
+    board.time=req.body.time
+    board.place=req.body.place
+    board.video=req.body.video
     User.find({token:x_auth},function(err,docs)
     {
       

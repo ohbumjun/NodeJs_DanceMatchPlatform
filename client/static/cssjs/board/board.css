@@ -260,10 +260,28 @@ header .header-right div:hover {
 }
 
 .card-container {
-  border: black solid 1px;
+  border: orange solid 1px;
+  -webkit-box-shadow: 0 4px 8px 0 orange;
+  box-shadow: 0.1em 0.1em 0.1em 0 orange;
   width: 80vw;
-  height: 30vh;
+  height: 60vh;
   margin-bottom: 10vh;
+}
+
+.video {
+  margin-top: 1em;
+  height: 70%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+
+iframe {
+  width: 90%;
+  height: 100%;
 }
 
 #card-copy {
@@ -272,6 +290,34 @@ header .header-right div:hover {
 
 #card {
   padding: 1vh;
+  height: 100%;
+}
+
+#card-title {
+  font-size: 1.5em;
+  height: 10%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  border-bottom: 1px solid black;
+}
+
+.sub-container {
+  -ms-flex-pack: distribute;
+      justify-content: space-around;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  margin-top: 3vh;
 }
 
 .card-info {

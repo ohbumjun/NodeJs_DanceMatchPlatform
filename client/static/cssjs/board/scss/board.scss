@@ -184,11 +184,26 @@ section{
 }
 
 .card-container{
-    border:black solid 1px;
+    border: orange solid 1px;
+    -webkit-box-shadow: 0 4px 8px 0 orange;
+    box-shadow: 0.1em 0.1em 0.1em 0 orange;
     width:80vw;
-    height:30vh;
+    height:60vh;
     margin-bottom:10vh;
 }
+
+.video{
+    margin-top:1em;
+    height:70%;
+    display:flex;
+    justify-content: center;
+}
+
+iframe{
+    width:90%;
+    height:100%;
+}
+
 
 #card-copy{
     display:none;
@@ -196,7 +211,25 @@ section{
 
 #card{
     padding:1vh;
+    height:100%;
 }
+
+#card-title{
+    font-size: 1.5em;
+    height: 10%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-bottom: 1px solid black;
+}
+
+.sub-container{
+    justify-content: space-around;
+    display: flex;
+    align-items: center;
+    margin-top: 3vh;
+}
+
 
 .card-info{
     margin-bottom:1em;

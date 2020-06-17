@@ -4,15 +4,52 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link href = "../../cssjs/write/write.css" rel = "stylesheet"/>
     <title>Document</title>
 </head>
 <body>
-        <h1>글쓰기</h1>
-    <form action="/board" method="post">
-          제목 : <input type="text" name="title"><br>
-          내용 : <textarea name="contents"></textarea><br>
-          글쓴이 : <input type="text" name="author"><br>
-          <input type="submit" value="확인">
-    </form>
+    <div class="main-container">
+        <div class="header">
+        <h1>빵댕이 흔들러 갈 사람</h1>
+    </div>
+
+    <div class="input-container">
+        <form action="/board" method="post">
+                <label for='title'>
+                <div class="write-input">
+                    <p class="title-text">제목</p>
+                </div>
+                <input type="text" name="title"><br>
+                </label>
+                <label for='title'>
+                        <div class="write-input">
+                            <p class="title-text">비디오</p>
+                        </div>
+                        <input type="text" name="video" placeholder="ex : 유튜브 url"><br>
+                 </label>
+                <label for='contents'>
+                <div class="write-input">
+                        <p class="title-text">내용</p>
+                    </div>
+            <textarea name="contents"></textarea><br>
+            </label>
+            <label for='place'>
+        <div class="write-input">
+                <p class="title-text">장소</p>
+            </div>
+        <input type="text" name="place"><br>
+        </label>
+        <label for='time'>
+                <div class="write-input">
+                    <p class="title-text">시간</p>
+                </div>
+            <input type="text" name="time"><br>
+            </label>
+            <div class="btn-submit">
+            <input type="submit" value="확인">
+        </div>
+        </form>
+    </div>
+</div>
 </body>
 </html>

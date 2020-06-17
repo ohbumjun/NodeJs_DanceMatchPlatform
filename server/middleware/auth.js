@@ -16,6 +16,7 @@ let auth = (req, res, next) => {
 
     // token을 decode 시켜서, role이 user인지 dancer 인지를 파악한다
     jwt.verify(token, "accountactivatekey123", function( err, decodedToken){
+        
         if(err){
             // 20분후에 다시 token이 사라지기 때문에, 이 경우 아래의 메시지가 뜰 것이다 
             console.log("Incorrect or Expired Link");
@@ -23,10 +24,6 @@ let auth = (req, res, next) => {
             return res.status(200).json( { "result" : "LinkError" });
      }
 
-
-    const {  role } = decodedToken;
-    
-    if( role === 1){
         // 2. 가져온 토큰을 Decode 한다 . 이후 유저를 찾는다. 토큰을 찾는 method는 User.js, Dancer.js 에서 만든다
         // 아래 findByToken은 user 혹은 dancer model에서 만들어야 한다
         User.findByToken( token , ( err , user ) => {
@@ -38,27 +35,8 @@ let auth = (req, res, next) => {
             req.user = user;
             console.log('auth user id',req.user._id)
             next();
-        })
-
-    }else{
-        // token을 decode 한 이후, 내가 찾은 dancer 의 정보가 dancer로 들어온다 
-        Dancer.findByToken( token , ( err , dancer ) => {
-
-            if(err) throw err;
-
-            // dancer 가 없다면 클라이언트에 다음과 같은 메시지를 send 한다  
-            if(!dancer) return res.json({ isAuth : false, error : true })
-
-            // dancer 가 있다면
-            req.token = token;
-            req.dancer = dancer;
-
-            // 이렇게 req 에 token과 dancer 를 넘겨주는 이유는 그래야 profile.js , 즉 서버 코드에서 dancer와 관련된 정보를 사용할 수 있는 것이다
-            console.log('auth dancer id',req.dancer._id)
-            next();
             })
-        }
-    })
-}
+        })
+    }
 
 module.exports = { auth };

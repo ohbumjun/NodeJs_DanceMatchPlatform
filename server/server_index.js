@@ -64,8 +64,6 @@ app.use( forget )
 const profile = require('./router/profile.js');
 app.use( profile )
 
-const board = require('./router/board.js')
-app.use(board)
 // Profile Dancer, User Route
 const mypage = require('./router/mypage.js');
 app.use( mypage )
@@ -73,3 +71,5 @@ app.use( mypage )
 // file_upload ( 연습용 )
 const file_upload = require('./router/file_upload.js')
 app.use(file_upload)
+const board = require('./router/board.js')
+app.use(board)

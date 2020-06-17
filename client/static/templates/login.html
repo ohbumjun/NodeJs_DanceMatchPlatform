@@ -16,11 +16,10 @@
       // 1. 데이터 입력하기 : email,  password
     let Email = $('#email').val();
     let Password = $('#password').val();
-    let Role = $('#Role').val();
 
     // 2. 입력사항 검사하기
     // 2.1 해당 요소 중 하나라도 입력하지 않았을 경우 alert를 띄운다
-        if ( Email === '') {
+          if ( Email === '') {
           swal({text:'Please Enter Your email',
 					icon : 'info'});
           $('#email').focus();
@@ -32,12 +31,6 @@
             $('#password').focus();
             return ;
           } 
-          if ( Role === '') {
-            swal({text:'Please Enter Your Role',
-					icon : 'info'});
-            $('#role').focus();
-            return ;
-          } 
           // 3. POST에 저장을 요청한다 
           $.ajax({
             type: "POST",
@@ -45,8 +38,7 @@
                 // username, password 정보 넘겨주기 
                 data: { 
                   password : Password, 
-                  email : Email , 
-                  role : Role
+                  email : Email 
                 } ,
                 
                 // 성공시
@@ -96,16 +88,6 @@
               <path d="M0,20 20,20 20,8 0,8z M10,13 10,16z M4,8 a6,8 0 0,1 12,0" />
             </svg>
             <input id = "password" type="password" class="login__input pass" placeholder="Password"/>
-          </div>
-          <div class="login__row">
-            <svg class="login__icon pass svg-icon" viewBox="0 0 20 20">
-              <path d="M0,20 20,20 20,8 0,8z M10,13 10,16z M4,8 a6,8 0 0,1 12,0" />
-            </svg>
-            <select id = "Role" type="Role" class="login__role pass" placeholder="Status">
-              <option value='' selected>Choose Your Status</option>
-              <option value = 1 >User</option>
-              <option value = 0 >Dancer</option>
-              </select>
           </div>
           <button onclick = "login()" type="button" class="login__submit">Login</button>
           <p class="login__signup">Don't have an account? &nbsp;<a href = "/api/users/register">Sign up</a></p>

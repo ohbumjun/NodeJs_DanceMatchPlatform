@@ -10,12 +10,8 @@
   <link href = "/../cssjs/register/register.css" rel = "stylesheet"/>
 
   <title>Register</title>
-<<<<<<< HEAD
-  <script type = "text/javaScript">
-=======
 	<script type = "text/javascript">
 	
->>>>>>> 1033aa2f1a0b59004c69914ce29a2859f968c8f2
 		function get_user(){
 		// 1. 데이터 입력하기 : name, email, username, password, confirm password
 
@@ -37,56 +33,31 @@
 				return ;
 			} 
 			if ( Email === '') {
-<<<<<<< HEAD
-				swal({
-				text : 'Please Enter Your Email',
-=======
 				swal({text:'Please Enter Your Email',
->>>>>>> 1033aa2f1a0b59004c69914ce29a2859f968c8f2
 				icon : 'info'});
 				$('#email').focus();
 				return ;
 			} 
 			if ( Username === '') {
-<<<<<<< HEAD
-				swal({
-				text : 'Please Enter Your Username',
-=======
 				swal({text:'Please Enter Your Username',
->>>>>>> 1033aa2f1a0b59004c69914ce29a2859f968c8f2
 				icon : 'info'});
 				$('#username').focus();
 				return ;
 			} 
 			if ( Password === ''){
-<<<<<<< HEAD
-				swal({
-				text :"Please Enter Your Password",
-=======
 				swal({text:"Please Enter Your Password",
->>>>>>> 1033aa2f1a0b59004c69914ce29a2859f968c8f2
 				icon : 'info'});
 				$('#password').focus();
 				return ;
 			} 
 			if ( Confirmpassword === ''){
-<<<<<<< HEAD
-				swal({
-				text : "Please Enter Your ConfirmPassword",
-=======
 				swal({text:"Please Enter Your ConfirmPassword",
->>>>>>> 1033aa2f1a0b59004c69914ce29a2859f968c8f2
 				icon : 'info'});
 				$('#confirmpassword').focus();
 				return ;
 			}
 			if ( Role === ''){
-<<<<<<< HEAD
-				swal({
-				text: "Please Enter Your Role",
-=======
 				swal({text:"Please Enter Your Role",
->>>>>>> 1033aa2f1a0b59004c69914ce29a2859f968c8f2
 				icon : 'info'});
 				$('#role').focus();
 				return ;
@@ -94,12 +65,7 @@
 			if( Confirmpassword !==  Password){
 				console.log('Password',Password)
 				console.log('Confirmpassword',Confirmpassword)
-<<<<<<< HEAD
-				swal({
-				text : "Check the ConfirmPassword Again",
-=======
 				swal({text:"Check the ConfirmPassword Again",
->>>>>>> 1033aa2f1a0b59004c69914ce29a2859f968c8f2
 				icon : 'info'});
 				$('#confirmpassword').focus();
 				return ;
@@ -111,12 +77,7 @@
 		// 2.2 입력내용을 검사한다 
 			// 1) English Name의 길이를 검사한다
 			if( E_name.length < 1 || E_name.length > 50){
-<<<<<<< HEAD
-				swal({
-				text : "Name should be written in 1 ~ 50 words",
-=======
 				swal({text:"Name should be written in 1 ~ 50 words",
->>>>>>> 1033aa2f1a0b59004c69914ce29a2859f968c8f2
 				icon : 'info'})
 			}
 			// 2) Password 를 검사한다 
@@ -139,36 +100,15 @@
 			success : function(response){
 				// console.log('res',response['success'] )
 				if( response['success'] === 'true' ){
-<<<<<<< HEAD
-					swal({
-					text :'We sent the Authentication Message to your Email. Please Go to your email and follow the instructions',
-				icon : 'success'})
-					// window.location.replace( "http://localhost:4000/api/users/activateAccount.html");
-				}else if( response['success'] === 'emailexists'){
-					swal({
-					text :'Same email already Exist',
-=======
 					swal({text:'We sent the Authentication Message to your Email. Please Go to your email and follow the instructions',
 				icon : 'success'})
 					// window.location.replace( "http://localhost:4000/api/users/activateAccount.html");
 				}else if( response['success'] === 'emailexists'){
 					swal({text:'Same email already Exist',
->>>>>>> 1033aa2f1a0b59004c69914ce29a2859f968c8f2
 				icon : 'info'})
 					$('#email').focus();
 					return false;
 				}else if( response['success'] === 'usernameexists'){
-<<<<<<< HEAD
-					swal({
-					text : 'Same username already Exist',
-					icon : 'info'})
-					$('#username').focus();
-					return false;
-				}else if( response['success'] === 'Error in signup while saving user info'){
-					swal({
-					text : 'Error in signup while saving user info, contact Us!!',
-					icon : 'info'})
-=======
 					swal({text:'Same username already Exist',
 				icon : 'info'})
 					$('#username').focus();
@@ -176,7 +116,6 @@
 				}else if( response['success'] === 'Error in signup while saving user info'){
 					swal({text:'Error in signup while saving user info, contact Us!!',
 				icon : 'info'})
->>>>>>> 1033aa2f1a0b59004c69914ce29a2859f968c8f2
 					return false;
 				}
 			}

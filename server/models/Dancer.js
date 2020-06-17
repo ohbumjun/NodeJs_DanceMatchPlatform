@@ -96,28 +96,24 @@ Age : {
 },
 
 // 성별
-Sex : {
+Gender : {
     type : String,
     default :''
 },
-
 Image : {
     data : Buffer,
     contentType : String
 },
-
 // Workplace
 Workplace : {
     type : String,
     default :''
 },
-
 // Youtube Link
 Youtube_Link : {
     type : Array,
     default: []
 },
-
 // Contact
 Contact : {
     type : String,
@@ -125,9 +121,7 @@ Contact : {
 }
 }) // dancer Schema Definition
 
-
 dancerSchema.plugin(require('mongoose-beautiful-unique-validation'));
-
 // user 가 입력한 영어이름은 대문자로 바꿔준다
 dancerSchema.methods.uppercase = function(){
     this.e_name = this.e_name.toUppercase()

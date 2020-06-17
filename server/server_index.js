@@ -15,10 +15,6 @@ app.set('views',path.join(__dirname,'../client/views'))
 // css, js 파일들 적용
 app.use(express.static(__dirname +'/../client/static'))
 
-// DB 연결코드
-
-
-
 // bodyParser: client가 보낸 정보를 Server가 받게 한다
 app.use(express.json());
 app.use(cors());
@@ -56,21 +52,13 @@ app.use( register)
 const activeAccount = require('./router/activateAccount.js');
 app.use( activeAccount)
 
-// Login route
+// Login, Aut, Logout route
 const login = require('./router/login.js');
 app.use( login)
 
-// Logout route
-const logout = require('./router/logout.js');
-app.use( logout )
-
-// Password Find route
-const forget = require('./router/forgetPassword.js');
+// Password Find, Reset route
+const forget = require('./router/Password.js');
 app.use( forget )
-
-// 비밀번호 reset Route
-const reset = require('./router/resetPassword.js');
-app.use( reset )
 
 // Profile Dancer, User Route
 const profile = require('./router/profile.js');
@@ -79,3 +67,7 @@ app.use( profile )
 // Profile Dancer, User Route
 const mypage = require('./router/mypage.js');
 app.use( mypage )
+
+// file_upload ( 연습용 )
+const file_upload = require('./router/file_upload.js')
+app.use(file_upload)

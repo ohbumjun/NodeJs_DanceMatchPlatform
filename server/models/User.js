@@ -21,6 +21,10 @@ var userSchema = mongoose.Schema({
     // user 의 name 은 무엇인지
     k_name : {
         type : String,
+        minlength: 1,
+        maxlength: 10,
+        trim: true,
+        required: true 
     },
     e_name : {
         type : String,
@@ -42,35 +46,21 @@ var userSchema = mongoose.Schema({
         minlength : 7,
         required: true
     },
-    username : {
-        type : String,
-        maxlength : 50,
-        required : true,
-        unique : 1
-    },
-    // 이렇게 role을 주는 이유는, 어떤 user 는 관리자가 될 수도 있고, 일반 user 가 될 수도 있다
-    role : {
-        // 예를 들어, number 가 1이면 일반 user 인 것이다, 0이면 dancer이다 
-        type : Number,
-    },
-    image : String,
 
+    image : String,
     // 아래와 같은 token을 이용해서, 유효성 같은 것들을 관리할 수 있다
     token : {
         type: String
     },
-
     // token의 유효기간 : token이 사용할 수 있는 기간
     tokenExp : {
         type: Number
     },
-
     // 비밀번호찾기위한 데이터
     resetLink : {
         type : String,
         default : ''
     },
-
     age : {
         type : String,
         default : ''
@@ -83,20 +73,34 @@ var userSchema = mongoose.Schema({
         type : String,
         default : ''
     },
-    genre : {
-        type : Array,
-        default: []
-    },
     contact:{
         type : String,
         default : ''
     },
-
     profile_img:{
         type : String,
         default : ''
+    }, 
+    profile_videos:{
+        type : String,
+        default : ''
+    }, 
+    friends:{
+        type : String,
+        default : ''
+    }, 
+    boards:{
+        type : String,
+        default : ''
+    }, 
+    Univ:{
+        type : String,
+        default : ''
+    },
+    Major:{
+        type : String,
+        default : ''
     }
-
 })
 
 userSchema.plugin(require('mongoose-beautiful-unique-validation'));
@@ -143,19 +147,11 @@ userSchema.pre('save', function(next) {
 userSchema.methods.generateToken = function(cb){
 
     var user = this;
-<<<<<<< HEAD
-    console.log('user',user)
-=======
->>>>>>> 1033aa2f1a0b59004c69914ce29a2859f968c8f2
     // jsonwebtoken을 이용해서 token 생성하기
     //jsonwebtoken이 담긴 jwt를 sign을 이용하여 합쳐주면 된다
     // 즉, user._id + 'secretToken' => token을 만들어주는 것이다. 그리고 나중에 token을 해석할 때, secretToken을 넣어주면, user._id가 나오게 된다. 즉, 이 사람이 누구인지를 알 수 있게 되는 것이다
     // 나중에 token을 해석할 때, secretToken을 넣어주면, user._id 가 나오는 것이다 ( 다른 말로 하면, token을 decode 하게 되면, user._id 가 나오게 되는 것이다 )
     var token = jwt.sign( user._id.toHexString() , 'accountactivatekey123')
-<<<<<<< HEAD
-=======
-    user.token = token
->>>>>>> 1033aa2f1a0b59004c69914ce29a2859f968c8f2
     console.log('token',token)
     // 그리고 생성한 token을 userSchema의 token field에 넣어준다
     user.token = token

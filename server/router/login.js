@@ -16,26 +16,11 @@ router.get('/bg.js ', function( req , res){
 })
 
 router.post('/api/users/login', function(req,res){
-<<<<<<< HEAD
     const { role } = req.body
     console.log("0th process: role is being checked ")
     console.log( `login process : role is ${role}`)
     // user 일 경우 
     if( role === 1){
-=======
-
-    
-    console.log('req.body',req.body)
-
-    const { role } = req.body
-
-    console.log('role',role)
-
-    // user 일 경우 
-    if( role === '1'){
-        console.log('here')
-
->>>>>>> 1033aa2f1a0b59004c69914ce29a2859f968c8f2
         // 1. 요청된 email을 데이터베이스에서 있는지 찾는다 
             User.findOne( { email : req.body.email }, ( err , user ) => {
                 // 만일 우리가 요청한 email이 db 에 없다면, user는 Null 값이 될 것이다
@@ -125,15 +110,8 @@ router.post('/api/users/login', function(req,res){
 
                                 // 토큰을 저장한다. 이번에는 쿠키에 저장한다 . x_auth 라는 이름으로
                                 console.log("Login Success")
-<<<<<<< HEAD
                                 console.log('login token',Dancer.token)
                                 return res.cookie("x_auth" , Dancer.token).status(200).json( { 
-=======
-                                console.log('login token',user.token)
-                                //multiple cookie setting을 위해서 send하기 전에 cookie 개별적으로 설정
-                                res.cookie('role',user.role)
-                                return res.cookie("x_auth" , user.token).status(200).json( { 
->>>>>>> 1033aa2f1a0b59004c69914ce29a2859f968c8f2
                                     loginSuccess : true , 
                                     userId : Dancer._id ,
                                     message : "success"
@@ -165,5 +143,65 @@ router.post('/api/users/login', function(req,res){
         })
         // 이렇게 정보를 전달해주면, 어떤 페이지에서든지 그 정보를 사용할 수 있다 
     })
+
+    
+// 로그아웃
+router.get('/api/users/logout' , auth , ( req,res ) => {
+    let token = req.cookies.x_auth;
+    console.log("token brought")
+
+    // token에서 role을 빼내서, user인지, dancer 인지를 파악한다
+    jwt.verify(token, "accountactivatekey123", function( err, decodedToken){
+
+        if(err){
+            // 20분후에 다시 token이 사라지기 때문에, 이 경우 아래의 메시지가 뜰 것이다 
+            console.log("Incorrect or Expired Link");
+            return res.status(200).json( { "result" : "LinkError" });
+        }
+        const { role } = decodedToken;
+
+        console.log( ` role is ${role} `)
+    
+        if( role === 1){
+    
+            User.findOneAndUpdate( { token },
+                // 여기서는 token을 지워준다
+                {$set:{token:''}}
+                , ( err, user) => {
+                    if(err){
+                        console.log("token related error")
+                        return res.json({ success : false , err});
+                    } 
+                    //쿠키지우기
+                    res.clearCookie("x_auth")
+
+                    console.log("cookie deleted")
+
+                    res.redirect('/main')
+                    // res.status(200).json({
+                    //     success: true
+                    // })
+                })
+            }else{
+                // : req.token
+                Dancer.findOneAndUpdate( { _id : req.dancer._id },
+                    // 여기서는 token을 지워준다
+                    {$set:{token:''}}
+                    , ( err, dancer) => {
+                        if(err){
+                            console.log("token related error")
+                            return res.json({ success : false , err});
+                        }
+                        //쿠키지우기
+                        res.clearCookie("x_auth")
+                        console.log("cookie deleted")
+                        res.redirect('/main')
+                        // res.status(200).json({
+                        //     success: true
+                        // })
+                        })
+                    }
+             })
+        })
 
     module.exports = router;

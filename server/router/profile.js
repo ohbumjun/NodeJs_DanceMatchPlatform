@@ -20,7 +20,7 @@ mongoose.connect( config.mongoURI , {
     useFindAndModify : false
     // 아래 코드는 연결ㄹ이 잘 됐는지 안됐는지 확인하기 
 }).then( () => {
-console.log("MongoDB Connected... ")}).catch( err => console.log( err ))
+console.log("MongoDB Connected...in profile.js ")}).catch( err => console.log( err ))
 
 
 let gfs;
@@ -29,8 +29,7 @@ connection.once('open',function(){
     gfs = Grid(connection.db,mongoose.mongo)
     gfs.collection('users')
 })
-//connection.on('error', console.error.bind(console, 'connection error:'));
-//initialize stream
+
 
 
 var storage = new GridFsStorage({
@@ -91,7 +90,7 @@ router.post('/api/users/profileDancer', function( req , res){
                     Lesson_Day,
                     Lesson_Time,
                     Age,
-                    Sex,
+                    Gender,
                     Workplace,
                     Youtube_Link,
                     Contact } = req.body;
@@ -113,7 +112,7 @@ router.post('/api/users/profileDancer', function( req , res){
                         Lesson_Day,
                         Lesson_Time,
                         Age,
-                        Sex,
+                        Gender,
                         Workplace,
                         Youtube_Link,
                         Contact 
@@ -194,9 +193,6 @@ router.post('/api/users/profileUser',function(req,res){
 })})
 
 
-<<<<<<< HEAD
-
-=======
 router.post('/profile/update_user',function(req,res)
 {
 
@@ -285,7 +281,6 @@ if(role==='1')
 
 
 });
->>>>>>> 1033aa2f1a0b59004c69914ce29a2859f968c8f2
 
 
 

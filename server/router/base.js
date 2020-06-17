@@ -12,7 +12,7 @@ mongoose.connect( config.mongoURI , {
     useCreateIndex : true,
     useFindAndModify : false
     // 아래 코드는 연결ㄹ이 잘 됐는지 안됐는지 확인하기 
-}).then( () => console.log("MongoDB Connected... ")).catch( err => console.log( err ))
+}).then( () => console.log("MongoDB Connected... in base.js")).catch( err => console.log( err ))
 
 var connection = mongoose.connection;
 connection.on('error', console.error.bind(console, 'connection error:'));

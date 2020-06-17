@@ -1,0 +1,189 @@
+@import url(c:\Users\user\Desktop\Dance_Project_HD\git_home\client\static\cssjs\reset.css);
+* {
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+}
+
+html, body {
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+header {
+  width: 100%;
+  height: 7vh;
+  background-color: #F8F8FF;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+
+header nav {
+  width: 80%;
+  display: -ms-grid;
+  display: grid;
+  -ms-grid-columns: (1fr)[3];
+      grid-template-columns: repeat(3, 1fr);
+  font-size: 0.8rem;
+  place-items: center center;
+  -webkit-box-shadow: 0px 5px 10px 0px rgba(0, 0, 0, 0.25);
+          box-shadow: 0px 5px 10px 0px rgba(0, 0, 0, 0.25);
+  -o-box-shadow: 0px 5px 10px 0px rgba(0, 0, 0, 0.25);
+  -ms-box-shadow: 0px 5px 10px 0px rgba(0, 0, 0, 0.25);
+  -moz-box-shadow: 0px 5px 10px 0px rgba(0, 0, 0, 0.25);
+}
+
+header nav ul {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+header nav ul li {
+  list-style: none;
+}
+
+main {
+  width: 70%;
+  height: 1000vh;
+  margin: 0 auto;
+  padding-top: 3vh;
+  background-color: #FFFAF0;
+}
+
+main .Infos {
+  padding-top: 1.4vh;
+  height: 40vh;
+  width: 70%;
+  margin: 0 auto;
+  display: -ms-grid;
+  display: grid;
+  -ms-grid-columns: 1fr 3fr;
+      grid-template-columns: 1fr 3fr;
+}
+
+main .Infos .Info__image {
+  width: 70%;
+  height: 70%;
+  background-image: url("https://source.unsplash.com/random");
+  background-size: cover;
+  background-position: center;
+  border-radius: 90px;
+}
+
+main .Infos .Info__content {
+  padding-left: 5vh;
+  color: gray;
+}
+
+main .Infos .Info__content .main__content {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  color: gray;
+}
+
+main .Infos .Info__content .main__content .name {
+  font-size: 1.7rem;
+  margin-right: 3vh;
+}
+
+main .Infos .Info__content .main__content .profile {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  font-size: 1.1rem;
+}
+
+main .Infos .Info__content .main__content .profile a {
+  text-decoration: none;
+  color: gray;
+  -webkit-transition: all 1s linear;
+  transition: all 1s linear;
+}
+
+main .Infos .Info__content .main__content .profile a:hover {
+  color: black;
+}
+
+main .Infos .Info__content .main__content .profile a span {
+  margin-right: 1rem;
+  padding: 0.3rem;
+  border: 1px solid lightgray;
+  border-radius: 10px;
+}
+
+main .Infos .Info__content .profile__content {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  margin: 1vh 0;
+  display: -ms-grid;
+  display: grid;
+  -ms-grid-columns: (1fr)[3];
+      grid-template-columns: repeat(3, 1fr);
+  place-items: center stretch;
+}
+
+main .Nav {
+  width: 90%;
+  margin: 0 auto;
+  height: 3vh;
+  padding: 1vh 0;
+  margin-bottom: 3vh;
+  display: -ms-grid;
+  display: grid;
+  -ms-grid-columns: (1fr)[3];
+      grid-template-columns: repeat(3, 1fr);
+  place-items: center center;
+  color: gray;
+  border-top: 0.5px solid lightgray;
+}
+
+main .Nav .Nav__videos, main .Nav .Nav__profile {
+  cursor: pointer;
+}
+
+main .Nav .Nav__videos:hover, main .Nav .Nav__profile:hover {
+  color: black;
+}
+
+main .Videos {
+  width: 90%;
+  margin: 0 auto;
+  display: -ms-grid;
+  display: grid;
+  -ms-grid-columns: (1fr)[3];
+      grid-template-columns: repeat(3, 1fr);
+  gap: 3vh;
+  grid-auto-rows: 19rem;
+}
+
+main .Videos .video {
+  width: 100%;
+  height: 18.125rem;
+  background-image: url("https://source.unsplash.com/random");
+  background-size: cover;
+  background-position: center;
+}
+/*# sourceMappingURL=myMainpage.css.map */

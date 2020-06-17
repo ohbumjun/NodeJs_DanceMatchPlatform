@@ -14,7 +14,7 @@ mongoose.connect( config.mongoURI , {
     useCreateIndex : true,
     useFindAndModify : false
     // 아래 코드는 연결ㄹ이 잘 됐는지 안됐는지 확인하기 
-}).then( () => console.log("MongoDB Connected... ")).catch( err => console.log( err ))
+}).then( () => console.log("MongoDB Connected...in mypage.js ")).catch( err => console.log( err ))
 var connection = mongoose.connection;
 connection.on('error', console.error.bind(console, 'connection error:'));
 
@@ -40,9 +40,8 @@ router.post('/profile/update_user',function(req,res)
         var result='ok'
         var respondData={'result':result}
         res.json(respondData)
+    })
 })
-})
-
 
 router.get('/api/users/mypage', function( req , res){
 
@@ -70,11 +69,40 @@ router.get('/api/users/mypageDancer', function( req , res){
 
     connection.db.collection("dancers", function(err, collection){
         collection.find({token:x_auth}).toArray(function(err, data){
-            //검색 개수 보여주기
+            //data는 내가 찾은 token에 해당하는 데이터이다
+            // 즉, 내가 찾는 댄서에 대한 정보가 data로 들어오는데
+            // array 형식으로 들어오기 때문에, data[0]이라고 작성하는 것이다 
         console.log(data[0])
         res.render('mypageDancer',data[0])
         })   
     });
 });
+
+router.post('/profile/update_dancer',function(req,res)
+{
+    // cookie 가져오기
+    var x_auth = req.cookies.x_auth
+    //업데이트할 변수명
+    var name = req.body.name
+    //업데이트할 값
+    var value = req.body.value
+    console.log('name')
+    //x-auth token으로 찾아서 update
+    connection.db.collection("dancers", function(err, collection){
+
+        collection.updateOne({'token':x_auth},{$set:{[name]:value}}, 
+        //변수명을 mongoose column 명으로 사용하고 싶을 때 [name]->e_name
+        {upsert:true });
+        if(err)
+        {
+            console.log(err)
+            res.status(404)
+        }
+        var result='ok'
+        var respondData={'result':result}
+        res.json(respondData)
+    })
+})
+
 
 module.exports = router;

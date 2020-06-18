@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href = "../../cssjs/mypage/myMainpage.css" rel = "stylesheet"/>
+    <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.2/css/all.min.css"
+  />
+
+    <title>MyMainPage</title>
+</head>
+
+<body>
+    <header>
+        <nav>
+            <a class = "main" href="/main">
+                <h2>같이추장께</h2>
+              </a>
+            <h2>Search</h2>
+            <ul>
+                <li>a</li>
+                <li>b</li>
+                <li>c</li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <div class = "Infos">
+            <div class="Info__image"></div>
+            <div class="Info__content">
+                <div class="main__content">
+                    <div class = "main__content name">
+                        <span>naneunyaobj</span>
+                    </div>
+                    <div class = "main__content profile">
+                        <a href="/api/users/mypage">
+                            <span >Profile Edit</span>
+                            <i class="fas fa-user-cog icon-3x"></i>
+                          </a>
+                    </div>
+                </div>
+                <div class="profile__content">
+                    <div class = "profile__content video">
+                        <span class="title">Video</span>
+                        <span class="num">5</span>
+                    </div>
+                    <div class = "profile__content friends">
+                        <span class="title">Board</span>
+                        <span class="num">5</span>
+                    </div>
+                    <div class = "profile__content board">
+                        <span class="title">Friend</span>
+                        <span class="num">5</span>
+                    </div>
+                </div>
+                <div class="personal__content">
+                    <span>오범준</span>
+                    <span>El felis es Hacer mi trabajos en la vida</span>
+                    <span>(Dance crew_LOCO)</span>
+                    <span>(Personal blog_2% psychogists)</span>
+                </div>
+            </div>
+        </div>
+        <ul id ="nav-tab" class="Nav">
+            <li class = "active"><a  href = "#Videos">Video</a></li>
+            <li><a href = "#mboard">Mi Board</a></li>
+            <li><a href = "#tboard">Tu Board</a></li>
+        </ul>
+        <div class = "tab-content">
+            <div class = "tab-pane active" id = "Videos">
+                <div ></div>
+                <div ></div>
+                <div ></div>
+                <div ></div>
+                <div ></div>
+                <div ></div>
+                <div ></div>
+                <div ></div>
+                <div ></div>
+            </div>
+            <div class = "tab-pane" id = "mboard">
+                <span>Mi board</span>
+            </div>
+            <div class = "tab-pane" id = "tboard">
+                <span>Tu board</span>
+            </div>
+        </div>
+    </main>
+    <script type="text/javascript">
+
+        function onTabClick(event) {
+        let activeTabs = document.querySelectorAll('.active');
+        // deactivate existing active tab and panel
+        // for( let i = 0; i < activeTabs.length; i++) {
+        //   activeTabs[i].className = activeTabs[i].className.replace('active', '');
+        // }
+        activeTabs.forEach(function(tab) {
+            tab.className = tab.className.replace('active', '').replace(' ','');
+        });
+        // activate new tab and panel
+        event.target.parentElement.className += ' active';
+        document.getElementById(event.target.href.split('#')[1]).className += ' active';
+        }
+        const element = document.getElementById('nav-tab');
+        element.addEventListener('click', onTabClick, false);
+        
+    </script>
+    
+
+</body>
+
+</html>

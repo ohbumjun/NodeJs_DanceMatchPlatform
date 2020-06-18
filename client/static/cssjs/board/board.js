@@ -58,10 +58,14 @@ function drawing(data)
         //id도 복사되네?
         let card = document.body.querySelector('#card-copy').cloneNode(true)
         card.id = 'card'+String(idx)
-        card.querySelector('#card-place').innerHTML='안녕'
-        card.querySelector('#card-writer').innerHTML=e['author']
-        card.querySelector('#card-time').innerHTML=e['board_date']
-        card.querySelector('#card-genre').innerHTML='ㅋㅋ'
+        card.querySelector('#card-title').innerHTML=e['title']
+        card.querySelector('#card-time').innerHTML=e['time']
+        card.querySelector('#card-place').innerHTML=e['place']
+
+        var iframe = document.createElement('iframe');
+        iframe.src =e['video']
+        card.querySelector('.video').appendChild(iframe);
+        // card.querySelector('#card-writer').innerHTML=e['author']
         cards_container.appendChild(card)
     })
 }

@@ -1,8 +1,7 @@
-@import "../reset";
+@import "../reset.css";
 
 *{
     box-sizing: border-box;
-    
 }
 
 html, body {
@@ -15,21 +14,27 @@ html, body {
 header{
     width:100%;
     height: 7vh;
-    background-color: #F8F8FF;
     display: flex;
     justify-content: center;
     
-
     nav{
+        background-color: #FFFAF0;
         width: 80%;
+        height: 100%;
         display: grid;
-        grid-template-columns: repeat(3, 1fr);
+        grid-template-columns: repeat(3, 1fr );
+        // grid-template-columns: repeat(3, minmax(min-content,1fr) );
         font-size: 0.8rem;
+        color: gray;
         place-items: center center;
         box-shadow: 0px 5px 10px 0px rgba(0,0,0,.25);
     -o-box-shadow: 0px 5px 10px 0px rgba(0,0,0,.25);
     -ms-box-shadow: 0px 5px 10px 0px rgba(0,0,0,.25);
     -moz-box-shadow: 0px 5px 10px 0px rgba(0,0,0,.25);
+        .main{
+            text-decoration: none;
+            color: gray;
+        }
         ul{
             display: flex;
             align-items: center;
@@ -38,8 +43,29 @@ header{
             }
         }
     }
+    // tablet용
+    @media screen and (min-width: 427px) and (max-width: 1100px){
+        nav{
+            width: 90%;
+        }
+    }
+
+    // cellphone 용
+    @media screen and (min-width: 320px) and (max-width: 426px){
+        height: 6vh;
+        width: 100%;
+        nav{
+            font-size: 0.6rem;
+            .main{
+                top: 0;
+            }
+            ul{
+                top: 0;
+            }
+        }
+    }
     
-}
+}// header
 
 main{
     width: 70%;
@@ -51,32 +77,28 @@ main{
     .Infos{
         padding-top: 1.4vh;
         height: 40vh;
-        width: 70%;
+        width: 80%;
         margin: 0 auto;
         display : grid;
         grid-template-columns: 1fr 3fr;
-
         .Info__image{
-            width:70%;
-            height:70%;
+            width: 100%;
+            height: 80%;
             background-image: url("https://source.unsplash.com/random");
             background-size: cover;
             background-position: center;
-            border-radius: 90px;
+            border-radius: 50%;
         } // Info__image
-        
-
         .Info__content{
             padding-left: 5vh;
             color : gray;
             .main__content{
                 display: flex;
-                // justify-content: space-around;
                 align-items: center;
+                justify-content: space-around;
                 color: gray;
-                
                 .name{
-                    font-size:1.7rem;
+                    font-size: 1.7rem;
                     margin-right: 3vh;
                 }
                 .profile{
@@ -87,7 +109,7 @@ main{
                     a{
                         text-decoration: none;
                         color: gray;
-                        transition: all 1s linear;
+                        // transition: color 1s linear;
                         &:hover{
                             color : black;
                         }
@@ -100,7 +122,6 @@ main{
                     }
                 }
             }
-    
             .profile__content{
                 display: flex;
                 justify-content: space-between;
@@ -108,50 +129,213 @@ main{
                 display: grid;
                 grid-template-columns: repeat(3, 1fr);
                 place-items: center stretch;
-                
+                div{
+                    display: flex;
+                    flex-direction: column;
+                    align-items: center;
+                }
             }
-    
             .personal__content{
-    
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+                span{
+                    margin-bottom: 2px;
+                    font-weight: 400;
+                }
             }
         } // Info_Content
     } // Infos
 
-    .Nav{
+    #nav-tab{
         width: 90%;
         margin: 0 auto;
-        height: 3vh;
-        padding: 1vh 0;
+        height: 6vh;
+        padding: 2vh 0;
         margin-bottom: 3vh;
         display: grid;
         grid-template-columns: repeat(3, 1fr);
         place-items: center center;
         color : gray;
         border-top: 0.5px solid lightgray;
-        .Nav__videos, .Nav__profile{
-            cursor: pointer;
-            &:hover{
-                color : black;
+        font-size: 1.1rem;
+        li{
+            list-style: none;
+            a{
+                border: 1px solid transparent;
+                border-radius: 10px;
+                padding:5px;
+                color: gray;
+                text-decoration: none;
+                transition: all 1s linear;
+                &:hover{
+                    color: white;
+                    background-color: lightgray;
+                }
             }
         }
     } // Nav
 
-    .Videos{
+    .tab-content{
+        .tab-pane{
+            display : none;
+        }
+        .tab-pane.active{
+            width: 90%;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 3vh;
+            grid-auto-rows: 19rem;
+            div{
+                width: 100%;
+                height: 18.125rem;
+                background-image: url("https://source.unsplash.com/random");
+                background-size: cover;
+                background-position: center;
+            }
+        }
+    } // Content
+
+    // 중간 size 용
+    @media screen and (min-width: 427px) and (max-width: 1100px){
+
         width: 90%;
-        margin: 0 auto;
-        display: grid;
-        grid-template-columns: repeat(3, 1fr);
-        gap: 3vh;
-        grid-auto-rows: 19rem;
-        .video{
-            width: 100%;
-            height: 18.125rem;
-            background-image: url("https://source.unsplash.com/random");
-            background-size: cover;
-            background-position: center;
+        .Infos{
+            height: 35vh;
+            .Info__image{
+                width: 12rem;
+                height: 12rem;
+            }
+            .Info__content{
+                padding-left: 4vh;
+            .main__content{
+                display: grid;
+                grid-template-columns: repeat(2, 25px);
+                .name{
+                    font-size: 1.3rem;
+                }
+                .profile{
+                    width: 150px;
+                    font-size: 0.8rem;
+                }
+            }
+            .profile__content{
+                font-size: 14px;
+                
+            }
+            .personal__content{
+                font-size: 12px;
+               
+            }
         }
     }
+}
 
-    
+    // cellphone 용
+    @media screen and (min-width: 320px) and (max-width: 426px){
+        width: 90%;
+        .Infos{
+            padding-top: 0.1vh;
+            height: 34vh;
+            width: 100%;
+            margin: 0 auto;
+            display : grid;
+            grid-template-columns: 1fr;
+            grid-template-rows: 0.2fr 1fr;
+            grid-auto-rows: 1fr;
+            .Info__image{
+                width:6rem;
+                height:6rem;
+                margin: 0 auto;
+                background-size: cover;
+                background-position: center;
+            } // Info__image
+            .Info__content{
+                margin-top: 0.5vh;
+                height: 60%;
+                padding: 0.5vh 2vh;
+                color : gray;
+                display: grid;
+                grid-template-columns: 1fr;
+                grid-template-rows: 1fr 1fr 2.5fr;
+                .main__content{
+                    margin: 0 auto;
+                    width: 100%;
+                    display: grid;
+                    place-items: center center;
+                    grid-template-columns: repeat(2, 1fr);
+                    .name{
+                        display:flex;
+                        justify-content: center;
+                        span{
+                        }
+                        font-size: 15px;
+                    }
+                    .profile{
+                        display: flex;
+                        justify-content: center;
+                        align-items: center;
+                        font-size: 8px;
+                        a{
+                            align-self: end;
+                            text-decoration: none;
+                            color: gray;
+                            transition: color 1s linear;
+                            &:hover{
+                                color : black;
+                            }
+                            .fas{
+                                font-size: 15px;
+                            }
+                        }
+                    }
+                }
+                .profile__content{
+                    margin : 0.4vh 0;
+                    font-size: 10px;
+                    font-weight: 300;
+                    div{
+                        display: flex;
+                        justify-content: space-around;
+                        align-items: center;
+                    }
+                }
+                .personal__content{
+                    span{
+                        font-size: 10px;
+                    }
+                }
+            } // Info_Content
+        } // Infos 
+     
+        #nav-tab{
+            height:1vh;
+            margin-top: 15px;
+            font-size: 0.8rem;
+           
+        } // Nav
+
+        .tab-content{
+            #Videos{
+                grid-template-columns: 1fr;
+                gap: 3vh;
+                grid-auto-rows: 12.5rem;
+                div{
+                    width: 100%;
+                    height: 12.125rem;
+                    background-image: url("https://source.unsplash.com/random");
+                    background-size: cover;
+                    background-position: center;
+                    border: 1px solid transparent;
+                    border-radius: 20%;
+                }
+            }
+        }
+
+
+    }
+
 
 }

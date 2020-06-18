@@ -46,7 +46,7 @@ router.get('/api/users/mypage', function( req , res){
 
     var x_auth = req.cookies.x_auth
     console.log('x_auth',x_auth)
-
+    console.log("accessing to mypage")
     connection.db.collection("users", function(err, collection){
         collection.find({token:x_auth}).toArray(function(err, data){
             //검색 개수 보여주기
@@ -58,20 +58,18 @@ router.get('/api/users/mypage', function( req , res){
     });
 });
 
-// 2. Dancer
-router.get('/api/users/mypageDancer', function( req , res){
-
+// 2. mySpace
+router.get('/api/users/mySpace', function( req , res){
     var x_auth = req.cookies.x_auth
-
     console.log('x_auth',x_auth)
 
-    connection.db.collection("dancers", function(err, collection){
+    connection.db.collection("users", function(err, collection){
         collection.find({token:x_auth}).toArray(function(err, data){
             //data는 내가 찾은 token에 해당하는 데이터이다
             // 즉, 내가 찾는 댄서에 대한 정보가 data로 들어오는데
             // array 형식으로 들어오기 때문에, data[0]이라고 작성하는 것이다 
         console.log(data[0])
-        res.render('mypageDancer',data[0])
+        res.render('mySpace',data[0])
         })   
     });
 });

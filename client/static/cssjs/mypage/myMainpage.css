@@ -1,4 +1,4 @@
-@import url(c:\Users\user\Desktop\Dance_Project_HD\git_home\client\static\cssjs\reset.css);
+@import url(c:\tensor_code\dadadadance\client\static\cssjs\reset.css);
 * {
   -webkit-box-sizing: border-box;
           box-sizing: border-box;
@@ -258,7 +258,7 @@ main .tab-content .tab-pane.active {
   grid-auto-rows: 19rem;
 }
 
-main .tab-content .tab-pane.active div {
+main .tab-content .tab-pane.active .video {
   width: 100%;
   height: 18.125rem;
   background-image: url("https://source.unsplash.com/random");
@@ -421,4 +421,59 @@ main .tab-content .tab-pane.active div {
     border-radius: 20%;
   }
 }
-/*# sourceMappingURL=myMainpage.css.map */
+
+#cards-container {
+  -ms-grid-column: 1;
+  -ms-grid-column-span: 3;
+  grid-column: 1 / span 3;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+
+.card-container {
+  border: black solid 1px;
+  width: 70vw;
+  height: 20vh;
+  margin-bottom: 10vh;
+}
+
+#card-copy {
+  display: none;
+}
+
+#card {
+  padding: 1vh;
+}
+
+.card-info {
+  margin-bottom: 1em;
+}
+
+.open-update {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-pack: distribute;
+      justify-content: space-around;
+}
+
+.delete-modal {
+  position: fixed;
+  left: 25%;
+  top: 30%;
+  z-index: 1;
+  border: solid 1px black;
+}
+
+.modal-hide {
+  display: none;
+}
+
+.blackout {
+  -webkit-filter: blur(1px);
+          filter: blur(1px);
+}

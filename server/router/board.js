@@ -91,6 +91,8 @@ router.post('/board', function (req, res) {
     board.time=req.body.time
     board.place=req.body.place
     board.video=req.body.video
+    board.people = req.body.number
+    board.current_people = 1
     User.find({token:x_auth},function(err,docs)
     {
       

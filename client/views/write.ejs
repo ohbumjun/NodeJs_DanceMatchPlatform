@@ -19,7 +19,7 @@
                 <div class="write-input">
                     <p class="title-text">제목</p>
                 </div>
-                <input type="text" name="title"><br>
+                <input type="text" name="title" required oninvalid="this.setCustomValidity('Enter Title')"><br>
                 </label>
                 <label for='title'>
                         <div class="write-input">
@@ -45,6 +45,12 @@
                 </div>
             <input type="text" name="time"><br>
             </label>
+            <label for='number'>
+                <div class="write-input">
+                    <p class="title-text">모집인원</p>
+                </div>
+                <input type="number" name="number" placeholder=4><br>
+         </label>
             <div class="btn-submit">
             <input type="submit" value="확인">
         </div>

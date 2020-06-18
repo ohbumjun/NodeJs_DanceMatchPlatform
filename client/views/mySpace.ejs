@@ -66,29 +66,54 @@
         </div>
         <ul id ="nav-tab" class="Nav">
             <li class = "active"><a  href = "#Videos">Video</a></li>
-            <li><a href = "#mboard">Mi Board</a></li>
+            <li id='mi-board'><a href = "#mboard">Mi Board</a></li>
             <li><a href = "#tboard">Tu Board</a></li>
         </ul>
         <div class = "tab-content">
             <div class = "tab-pane active" id = "Videos">
-                <div ></div>
-                <div ></div>
-                <div ></div>
-                <div ></div>
-                <div ></div>
-                <div ></div>
-                <div ></div>
-                <div ></div>
-                <div ></div>
+                <div class="video"></div>
+                <div class="video"></div>
+                <div class="video"></div>
+                <div class="video"></div>
+                <div class="video"></div>
+                <div class="video"></div>
+                <div class="video"></div>
+                <div class="video"></div>
+                <div class="video"></div>
             </div>
             <div class = "tab-pane" id = "mboard">
-                <span>Mi board</span>
+                <div id="cards-container">
+                </div>
             </div>
             <div class = "tab-pane" id = "tboard">
                 <span>Tu board</span>
             </div>
         </div>
     </main>
+
+
+    <div id ="card-copy" class="card-container">
+        <div id="card">
+        <div id="card-title"></div>
+            <div class="sub-container">
+            <div id="card-place-time" class='card-info'></div>
+            <div id="card-people" class='card-info'></div>
+            </div>
+        </div>
+      <div class="open-update"><div class="card-button btn-update">수정하기</div><div class="card-button btn-delete">삭제하기</div>
+    </div>
+</div>
+
+    <div class="modalcontainer">
+    </div>
+    <div id="modal" class="delete-modal modal-hide">
+        <div class="modal-header">정말 삭제할거에요? ㅠㅠ</div>
+        <div class="modal-main">
+          <button id='del-yes'>Yes?</button>
+          <button id='del-no'>No?</button>
+        </div>
+    </div>
+
     <script type="text/javascript">
 
         function onTabClick(event) {
@@ -108,6 +133,8 @@
         element.addEventListener('click', onTabClick, false);
         
     </script>
+
+    <script src="../../cssjs/mypage/myspace.js"></script>
     
 
 </body>

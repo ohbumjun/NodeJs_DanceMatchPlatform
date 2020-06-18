@@ -263,27 +263,6 @@ router.get('/image/:filename',(req,res)=>{
     })
 })
 
-router.get('/api/users/mypage', function( req , res){
-var x_auth = req.cookies.x_auth
-var role = req.cookies.role;
-
-//role이 user라면
-if(role==='1')
-{
-    connection.db.collection("users", function(err, collection){
-        collection.find({token:x_auth}).toArray(function(err, data){
-            //검색 개수 보여주기
-        console.log(data[0])
-        res.render('mypage',data[0])
-        })   
-    });
-}
-
-
-});
-
-
-
 //image 저장 : upload.singe(input name), upload는 multer const
 router.post('/api/users/mypage',upload.single('image'),function( req , res){
     var x_auth = req.cookies.x_auth

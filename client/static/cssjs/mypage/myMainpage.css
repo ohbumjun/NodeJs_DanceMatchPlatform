@@ -11,6 +11,10 @@ html, body {
   padding: 0;
 }
 
+body {
+  display: block;
+}
+
 header {
   width: 100%;
   height: 7vh;
@@ -100,8 +104,8 @@ main .Infos {
 }
 
 main .Infos .Info__image {
-  width: 100%;
-  height: 80%;
+  width: 15rem;
+  height: 15rem;
   background-image: url("https://source.unsplash.com/random");
   background-size: cover;
   background-position: center;
@@ -258,7 +262,7 @@ main .tab-content .tab-pane.active {
   grid-auto-rows: 19rem;
 }
 
-main .tab-content .tab-pane.active div {
+main .tab-content .tab-pane.active .video {
   width: 100%;
   height: 18.125rem;
   background-image: url("https://source.unsplash.com/random");
@@ -287,17 +291,28 @@ main .tab-content .tab-pane.active div {
         grid-template-columns: repeat(2, 25px);
   }
   main .Infos .Info__content .main__content .name {
-    font-size: 1.3rem;
+    font-size: 1.4rem;
   }
   main .Infos .Info__content .main__content .profile {
     width: 150px;
-    font-size: 0.8rem;
+    font-size: 1rem;
   }
   main .Infos .Info__content .profile__content {
-    font-size: 14px;
+    font-size: 16px;
   }
   main .Infos .Info__content .personal__content {
-    font-size: 12px;
+    font-size: 14px;
+  }
+  main .tab-content #Videos {
+    -ms-grid-columns: (1fr)[2];
+        grid-template-columns: repeat(2, 1fr);
+    gap: 1vh;
+    grid-auto-rows: 17rem;
+  }
+  main .tab-content #Videos div {
+    width: 18rem;
+    margin: 0 auto;
+    height: 90%;
   }
 }
 

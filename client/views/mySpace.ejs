@@ -8,10 +8,8 @@
     rel="stylesheet"
     href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.2/css/all.min.css"
   />
-
     <title>MyMainPage</title>
 </head>
-
 <body>
     <header>
         <nav>
@@ -26,7 +24,6 @@
             </ul>
         </nav>
     </header>
-
     <main>
         <div class = "Infos">
             <div class="Info__image"></div>
@@ -71,15 +68,15 @@
         </ul>
         <div class = "tab-content">
             <div class = "tab-pane active" id = "Videos">
-                <div ></div>
-                <div ></div>
-                <div ></div>
-                <div ></div>
-                <div ></div>
-                <div ></div>
-                <div ></div>
-                <div ></div>
-                <div ></div>
+                <div class ="video"></div>
+                <div class ="video"></div>
+                <div class ="video"></div>
+                <div class ="video"></div>
+                <div class ="video"></div>
+                <div class ="video"></div>
+                <div class ="video"></div>
+                <div class ="video"></div>
+                <div class ="video"></div>
             </div>
             <div class = "tab-pane" id = "mboard">
                 <span>Mi board</span>
@@ -90,7 +87,6 @@
         </div>
     </main>
     <script type="text/javascript">
-
         function onTabClick(event) {
         let activeTabs = document.querySelectorAll('.active');
         // deactivate existing active tab and panel
@@ -103,10 +99,20 @@
         // activate new tab and panel
         event.target.parentElement.className += ' active';
         document.getElementById(event.target.href.split('#')[1]).className += ' active';
-        }
+
+        // document.getElementsByTagName('body')[0].className += 'active'
+
+        // console.log(body)
+
+        // window.scrollTo({
+        //     "behavior" : 'smooth',
+        //     "left" : 0,
+        //     "top" : body.offsetTop
+        // });
+    }
         const element = document.getElementById('nav-tab');
-        element.addEventListener('click', onTabClick, false);
-        
+        element.addEventListener('click', onTabClick);
+
     </script>
     
 

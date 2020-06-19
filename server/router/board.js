@@ -73,6 +73,17 @@ router.post('/my_posts',function(req,res)
   
 })
 
+//글 삭제
+router.get('/delete_post/:id',function(req,res)
+{
+  let id = req.params.id
+
+  Board.deleteOne({ _id: id},function(req,response){
+    res.redirect('/api/users/mySpace');
+  })
+
+})
+
 
 //글쓰기
 router.get('/board/write', function(req, res, next) {

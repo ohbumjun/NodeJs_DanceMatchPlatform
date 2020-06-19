@@ -60,8 +60,6 @@ router.get('/api/users/mypage', function( req , res){
 // 2. mySpace
 router.get('/api/users/mySpace', function( req , res){
     var x_auth = req.cookies.x_auth
-    console.log('x_auth',x_auth)
-
     connection.db.collection("users", function(err, collection){
         collection.find({token:x_auth}).toArray(function(err, data){
             //data는 내가 찾은 token에 해당하는 데이터이다

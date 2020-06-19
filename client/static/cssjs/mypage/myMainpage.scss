@@ -371,13 +371,27 @@ main{
 
 //삭제모달
 .delete-modal{
+    background:white;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    align-items: center;
     position:fixed;
     left:25%;
     top:30%;
     z-index:1;
     border:solid 1px black;
-  }
+.modal-main{
+    padding:1em;
+}
+.modal-header{
+    padding:1em;
+}
+
+}
   
+
+
   .modal-hide{
     display:none;
   }

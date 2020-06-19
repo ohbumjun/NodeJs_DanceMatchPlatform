@@ -69,7 +69,7 @@ var userSchema = mongoose.Schema({
         default : ''
     },
     age : {
-        type : Number,
+        type : String,
         default : ''
     },
     place : {
@@ -80,13 +80,17 @@ var userSchema = mongoose.Schema({
         type : String,
         default : ''
     },
-    contact:{
+    Kakaotalk:{
+        type : String,
+        default : ''
+    },
+    Instagram:{
         type : String,
         default : ''
     },
     profile_img:{
         type : String,
-        default : ''
+        default : 'https://images.unsplash.com/photo-1511715282680-fbf93a50e721?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60'
     }, 
     profile_videos:{
         type : String,

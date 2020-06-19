@@ -167,16 +167,22 @@ router.post('/api/users/profileUser',function(req,res){
             return res.status(400).json( { error: "Incorrect or Expired Link" });
      }
 
-    const { k_name, e_name , email, password ,  username, role } = decodedToken;
+    const { k_name, e_name , email, password ,  username } = decodedToken;
 
-    var user_data = {'k_name':k_name,'e_name':e_name , 'email':email, 'password':password , 'username':username, 'role':role}
+    console.log("User info retracted from cookie")
+
+    var user_data = {'k_name':k_name,'e_name':e_name , 'email':email, 'password':password , 'username':username}
     var user_total = Object.assign({}, user_data, req.body);
     var user = new User(user_total);
+
+    console.log(user)
 
     user.save(function (err) {
         if (err)
         {
             console.log(err)
+            console.log("Error in saving Dancer Profile", err);
+            return res.status(200).json({ 'result' : "Error saving User"});
         }
 
         user.generateToken( (err, user) => {
@@ -186,8 +192,13 @@ router.post('/api/users/profileUser',function(req,res){
             }
         //active accoutn token 은 expire되므로 token바꿔줘야됨
         res.cookie('x_auth',user.token)
-        res.cookie("role" , user.role).redirect('/main')
         // saved!
+
+        console.log("user info saved into DB")
+        return res.status(200).json({
+            message : "Signup success", "success" : "true"
+
+        }) // res.status.json
       });
     })
 })})
@@ -262,27 +273,6 @@ router.get('/image/:filename',(req,res)=>{
     }
     })
 })
-
-router.get('/api/users/mypage', function( req , res){
-var x_auth = req.cookies.x_auth
-var role = req.cookies.role;
-
-//role이 user라면
-if(role==='1')
-{
-    connection.db.collection("users", function(err, collection){
-        collection.find({token:x_auth}).toArray(function(err, data){
-            //검색 개수 보여주기
-        console.log(data[0])
-        res.render('mypage',data[0])
-        })   
-    });
-}
-
-
-});
-
-
 
 //image 저장 : upload.singe(input name), upload는 multer const
 router.post('/api/users/mypage',upload.single('image'),function( req , res){

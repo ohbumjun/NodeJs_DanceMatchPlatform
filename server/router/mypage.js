@@ -50,7 +50,6 @@ router.get('/api/users/mypage', function( req , res){
     connection.db.collection("users", function(err, collection){
         collection.find({token:x_auth}).toArray(function(err, data){
             //검색 개수 보여주기
-
             // data는 collection에서 user , 혹은 dancer 정보를 받아오는 것이고, 그것을 mypageDancer 라는 router 에다가 넘겨주는 것이다 
         console.log(data[0])
         res.render('mypage',data[0])

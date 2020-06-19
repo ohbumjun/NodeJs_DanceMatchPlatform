@@ -59,8 +59,8 @@ function drawing(data)
         let card = document.body.querySelector('#card-copy').cloneNode(true)
         card.id = 'card'+String(idx)
         card.querySelector('#card-title').innerHTML=e['title']
-        card.querySelector('#card-time').innerHTML=e['time']
-        card.querySelector('#card-place').innerHTML=e['place']
+        card.querySelector('#card-place-time').innerHTML=e['time']+' '+e['place'] //시간 장소
+        card.querySelector('#card-people').innerHTML=e['current_people']+'명'+'/'+e['people']+'명'//인원
 
         var iframe = document.createElement('iframe');
         iframe.src =e['video']

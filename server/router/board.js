@@ -20,7 +20,7 @@ mongoose.connect( config.mongoURI , {
     useFindAndModify : false
     // 아래 코드는 연결ㄹ이 잘 됐는지 안됐는지 확인하기 
 }).then( () => {
-console.log("MongoDB Connected... ")}).catch( err => console.log( err ))
+console.log("MongoDB Connected...in board.js")}).catch( err => console.log( err ))
 
 
 let connection = mongoose.connection;
@@ -64,7 +64,7 @@ router.post('/my_posts',function(req,res)
 
   User.find({token:x_auth},function(err,docs)
   {
-   let author =   docs[0]['e_name']
+   let author =  docs[0]['e_name']
    Board.find({author:author},function(err,docs)
    {
     res.json({'result':docs})
@@ -91,10 +91,12 @@ router.post('/board', function (req, res) {
     board.time=req.body.time
     board.place=req.body.place
     board.video=req.body.video
+    board.people = req.body.number
+    board.current_people = 1
     User.find({token:x_auth},function(err,docs)
     {
       
-      board.author = docs[0]['e_name']
+      board.author = docs[0]['email']
       board.save(function (err) {
         if(err){
           res.redirect('/board')

@@ -436,4 +436,60 @@ main .tab-content .tab-pane.active .video {
     border-radius: 20%;
   }
 }
+
+#cards-container {
+  -ms-grid-column: 1;
+  -ms-grid-column-span: 3;
+  grid-column: 1 / span 3;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+
+.card-container {
+  border: black solid 1px;
+  width: 70vw;
+  height: 20vh;
+  margin-bottom: 10vh;
+}
+
+#card-copy {
+  display: none;
+}
+
+#card {
+  padding: 1vh;
+}
+
+.card-info {
+  margin-bottom: 1em;
+}
+
+.open-update {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-pack: distribute;
+      justify-content: space-around;
+}
+
+.delete-modal {
+  position: fixed;
+  left: 25%;
+  top: 30%;
+  z-index: 1;
+  border: solid 1px black;
+}
+
+.modal-hide {
+  display: none;
+}
+
+.blackout {
+  -webkit-filter: blur(1px);
+          filter: blur(1px);
+}
 /*# sourceMappingURL=myMainpage.css.map */

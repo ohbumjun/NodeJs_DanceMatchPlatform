@@ -21,7 +21,6 @@
 		let Username = $('#username').val();
 		let Password = $('#password').val();
 		let Confirmpassword = $('#confirmpassword').val();
-		let Role = $('#role').val();
 
 		// 2. 입력사항 검사하기
 			// 2.1 해당 요소 중 하나라도 입력하지 않았을 경우 alert를 띄운다
@@ -67,7 +66,6 @@
 		// 입력 영어이름을 대문자로 바꾸기 
 		E_name = E_name.toUpperCase();
 		// Role을 Number 형태로 바꾸기
-		Role = Number(Role)
 		// 2.2 입력내용을 검사한다 
 			// 1) English Name의 길이를 검사한다
 			if( E_name.length < 1 || E_name.length > 50){
@@ -114,7 +112,6 @@
 			}
 		})
 	} // function get_user
-
 		// 비밀번호 체크 함수
 		function check(password){
 			if(!/^[a-zA-Z0-9]{7,15}$/.test(password)){
@@ -123,12 +120,10 @@
 			}
 			var checkNumber = password.search(/[0-9]/g);
 			var checkEnglish = password.search(/[a-z]/ig);
-
 			if(checkNumber <0 || checkEnglish <0){
 				swal("combine number and english");
 				return ;
 			}
-
 			if(/(\w)\1\1\1/.test(password)){
 				swal('Cannot use word like 444 more than 4 times');
 				return ;
@@ -181,17 +176,6 @@
               <path d="M0,20 a10,8 0 0,1 20,0z M10,0 a4,4 0 0,1 0,8 a4,4 0 0,1 0,-8" />
             </svg>
             <input id = "confirmpassword" type="password" class="login__input name" placeholder="Confirm Password"/>
-		  </div>
-		  
-          <div class="login__row">
-            <svg class="login__icon pass svg-icon" viewBox="0 0 20 20">
-              <path d="M0,20 20,20 20,8 0,8z M10,13 10,16z M4,8 a6,8 0 0,1 12,0" />
-            </svg>
-            <select class="login__input pass" name="role" id="role">
-				<option value='' selected>Choose Your Role</option>
-				<option value = 1 >User</option>
-				<option value = 0 >Dancer</option>
-			</select>
 		  </div>
 		  
           <button onclick = "get_user()" type="button" class="login__submit">Sign in</button>

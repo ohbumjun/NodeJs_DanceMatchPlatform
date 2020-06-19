@@ -64,8 +64,8 @@ router.post('/my_posts',function(req,res)
 
   User.find({token:x_auth},function(err,docs)
   {
-   let author =   docs[0]['e_name']
-   Board.find({author:author},function(err,docs)
+   let email =   docs[0]['email']
+   Board.find({email:email},function(err,docs)
    {
     res.json({'result':docs})
    })
@@ -107,7 +107,7 @@ router.post('/board', function (req, res) {
     User.find({token:x_auth},function(err,docs)
     {
       
-      board.author = docs[0]['e_name']
+      board.email = docs[0]['email']
       board.save(function (err) {
         if(err){
           res.redirect('/board')

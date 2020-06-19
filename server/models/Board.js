@@ -13,11 +13,11 @@ var boardSchema = new Schema({
     title: String,
     contents: String,
     place:String,
-    author: String,
     video: String,
     time:String,
     people : Number,
     current_people :Number,
+    email:String,
     board_date: {type: Date, default: Date.now()},
     comments: [commentSchema]
 });

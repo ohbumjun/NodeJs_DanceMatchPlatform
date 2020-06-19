@@ -41,12 +41,32 @@ popup.forEach(function(e,idx){
       clone.id = 'modal'+ e.id
       modalbg.appendChild(clone)
       var delete_button = e.querySelector(".btn-delete");
+      var delete_yes = clone.querySelector("#del-yes");
+      var delete_no = clone.querySelector("#del-no");
+
       delete_button.addEventListener('click',function(e){
         e.preventDefault();
         e.stopPropagation();
         clone.classList.remove('modal-hide')
         clone.classList.add('modal-active')
         main.classList.toggle('blackout')
+      })
+
+      //삭제버튼 no 누르면 modal 창
+      delete_no.addEventListener('click',function(e){
+        e.preventDefault();
+        e.stopPropagation();
+        clone.classList.toggle('modal-active')
+        clone.classList.toggle('modal-hide')
+        main.classList.toggle('blackout')
+      })
+
+
+      //삭제버튼 no
+      delete_yes.addEventListener('click',(e)=>{
+      let board_id = data[idx]['_id']
+      console.log(board_id)
+      window.location.href=`/delete_post/${board_id}`  //localhost/delete_post/id 로 간다
       })
 })
 

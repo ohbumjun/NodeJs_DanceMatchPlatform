@@ -39,7 +39,19 @@ popup.forEach(function(e,idx){
       //modal template clone 한 다음에 modal 정보 입력
       var clone = document.body.querySelector('#modal').cloneNode(true)    
       clone.id = 'modal'+ e.id
+      let board_id = data[idx]['_id']
+
       modalbg.appendChild(clone)
+
+      var update_button = e.querySelector(".btn-update");
+
+
+      update_button.addEventListener('click',(e)=>{
+        window.location.href=`/update_post/${board_id}`  //localhost/delete_post/id 로 간다
+        })
+
+
+      //삭제버튼 관련 리스터
       var delete_button = e.querySelector(".btn-delete");
       var delete_yes = clone.querySelector("#del-yes");
       var delete_no = clone.querySelector("#del-no");
@@ -64,7 +76,7 @@ popup.forEach(function(e,idx){
 
       //삭제버튼 no
       delete_yes.addEventListener('click',(e)=>{
-      let board_id = data[idx]['_id']
+
       console.log(board_id)
       window.location.href=`/delete_post/${board_id}`  //localhost/delete_post/id 로 간다
       })

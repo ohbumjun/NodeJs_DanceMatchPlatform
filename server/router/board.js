@@ -92,6 +92,28 @@ router.get('/board/write', function(req, res, next) {
     res.render('write');
 });
 
+
+//게시글 업데이트
+router.get('/update_post/:id',function(req,res){
+  let id = req.params.id
+  Board.find({_id:id},function(req,response)
+  {
+    console.log("find board",response[0])
+    res.render('board_update',response[0])
+  })
+
+
+})
+
+
+router.post('/api/users/update_board',function(req,res)
+{
+
+  Board.findOneAndUpdate({_id:req.body._id},{$set:req.body},(err,doc)=>{
+    res.redirect('/api/users/myspace')
+})
+})
+
 //글쓰기 post
 router.post('/api/users/board', function (req, res) {
     

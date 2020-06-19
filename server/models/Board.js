@@ -18,6 +18,7 @@ var boardSchema = new Schema({
     people : Number,
     email : String,
     current_people :Number,
+    email:String,
     board_date: {type: Date, default: Date.now()},
     comments: [commentSchema]
 });

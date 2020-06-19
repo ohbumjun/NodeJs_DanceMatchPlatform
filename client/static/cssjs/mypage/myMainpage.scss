@@ -3,20 +3,24 @@
 *{
     box-sizing: border-box;
 }
+
 html, body {
     width: 100%;
     height: 100%;
     margin: 0;
     padding: 0;
   }
+
 body{
     display:block;
 }
+
 header{
     width:100%;
     height: 7vh;
     display: flex;
     justify-content: center;
+    
     nav{
         background-color: #FFFAF0;
         width: 80%;
@@ -35,6 +39,13 @@ header{
             text-decoration: none;
             color: gray;
         }
+        ul{
+            display: flex;
+            align-items: center;
+            li{
+                list-style: none;
+            }
+        }
     }
     // tablet용
     @media screen and (min-width: 427px) and (max-width: 1100px){
@@ -42,6 +53,7 @@ header{
             width: 90%;
         }
     }
+
     // cellphone 용
     @media screen and (min-width: 320px) and (max-width: 426px){
         height: 6vh;
@@ -51,15 +63,21 @@ header{
             .main{
                 top: 0;
             }
+            ul{
+                top: 0;
+            }
         }
     }
+    
 }// header
+
 main{
     width: 70%;
     height: 1000vh;
     margin: 0 auto;
     padding-top: 3vh;
     background-color: #FFFAF0;
+
     .Infos{
         padding-top: 1.4vh;
         height: 40vh;
@@ -133,6 +151,7 @@ main{
             }
         } // Info_Content
     } // Infos
+
     #nav-tab{
         width: 90%;
         margin: 0 auto;
@@ -214,7 +233,7 @@ main{
     }// Infos
 
     .tab-content{
-        .tab-pane.active{
+        #Videos{
             grid-template-columns: repeat(2,1fr);
             gap: 1vh;
             grid-auto-rows: 17rem;
@@ -222,6 +241,11 @@ main{
                 width: 18rem;
                 margin:0 auto;
                 height: 90%;
+                // background-image: url("https://source.unsplash.com/random");
+                // background-size: cover;
+                // background-position: center;
+                // border: 1px solid transparent;
+                // border-radius: 20%;
             }
         }
     }
@@ -310,6 +334,7 @@ main{
             height:1vh;
             margin-top: 15px;
             font-size: 0.8rem;
+           
         } // Nav
 
         .tab-content{
@@ -329,73 +354,4 @@ main{
             }
         }
     }
-
-
 }
-
-
-
-//게시글 카드
-
-#cards-container{
-    grid-column: 1 / span 3;
-    display: flex;
-    justify-content: center;
-}
-.card-container{
-    border:black solid 1px;
-    width:70vw;
-    height:20vh;
-    margin-bottom:10vh;
-  }
-  
-  
-  #card-copy{
-    display:none;
-  }
-  
-  #card{
-    padding:1vh;
-  }
-  
-  .card-info{
-    margin-bottom:1em;
-  }
-  
-  .open-update{
-    display:flex;
-    justify-content:space-around;
-  }
-  
-
-
-//삭제모달
-.delete-modal{
-    background:white;
-    display:flex;
-    flex-direction:column;
-    justify-content:center;
-    align-items: center;
-    position:fixed;
-    left:25%;
-    top:30%;
-    z-index:1;
-    border:solid 1px black;
-.modal-main{
-    padding:1em;
-}
-.modal-header{
-    padding:1em;
-}
-
-}
-  
-
-
-  .modal-hide{
-    display:none;
-  }
-  
-  .blackout{
-    filter:blur(1px)
-  }

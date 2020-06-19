@@ -27,7 +27,7 @@ let connection = mongoose.connection;
 connection.on('error', console.error.bind(console, 'connection error:'));
 
 //게시판
-router.get('/board', function( req , res){
+router.get('/api/users/board', function( req , res){
 
 
     let x_auth = req.cookies.x_auth
@@ -64,9 +64,7 @@ router.post('/my_posts',function(req,res)
 
   User.find({token:x_auth},function(err,docs)
   {
-    console.log("Finding in User")
-    console.log(docs)
-   let email =  docs[0]['email']
+   let email =   docs[0]['email']
    Board.find({email:email},function(err,docs)
    {
      console.log("Finding in Board")
@@ -95,7 +93,7 @@ router.get('/board/write', function(req, res, next) {
 });
 
 //글쓰기 post
-router.post('/board', function (req, res) {
+router.post('/api/users/board', function (req, res) {
     
     let x_auth = req.cookies.x_auth
     let login = Object.keys(req.cookies).includes('x_auth')?true:false

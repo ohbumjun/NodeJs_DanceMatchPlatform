@@ -53,8 +53,11 @@ var userSchema = mongoose.Schema({
         minlength : 7,
         required: true
     },
-
-    image : String,
+    username : {
+        type: String,
+        default: '',
+        required: true
+    },
     // 아래와 같은 token을 이용해서, 유효성 같은 것들을 관리할 수 있다
     token : {
         type: String
@@ -72,6 +75,7 @@ var userSchema = mongoose.Schema({
         type : String,
         default : ''
     },
+    
     place : {
         type : String,
         default : ''

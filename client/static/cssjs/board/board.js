@@ -83,8 +83,28 @@ popup.forEach(function(e,idx){
     //모달 정보 채워넣어야됨
     clone.querySelector('.modal-header-text').innerHTML=data[idx]['author']
     clone.id = 'modal'+ e.id
-    modalbg.appendChild(clone)
 
+
+    //comment 저장할 때 boardid 필요함
+    let boardid =data[idx]['_id']
+    let board_id = clone.querySelector("#boardid")
+    board_id.value = boardid
+
+    //comment 창 불러오기
+    let commentcontainer = clone.querySelector('.modal-comment')
+    data[idx]['comments'].map(function(e){draw_comment(e,commentcontainer,boardid)})
+    
+
+    //신규 코멘트 처리
+    let comment_submit_btn = clone.querySelector('.comment-submit-btn')
+    comment_submit_btn.addEventListener("click",function(e)
+    {
+        ajax_comment(e,clone,commentcontainer)
+    }
+    )
+
+    modalbg.appendChild(clone)
+    //모달창 껐다 켜지기
     e.addEventListener('click',function()
     {   
         //이미지가 꺼졌다 바로 켜지는 것 방지
@@ -110,4 +130,138 @@ popup.forEach(function(e,idx){
 
 })
 
+}
+
+//modal에 댓글 입력할 때 비동기 업데이트
+function ajax_comment(e,clone,commentcontainer)
+{
+    e.preventDefault();
+
+    let url = '/api/users/comment'
+    let comment = clone.querySelector('textarea').value
+    let boardid =clone.querySelector('#boardid').value
+    let data = {comment:comment,boardid:boardid}
+
+    data = JSON.stringify(data)
+    var xhr = new XMLHttpRequest()
+    xhr.open('POST',url);
+    xhr.setRequestHeader('Content-Type','application/json')
+    xhr.send(data)
+    xhr.addEventListener('load',function(){
+        var result = JSON.parse(xhr.responseText);
+        commentcontainer.innerHTML=''
+        //result:{result:{comments:Array}}
+        result.result.comments.map(function(e){draw_comment(e,commentcontainer,boardid)})
+    })
+}
+
+function remove_comment(e,comment_id,boardid,commentcontainer)
+{
+
+    let commentid= comment_id
+    let data = {commentid:commentid,boardid:boardid}
+    let url = '/api/users/delete_comment'
+    data = JSON.stringify(data)
+
+    var xhr = new XMLHttpRequest()
+    xhr.open('POST',url);
+    xhr.setRequestHeader('Content-Type','application/json')
+    xhr.send(data)
+    xhr.addEventListener('load',function(){
+        var result = JSON.parse(xhr.responseText);
+        commentcontainer.innerHTML=''
+        //result:{result:{comments:Array}}
+        result.result.comments.map(function(e){draw_comment(e,commentcontainer,boardid)})
+    })
+}
+
+function change_comment(e,comment,comment_contianer,comment_id,boardid,commentcontainer)
+{
+    //commentcontainer : total comment container comment_container : single comment container
+    let original_comment = comment.innerHTML;
+    comment.innerHTML=''
+    let UpdateComment = document.createElement("textarea")
+    UpdateComment.value = original_comment
+    comment.appendChild(UpdateComment)
+
+    let buttons = comment_contianer.querySelectorAll('button')
+    buttons.forEach((e)=>{e.style.display="none"})
+
+    let update_button = document.createElement('button')
+    update_button.innerHTML='완료'
+    let cancel_button = document.createElement('button')
+    cancel_button.innerHTML='취소'
+
+    cancel_button.addEventListener('click',function(e)
+    {
+        comment.innerHTML=original_comment
+        update_button.remove()
+        cancel_button.remove()
+        buttons.forEach((e)=>{e.style.display="inline-block"})
+
+
+    })
+    update_button.addEventListener('click',function(e)
+    {
+        let commentid= comment_id
+        let content = UpdateComment.value
+        let data = {commentid:commentid,boardid:boardid,content:content}
+        let url = '/api/users/update_comment'
+        data = JSON.stringify(data)
+    
+        var xhr = new XMLHttpRequest()
+        xhr.open('POST',url);
+        xhr.setRequestHeader('Content-Type','application/json')
+        xhr.send(data)
+        xhr.addEventListener('load',function(){
+            var result = JSON.parse(xhr.responseText);
+            console.log('here')
+            //result:{result:{comments:Array}}
+            commentcontainer.innerHTML=''
+            result.result.comments.map(function(e){draw_comment(e,commentcontainer,boardid)})
+        })
+        
+    })
+
+    comment_contianer.appendChild(update_button)
+    comment_contianer.appendChild(cancel_button)
+}
+
+function draw_comment(comment_data,commentcontainer,boardid)
+{
+    let single_comment_container = document.createElement('div')
+    single_comment_container.classList.add('single-comment')
+    let single_comment =  document.createElement('div')
+    single_comment.classList.add('content')
+    let update_comment = document.createElement('button')
+    let delete_comment = document.createElement('button')
+    let comment_id = comment_data['_id']
+
+    single_comment_container.appendChild(single_comment)
+    single_comment.innerHTML=comment_data['contents']
+
+    user = document.body.querySelector('#user').innerHTML
+  
+        if(user===comment_data.author)
+        {
+              
+        single_comment_container.appendChild(delete_comment)
+        single_comment_container.appendChild(update_comment)
+        delete_comment.innerHTML="삭제하기"
+        update_comment.innerHTML="수정하기"
+        
+        delete_comment.addEventListener('click',
+        function(e)
+        {
+            remove_comment(e,comment_id,boardid,commentcontainer)
+        })
+        
+        
+        update_comment.addEventListener('click',
+        function(e)
+        {
+            change_comment(e,single_comment,single_comment_container,comment_id,boardid,commentcontainer)
+        })
+        }
+        commentcontainer.appendChild(single_comment_container)  
 }

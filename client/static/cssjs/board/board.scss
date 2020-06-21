@@ -102,50 +102,24 @@ header{
 
     .modal-main{
         height:100%;
-        .select-container{
-            display:flex;
-            flex-direction: row;
-            justify-content: space-around;
-            text-align:center;
-            font-size:1.5rem;
-            border-bottom : solid 3px coral;
-            &:hover{
-                cursor:pointer; 
-            }
-            div{
-                width:50%;
-            }
-        }
-
-        .section-active{
-            display:block;
-        }
-
-        .section-hide{
-            display:none;
-        }
 
 
-section{
-        height:100%;
-        .container-info{
+        .modal-comment{
             display:flex;
             flex-direction:column;
-            justify-content: space-around;
-            align-items:center;
-        }
-        .container-video{
-            display:flex;
-            flex-direction:column;
-            align-items:center;
+            justify-content: center;
 
-            iframe{
-                height:30rem;
-                width:80%;
-                margin:5%;
+            .single-comment{
+                display:flex;
+                flex-direction:row;
+                justify-content: space-around;
+
+                .content
+                {
+                    margin:0 auto;
+                }
             }
         }
-    }
     }
 }
     

@@ -41,12 +41,14 @@ router.get('/api/users/board', function( req , res){
           //login아니라면 login 창으로 redirect
           if(!login)
           {
-            res.redirect("/api/users/login")
+            let author = 'nobody'
+            res.render('board',{login:login,author:author})
           }
           else
-          {let author = data[0]['e_name']
+          {
+            let author = data[0]['e_name']
             //검색 개수 보여주기
-          res.render('board',{login:login,author:author})
+            res.render('board',{login:login,author:author})
           }
         })   
     });

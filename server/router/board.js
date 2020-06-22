@@ -31,13 +31,25 @@ router.get('/api/users/board', function( req , res){
 
 
     let x_auth = req.cookies.x_auth
+    
     let login = Object.keys(req.cookies).includes('x_auth')?true:false
     
     //Register 입력시 이메일,pw 등등 정보 토큰
     connection.db.collection("users", function(err, collection){
         collection.find({token:x_auth}).toArray(function(err, data){
+
+          //login아니라면 login 창으로 redirect
+          if(!login)
+          {
+            let author = 'nobody'
+            res.render('board',{login:login,author:author})
+          }
+          else
+          {
+            let author = data[0]['e_name']
             //검색 개수 보여주기
-        res.render('board',{login:login})
+            res.render('board',{login:login,author:author})
+          }
         })   
     });
 
@@ -52,6 +64,7 @@ router.post('/recent_posts',function(req,res)
 
     Board.find({board_date: {$lt: tomorrow}},function (err, docs) {
         //docs는 array
+        console.log(docs)
         res.json({'result':docs})
      })
 
@@ -98,7 +111,6 @@ router.get('/update_post/:id',function(req,res){
   let id = req.params.id
   Board.find({_id:id},function(req,response)
   {
-    console.log("find board",response[0])
     res.render('board_update',response[0])
   })
 
@@ -113,6 +125,57 @@ router.post('/api/users/update_board',function(req,res)
     res.redirect('/api/users/myspace')
 })
 })
+
+
+
+router.post('/api/users/comment',function(req,res)
+{
+
+  let comment = new Comment()
+  comment.contents = req.body.comment
+
+  let x_auth = req.cookies.x_auth
+
+  User.find({token:x_auth},function(err,docs)
+  {
+    comment.author = docs[0]['e_name']
+    Board.findOneAndUpdate({_id:req.body.boardid},{$push:{comments:comment}},{new:true},(err,doc)=>{
+      if(err)
+      {
+        console.log(err)
+      }
+      res.json({'result':doc})
+  })
+
+  })
+
+
+})
+
+
+router.post('/api/users/delete_comment', function (req, res) {
+  Board.findOneAndUpdate({_id:req.body.boardid},{$pull:{comments:{_id:req.body.commentid}}},{new:true},(err,doc)=>{
+    if(err)
+    {
+      console.log(err)
+    }
+    res.json({'result':'ok'})
+})
+  })
+
+router.post('/api/users/update_comment',function (req, res) {
+  Board.findOneAndUpdate({'_id':req.body.boardid,'comments._id':req.body.commentid},{$set:{"comments.$.contents":req.body.content}},{new:true},(err,doc)=>{
+    if(err)
+    {
+      console.log(err)
+    }
+
+    console.log("comment here")
+    console.log(doc)
+
+    res.json({'result':doc})
+})
+  })
 
 //글쓰기 post
 router.post('/api/users/board', function (req, res) {
@@ -131,12 +194,13 @@ router.post('/api/users/board', function (req, res) {
     User.find({token:x_auth},function(err,docs)
     {
       
+      board.author = docs[0]['e_name']
       board.email = docs[0]['email']
       board.save(function (err) {
         if(err){
-          res.redirect('/board')
+          res.redirect('/api/users/board')
         }
-          res.redirect('/board')
+          res.redirect('/api/users/board')
         //   res.render('board',{login:login})
       });
     })

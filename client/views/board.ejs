@@ -5,7 +5,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta http-equiv="X-UA-Compatible" content="ie=edge">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-        <link rel="stylesheet" type="text/css" href="cssjs/board/board.css" />
+        <link rel="stylesheet" type="text/css" href="../../cssjs/board/board.css" />
         <title>Connect2Dance</title>
     </head>
     <body>
@@ -13,6 +13,7 @@
         <header>
             <div class="header-left">Connect2Dance</div>
             <div class="header-right">
+                <div id="user" style="display:none"><%= author%></div>
                     <% if(login) { %>
                 <div class="menu"><a href="/api/users/mySpace">My Page</a></div>
                 <div class="menu"><a href="/api/users/logout">Logout</a></div>
@@ -71,13 +72,27 @@
         <div class="popup-modal shadow" id="modal">
             <div class="modal-header"><div class='modal-header-text'></div><button class='close-modal'>X</button></div>
             <div class="modal-main">
+        <div class="modal-comment-container">
+            <div class="current-modal">
             </div>
+
+            <div class="modal-comment">
+                
+            </div>
+            <div class="modal-new-comment">
+            <input id="boardid" type="hidden" name="boardid" />
+            <textarea name="comment" id="" cols="30" rows="10"></textarea>
+            <button class="comment-submit-btn">댓글달기</button>
+            </div>
+        </div>
+            </div>
+        
             <footer>
                 <div class="modal-date"></div>
             </footer>
         </div>
 
-    <script src='cssjs/board/board.js'></script>
+    <script src='../../cssjs/board/board.js'></script>
     </body>
 
 </html>

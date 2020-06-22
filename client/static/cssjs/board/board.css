@@ -141,7 +141,20 @@ header .header-right div:hover {
   height: 100%;
 }
 
-.popup-modal .modal-main .select-container {
+.popup-modal .modal-main .modal-comment {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+
+.popup-modal .modal-main .modal-comment .single-comment {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -151,63 +164,10 @@ header .header-right div:hover {
           flex-direction: row;
   -ms-flex-pack: distribute;
       justify-content: space-around;
-  text-align: center;
-  font-size: 1.5rem;
-  border-bottom: solid 3px coral;
 }
 
-.popup-modal .modal-main .select-container:hover {
-  cursor: pointer;
-}
-
-.popup-modal .modal-main .select-container div {
-  width: 50%;
-}
-
-.popup-modal .modal-main .section-active {
-  display: block;
-}
-
-.popup-modal .modal-main .section-hide {
-  display: none;
-}
-
-.popup-modal .modal-main section {
-  height: 100%;
-}
-
-.popup-modal .modal-main section .container-info {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-orient: vertical;
-  -webkit-box-direction: normal;
-      -ms-flex-direction: column;
-          flex-direction: column;
-  -ms-flex-pack: distribute;
-      justify-content: space-around;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
-}
-
-.popup-modal .modal-main section .container-video {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-orient: vertical;
-  -webkit-box-direction: normal;
-      -ms-flex-direction: column;
-          flex-direction: column;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
-}
-
-.popup-modal .modal-main section .container-video iframe {
-  height: 30rem;
-  width: 80%;
-  margin: 5%;
+.popup-modal .modal-main .modal-comment .single-comment .content {
+  margin: 0 auto;
 }
 
 .body-blackout {

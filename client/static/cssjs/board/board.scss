@@ -1,9 +1,11 @@
 @import url('https://fonts.googleapis.com/css?family=Balsamiq Sans');
+$main-color:lightgray;
 
 
 body{
     font-family: 'Balsamiq Sans', cursive;
     margin:0;
+    background:$main-color;
     a{
         color:inherit;
         text-decoration: none;
@@ -57,7 +59,7 @@ header{
 .popup-modal {
     height: 100vh;
     width: 100vw;
-    background-color: #fff;
+    background-color:$main-color;
     position: fixed;
     left:0;
     top: 0;
@@ -95,30 +97,53 @@ header{
         .close-modal{
             height: 2rem;
             margin-right: 1em;
-            background:coral;
+            background:white;
             cursor:pointer;
         }
     }
 
     .modal-main{
-        height:100%;
+        height:150%;
+        background:white;
+        margin: 4vw;
+        padding: 1em;
+
+        .modal-video-container{
+            height:50vh;
+            margin-bottom:1em;
+            iframe{
+                width:100%;
+            }
+        }
 
 
         .modal-comment{
             display:flex;
             flex-direction:column;
             justify-content: center;
+            background:lightgray;
+            height: 30vh;
+            overflow: scroll;
+            padding: 1em;
+            overflow-x: hidden;
 
             .single-comment{
                 display:flex;
                 flex-direction:row;
                 justify-content: space-around;
+                border-bottom: solid 1px black;
+                padding:1em;
 
                 .content
                 {
-                    margin:0 auto;
+                    margin-right:auto;
                 }
             }
+        }
+
+        .modal-new-comment{
+            display:flex;
+            flex-direction:column;
         }
     }
 }
@@ -157,10 +182,20 @@ header{
 
 }
 
+#make-post{
+    background:white;
+    border-radius:5em;
+    width:22%;
+    position:fixed;
+    top:80%;
+    left:70%;
+}
+
 .card-container{
-    border: orange solid 1px;
-    -webkit-box-shadow: 0 4px 8px 0 orange;
-    box-shadow: 0.1em 0.1em 0.1em 0 orange;
+    border: black solid 1px;
+    background:white;
+    -webkit-box-shadow: 0 4px 8px 0 black;
+    box-shadow: 0.1em 0.1em 0.1em 0 black;
     width:80vw;
     height:60vh;
     margin-bottom:10vh;

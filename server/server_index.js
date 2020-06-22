@@ -68,3 +68,7 @@ app.use( profile )
 const mypage = require('./router/mypage.js');
 app.use( mypage )
 
+
+const board = require('./router/board.js');
+app.use( board )
+

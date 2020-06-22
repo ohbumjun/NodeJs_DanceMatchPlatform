@@ -169,9 +169,11 @@ function remove_comment(e,comment_id,boardid,commentcontainer)
     xhr.send(data)
     xhr.addEventListener('load',function(){
         var result = JSON.parse(xhr.responseText);
-        commentcontainer.innerHTML=''
-        //result:{result:{comments:Array}}
-        result.result.comments.map(function(e){draw_comment(e,commentcontainer,boardid)})
+        let delete_comment = document.body.querySelector(`#comment${commentid}`).parentNode
+        delete_comment.remove()
+        // commentcontainer.innerHTML=''
+        // //result:{result:{comments:Array}}
+        // result.result.comments.map(function(e){draw_comment(e,commentcontainer,boardid)})
     })
 }
 
@@ -215,10 +217,10 @@ function change_comment(e,comment,comment_contianer,comment_id,boardid,commentco
         xhr.send(data)
         xhr.addEventListener('load',function(){
             var result = JSON.parse(xhr.responseText);
-            console.log('here')
-            //result:{result:{comments:Array}}
-            commentcontainer.innerHTML=''
-            result.result.comments.map(function(e){draw_comment(e,commentcontainer,boardid)})
+            comment.innerHTML=content
+            update_button.remove()
+            cancel_button.remove()
+            buttons.forEach((e)=>{e.style.display="inline-block"})
         })
         
     })
@@ -233,6 +235,7 @@ function draw_comment(comment_data,commentcontainer,boardid)
     single_comment_container.classList.add('single-comment')
     let single_comment =  document.createElement('div')
     single_comment.classList.add('content')
+    single_comment.id = 'comment'+comment_data['_id']
     let update_comment = document.createElement('button')
     let delete_comment = document.createElement('button')
     let comment_id = comment_data['_id']
@@ -253,7 +256,7 @@ function draw_comment(comment_data,commentcontainer,boardid)
         delete_comment.addEventListener('click',
         function(e)
         {
-            remove_comment(e,comment_id,boardid,commentcontainer)
+         remove_comment(e,comment_id,boardid,commentcontainer)
         })
         
         

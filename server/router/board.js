@@ -157,7 +157,7 @@ router.post('/api/users/delete_comment', function (req, res) {
     {
       console.log(err)
     }
-    res.json({'result':doc})
+    res.json({'result':'ok'})
 })
   })
 

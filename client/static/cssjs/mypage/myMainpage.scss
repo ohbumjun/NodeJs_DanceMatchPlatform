@@ -72,8 +72,8 @@ header{
 }// header
 
 main{
-    width: 70%;
-    height: 1000vh;
+    width: 85%;
+    height: 110%;
     margin: 0 auto;
     padding-top: 3vh;
     background-color: #FFFAF0;
@@ -88,10 +88,10 @@ main{
         .Info__image{
             width: 15rem;
             height: 15rem;
-            background-image: url("https://source.unsplash.com/random");
-            background-size: cover;
-            background-position: center;
-            border-radius: 50%;
+            img{
+                border: 1px solid gray;
+                border-radius: 50%;
+            }
         } // Info__image
         .Info__content{
             padding-left: 5vh;
@@ -180,6 +180,7 @@ main{
             }
         }
     } // Nav
+
     .tab-content{
         .tab-pane{
             display : none;
@@ -200,6 +201,132 @@ main{
             }
         }
     } // Content
+
+
+    // modal 
+    .modal{
+        position: absolute;
+        top:0;
+        left:0;
+        width:100%;
+        height:100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        // image preview
+    .image-preview{
+        width: 80%;
+        min-height: 100px;
+        border: 2px solid lightgray;
+        margin-top: 10px;
+
+        /* Default text */
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: bold;
+        color:gray;
+
+        /* Image */
+        .image-preview__image{
+            display: none;
+            width: 100%;
+        }
+    }
+    }
+    .modal__overlay{
+        background-color: rgba(0, 0, 0, 0.6);
+        width:100%;
+        height:100%;
+        position: absolute;
+    }
+    .modal__content{
+        position: relative;
+        padding: 50px 10px;
+        text-align: center;
+        width: 30%;
+        border-radius: 10px;
+        box-shadow: 0px 5px 10px 0px rgba(0,0,0,.25);
+        -o-box-shadow: 0px 5px 10px 0px rgba(0,0,0,.25);
+        -ms-box-shadow: 0px 5px 10px 0px rgba(0,0,0,.25);
+        -moz-box-shadow: 0px 5px 10px 0px rgba(0,0,0,.25);
+        background-color: rgb(245, 240, 240);
+        .form{
+            margin: 0 auto;
+            width:80%;
+            height:90%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+    }
+    
+    .hidden{
+        display: none;
+    }
+    
+    
+    
+
+    // submit btn
+    #submit-btn{
+        background-color: lightgray;
+        border: none;
+        color: #ffffff;
+        cursor: pointer;
+        display: inline-block;
+        font-family: 'BenchNine', Arial, sans-serif;
+        font-size: 1em;
+        font-size: 12px;
+        line-height: 1em;
+        margin: 15px 40px;
+        outline: none;
+        padding: 10px 22px 8px;
+        position: relative;
+        text-transform: uppercase;
+        font-weight: 700;
+    }
+    #submit-btn:before,
+    #submit-btn:after{
+        border-color: transparent;
+        -webkit-transition: all 0.25s;
+        transition: all 0.25s;
+        border-style: solid;
+        border-width: 0;
+        content: "";
+        height: 24px;
+        position: absolute;
+        width: 24px;
+    }
+    #submit-btn:before {
+        border-color: lightgray;
+        border-right-width: 2px;
+        border-top-width: 2px;
+        right: -5px;
+        top: -5px;
+    }
+    #submit-btn:after {
+        border-bottom-width: 2px;
+        border-color: lightgray;
+        border-left-width: 2px;
+        bottom: -5px;
+        left: -5px;
+    }
+    #submit-btn:hover,
+    #submit-btn.hover {
+        background-color: gray;
+    }
+    #submit-btn:hover:before,
+    #submit-btn.hover:before,
+    #submit-btn:hover:after,
+    #submit-btn.hover:after {
+        border-color: gray;
+        height: 100%;
+        width: 100%;
+    }
+    
+
     // 중간 size 용
     @media screen and (min-width: 427px) and (max-width: 1100px){
 
@@ -216,7 +343,9 @@ main{
                 display: grid;
                 grid-template-columns: repeat(2, 25px);
                 .name{
-                    font-size: 1.4rem;
+                    white-space:nowrap;
+                    display: flex;
+                    font-size: 1.1srem;
                 }
                 .profile{
                     width: 150px;
@@ -249,9 +378,6 @@ main{
             }
         }
     }
-
-
-
 }
     // cellphone 용
     @media screen and (min-width: 320px) and (max-width: 426px){
@@ -354,4 +480,37 @@ main{
             }
         }
     }
+
+    
+
+} // main
+
+footer{
+    position: fixed;
+    height:6vh;
+    background-color: #fffef0;
+    width:95%;
+    z-index:1;
+    left:2.5%;
+    bottom:0;
+    box-shadow: 0px 5px 10px 0px rgba(0,0,0,.25);
+-o-box-shadow: 0px 5px 10px 0px rgba(0,0,0,.25);
+-ms-box-shadow: 0px 5px 10px 0px rgba(0,0,0,.25);
+-moz-box-shadow: 0px 5px 10px 0px rgba(0,0,0,.25);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    button{
+        all : unset;
+        background-color: gray;
+        color:white;
+        padding: 5px 10px;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+    
+
+    
 }
+    

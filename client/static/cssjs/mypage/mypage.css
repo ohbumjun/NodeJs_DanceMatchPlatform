@@ -20,51 +20,64 @@ header {
   top: 0;
   left: 0;
   position: fixed;
-  z-index: 201;
+  z-index: 2;
   width: 100%;
-  height: 7.5vh;
+  height: 9vh;
 }
 
 header nav {
   margin: 0 auto;
   width: 90%;
   height: 100%;
-  background-color: lightgray;
+  background-color: #5b6467;
   -webkit-box-shadow: 0px 5px 10px 0px rgba(0, 0, 0, 0.25);
           box-shadow: 0px 5px 10px 0px rgba(0, 0, 0, 0.25);
   -o-box-shadow: 0px 5px 10px 0px rgba(0, 0, 0, 0.25);
   -ms-box-shadow: 0px 5px 10px 0px rgba(0, 0, 0, 0.25);
   -moz-box-shadow: 0px 5px 10px 0px rgba(0, 0, 0, 0.25);
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
 }
 
 header nav ul {
+  margin: 0 auto;
+  width: 80%;
   height: 100%;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  -ms-flex-pack: distribute;
-      justify-content: space-around;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
 }
 
+header nav ul li {
+  list-style: none;
+}
+
+header nav ul li a {
+  text-decoration: none;
+}
+
 .container {
-  margin-top: 2vh;
   padding-top: 3vh;
   background: #FFFFFF;
   width: 80vw;
   height: 100vh;
   margin: 0 auto;
   position: relative;
-  margin-top: 5%;
+  margin-top: 3%;
   -webkit-box-shadow: 2px 5px 20px rgba(119, 119, 119, 0.5);
           box-shadow: 2px 5px 20px rgba(119, 119, 119, 0.5);
 }
 
 .logo {
   position: relative;
-  z-index: 100;
+  z-index: 1;
   float: right;
   margin-right: 12px;
   margin-top: 12px;
@@ -86,11 +99,11 @@ header nav ul {
 .leftbox {
   padding-top: 5vh;
   float: left;
-  top: -5%;
+  top: -2%;
   left: 5%;
   position: absolute;
   width: 15%;
-  height: 110%;
+  height: 101%;
   background: #5b6467;
   -webkit-box-shadow: 3px 3px 10px rgba(119, 119, 119, 0.5);
           box-shadow: 3px 3px 10px rgba(119, 119, 119, 0.5);
@@ -137,14 +150,35 @@ nav a:first-child {
 .rightbox {
   float: right;
   width: 65%;
-  height: 100%;
+  height: 80vh;
+}
+
+.rightbox .user-img {
+  width: 85%;
+}
+
+.rightbox .user-img img {
+  height: 35%;
+  width: 60%;
+  border-radius: 50%;
+  margin: 1vh auto;
+  display: block;
+  margin-top: 3vh;
+}
+
+.rightbox .user-img button {
+  padding: 2px 7px;
+  background-color: lightgray;
+  font-family: "Montserrat";
+  border-radius: 10%;
 }
 
 .profile, .payment, .subscription, .privacy, .settings {
   -webkit-transition: opacity .5s ease-in;
   transition: opacity .5s ease-in;
   position: absolute;
-  width: 70%;
+  width: 60%;
+  margin: 0 auto;
 }
 
 h1 {
@@ -253,15 +287,6 @@ footer a:hover {
 
 label {
   display: block;
-}
-
-#display-image {
-  height: 50%;
-  width: 70%;
-  border-radius: 30%;
-  margin: 1vh auto;
-  display: block;
-  margin-top: 8vh;
 }
 
 .container-btn {

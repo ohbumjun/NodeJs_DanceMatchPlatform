@@ -11,7 +11,7 @@
     <title>MyMainPage</title>
 </head>
 <body>
-    <header>
+    <header id = "header1">
         <nav>
             <a class = "main" href="/main">
                 <h2>같이추장께</h2>
@@ -24,13 +24,16 @@
             </ul>
         </nav>
     </header>
+    
     <main>
         <div class = "Infos">
-            <div class="Info__image"></div>
+            <div class="Info__image">
+                <img style=" border: 3px solid lightgray; border-radius: 50%;""  width = "100%" height = "100%" src="<%= profile_img %>">
+            </div>
             <div class="Info__content">
                 <div class="main__content">
                     <div class = "main__content name">
-                        <span>naneunyaobj</span>
+                        <%= e_name %>
                     </div>
                     <div class = "main__content profile">
                         <a href="/api/users/mypage">
@@ -54,10 +57,10 @@
                     </div>
                 </div>
                 <div class="personal__content">
-                    <span>오범준</span>
-                    <span>El felis es Hacer mi trabajos en la vida</span>
-                    <span>(Dance crew_LOCO)</span>
-                    <span>(Personal blog_2% psychogists)</span>
+                    <span>Korean name : <%= k_name %></span>
+                    <span>Place : <%= place %></span>
+                    <span>Kakaotalk : <%= Kakaotalk %></span>
+                    <span>Instagram : <%= Instagram %></span>
                 </div>
             </div>
         </div>
@@ -85,25 +88,34 @@
                 <span>Tu board</span>
             </div>
         </div>
-    </main>
-    <script type="text/javascript">
-        function onTabClick(event) {
-        event.preventDefault()
-           
-        let activeTabs = document.querySelectorAll('.active');
-        // deactivate existing active tab and panel
-        activeTabs.forEach(function(tab) {
-            tab.className = tab.className.replace('active', '').replace(' ','');
-        });
-        // activate new tab and panel
-        event.target.parentElement.className += ' active';
-        document.getElementById(event.target.href.split('#')[1]).className += ' active';
+        <div class="modal hidden">
+            <div class="modal__overlay"></div>
+            <div class="modal__content">
+                <form class = "form" action="/api/users/mySpace" method="POST" enctype="multipart/form-data">
 
-        console.log("Scroll working")
-        window.scrollTo(0,0); 
-    }
-        const element = document.getElementById('nav-tab');
-        element.addEventListener('click', onTabClick);
+                    <h3>Upload Your Video</h3>
+
+                    <label for="inpFile">Choose Video</label>
+                    <input type="file" value = "Choose your Video" name = "video" id = "inpFile"/>
+
+                    <div class="image-preview" id ="image-preview">
+                        <img src="" alt="Video preview" class="image-preview__image">
+                        <br/>
+                        <span class="image-preview__default-text">Video Preview</span>
+                    </div>
+
+                    <button type="submit" id="submit-btn" class='btn-deactive'>Submit</button>
+                    
+                </form>
+            </div>
+        </div>
+    </main>
+    <footer>
+        <button id = "open">+_+</button>
+    </footer>
+    <script src="../../cssjs/mypage/mySpace.js"></script> 
+    <script type="text/javascript">
+        
     </script>
 </body>
 

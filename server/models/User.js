@@ -97,8 +97,8 @@ var userSchema = mongoose.Schema({
         default : 'https://images.unsplash.com/photo-1511715282680-fbf93a50e721?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60'
     }, 
     profile_videos:{
-        type : String,
-        default : ''
+        type : Array,
+        default: []
     }, 
     friends:{
         type : String,

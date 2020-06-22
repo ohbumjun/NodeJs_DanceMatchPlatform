@@ -20,7 +20,7 @@ mongoose.connect( config.mongoURI , {
     useFindAndModify : false
     // 아래 코드는 연결ㄹ이 잘 됐는지 안됐는지 확인하기 
 }).then( () => {
-console.log("MongoDB Connected... ")}).catch( err => console.log( err ))
+console.log("MongoDB Connected...in board.js")}).catch( err => console.log( err ))
 
 
 let connection = mongoose.connection;
@@ -80,6 +80,8 @@ router.post('/my_posts',function(req,res)
    let email =   docs[0]['email']
    Board.find({email:email},function(err,docs)
    {
+     console.log("Finding in Board")
+     console.log(docs)
     res.json({'result':docs})
    })
   })

@@ -22,7 +22,6 @@ router.post('/api/users/register', function( req , res ){
     const { k_name, e_name , email, password , username } = req.body;
         console.log("User registration process ongoing")
 
-        setTimeout( function(){
             User.findOne( { email }).exec( ( err, user ) => {
             // email이나 username이 db에 이미 있으면, user가 true 가 될 것이다
             if(user){
@@ -41,7 +40,7 @@ router.post('/api/users/register', function( req , res ){
                     }
 
                     // create Token using data sent from user : 즉, 접속이메일로 링크가 보내지고, 그 순간 token이 만들어지는데, 이 token을 통해, user가 자기 이메일에서 링크로 이동하게 되면, 그 링크를 통해 들어온 token을 verify해서, 회원가입을 시키는 원리
-                    const token = jwt.sign({ k_name, e_name , email, password , username, role }, "accountactivatekey123", { expiresIn : "30m"})
+                    const token = jwt.sign({ k_name, e_name , email, password , username}, "accountactivatekey123", { expiresIn : "30m"})
                     const data = {
                         from: "danceprojectmb@naver.com" ,
                         to : email,
@@ -64,7 +63,7 @@ router.post('/api/users/register', function( req , res ){
                         }); // mg.messages.send
                     }) // username find
                 });// email find
-            },200) // setTimeout
+            
         });
 
 

@@ -1,96 +1,83 @@
-let main =document.body.querySelector('main')
-let modalbg =document.body.querySelector('.modalcontainer')
 
+// 1. tab
+function onTabClick(event) {
+  event.preventDefault()
+     
+  let activeTabs = document.querySelectorAll('.active');
+  // deactivate existing active tab and panel
+  activeTabs.forEach(function(tab) {
+      tab.className = tab.className.replace('active', '').replace(' ','');
+  });
+  // activate new tab and panel
+  event.target.parentElement.className += ' active';
+  document.getElementById(event.target.href.split('#')[1]).className += ' active';
 
-var url='http://localhost:4000/my_posts'
-var xhr_2=new XMLHttpRequest()
-xhr_2.open('POST',url);
-xhr_2.setRequestHeader('Content-Type','application/json')
-xhr_2.send()
-xhr_2.addEventListener('load',function()
-{
-    var result = JSON.parse(xhr_2.responseText);
-    //내 게시글 만들기
-    mydrawing(result.result);
-    drawDelModal(result.result);
-})
+  console.log("Scroll working")
+  window.scrollTo(0,0); 
+}
+  const element = document.getElementById('nav-tab');
+  element.addEventListener('click', onTabClick);
 
+// 2. modal
+const openButton = document.getElementById("open")
+const modal = document.querySelector(".modal")
 
-function mydrawing(data)
-{
-  let cards_container = document.body.querySelector('#cards-container');
-  data.reverse().forEach(function(e,idx)
-  {
-      //id도 복사되네?
-      let card = document.body.querySelector('#card-copy').cloneNode(true)
-      card.id = 'card'+String(idx)
-      card.querySelector('#card-title').innerHTML=e['title']
-      card.querySelector('#card-place-time').innerHTML=e['time']+' '+e['place'] //시간 장소
-      card.querySelector('#card-people').innerHTML=e['current_people']+'명'+'/'+e['people']+'명'//인원
-      cards_container.appendChild(card)
-  })
+// X 버튼 누르면 닫히게 하기 
+const overlay = modal.querySelector(".modal__overlay")
+const closeBtn = modal.querySelector("button");
+
+const openModal = () =>{
+    modal.classList.remove("hidden")
+}
+const closeModal = () =>{
+    modal.classList.add("hidden")
 }
 
-function drawDelModal(data)
-{
- //만들어진 카드 개수만큼 modal을 만든다
-var popup = document.body.querySelectorAll('#cards-container .card-container')
-popup.forEach(function(e,idx){
-      //modal template clone 한 다음에 modal 정보 입력
-      var clone = document.body.querySelector('#modal').cloneNode(true)    
-      clone.id = 'modal'+ e.id
-      let board_id = data[idx]['_id']
+overlay.addEventListener("click",closeModal)
 
-      modalbg.appendChild(clone)
+closeBtn.addEventListener("click",closeModal)
 
-      var update_button = e.querySelector(".btn-update");
+openButton.addEventListener("click",openModal)
 
+// 3. (video)image preview
+const inpFile = document.getElementById("inpFile");
 
-      update_button.addEventListener('click',(e)=>{
-        window.location.href=`/update_post/${board_id}`  //localhost/delete_post/id 로 간다
-        })
+const previewContainer = document.getElementById("image-preview");
 
+const previewImage = previewContainer.querySelector(".image-preview__image")
 
-      //삭제버튼 관련 리스터
-      var delete_button = e.querySelector(".btn-delete");
-      var delete_yes = clone.querySelector("#del-yes");
-      var delete_no = clone.querySelector("#del-no");
+const previewDefaultText = previewContainer.querySelector(".image-preview__default-text")
 
-      delete_button.addEventListener('click',function(e){
-        e.preventDefault();
-        e.stopPropagation();
-        clone.classList.remove('modal-hide')
-        clone.classList.add('modal-active')
-        main.classList.toggle('blackout')
-      })
+inpFile.addEventListener("change", function(){
+    const file = this.files[0];
 
-      //삭제버튼 no 누르면 modal 창
-      delete_no.addEventListener('click',function(e){
-        e.preventDefault();
-        e.stopPropagation();
-        clone.classList.toggle('modal-active')
-        clone.classList.toggle('modal-hide')
-        main.classList.toggle('blackout')
-      })
+    if( file ){
+        // new file reader 만든다 
+        // reader : object > data url 로써 file을 읽는다 
+      console.log("image preview working")
 
+        const reader = new FileReader();
 
-      //삭제버튼 no
-      delete_yes.addEventListener('click',(e)=>{
+        previewDefaultText.style.display = "none"
+        previewImage.style.display = "block"
 
-      console.log(board_id)
-      window.location.href=`/delete_post/${board_id}`  //localhost/delete_post/id 로 간다
-      })
-})
+        // reader 로 하여금 file 을 read 하게 할 것이다 
+        reader.addEventListener("load", function(){
 
-main.addEventListener('click',function(e)
-{
-    var modalActive=document.body.querySelector('.modal-active')
-    if(modalActive)
-    {
-      modalActive.classList.toggle('modal-active')
-      modalActive.classList.toggle('modal-hide')
-      main.classList.toggle('blackout')
+            // load ( read ) 가 끝나면 아래 코드를 실행한다 
+            // 여기에서의 this는 FileReader 에 해당한다
+            //  result는 data url을 가질 것이다 
+            console.log(this)
+            previewImage.setAttribute("src", this.result);
+        });
+
+        // we are reading data url of the file as the image source
+        reader.readAsDataURL(file)
+
+    }else{
+        // null을 함으로써 css 설정 default값을 따르도록 할 것이다 
+        previewDefaultText.style.display = null;
+        previewImage.style.display = null;
+        previewImage.setAttribute("src","")
     }
-
 })
-}

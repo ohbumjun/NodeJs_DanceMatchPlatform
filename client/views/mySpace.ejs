@@ -8,12 +8,10 @@
     rel="stylesheet"
     href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.2/css/all.min.css"
   />
-
     <title>MyMainPage</title>
 </head>
-
 <body>
-    <header>
+    <header id = "header1">
         <nav>
             <a class = "main" href="/main">
                 <h2>같이추장께</h2>
@@ -26,14 +24,16 @@
             </ul>
         </nav>
     </header>
-
+    
     <main>
         <div class = "Infos">
-            <div class="Info__image"></div>
+            <div class="Info__image">
+                <img style=" border: 3px solid lightgray; border-radius: 50%;""  width = "100%" height = "100%" src="<%= profile_img %>">
+            </div>
             <div class="Info__content">
                 <div class="main__content">
                     <div class = "main__content name">
-                        <span>naneunyaobj</span>
+                        <%= e_name %>
                     </div>
                     <div class = "main__content profile">
                         <a href="/api/users/mypage">
@@ -57,86 +57,66 @@
                     </div>
                 </div>
                 <div class="personal__content">
-                    <span>오범준</span>
-                    <span>El felis es Hacer mi trabajos en la vida</span>
-                    <span>(Dance crew_LOCO)</span>
-                    <span>(Personal blog_2% psychogists)</span>
+                    <span>Korean name : <%= k_name %></span>
+                    <span>Place : <%= place %></span>
+                    <span>Kakaotalk : <%= Kakaotalk %></span>
+                    <span>Instagram : <%= Instagram %></span>
                 </div>
             </div>
         </div>
         <ul id ="nav-tab" class="Nav">
             <li class = "active"><a  href = "#Videos">Video</a></li>
-            <li id='mi-board'><a href = "#mboard">Mi Board</a></li>
+            <li><a href = "#mboard">Mi Board</a></li>
             <li><a href = "#tboard">Tu Board</a></li>
         </ul>
         <div class = "tab-content">
             <div class = "tab-pane active" id = "Videos">
-                <div class="video"></div>
-                <div class="video"></div>
-                <div class="video"></div>
-                <div class="video"></div>
-                <div class="video"></div>
-                <div class="video"></div>
-                <div class="video"></div>
-                <div class="video"></div>
-                <div class="video"></div>
+                <div class ="video"></div>
+                <div class ="video"></div>
+                <div class ="video"></div>
+                <div class ="video"></div>
+                <div class ="video"></div>
+                <div class ="video"></div>
+                <div class ="video"></div>
+                <div class ="video"></div>
+                <div class ="video"></div>
             </div>
             <div class = "tab-pane" id = "mboard">
-                <div id="cards-container">
-                </div>
+                <span>Mi board</span>
             </div>
             <div class = "tab-pane" id = "tboard">
                 <span>Tu board</span>
             </div>
         </div>
-    </main>
+        <div class="modal hidden">
+            <div class="modal__overlay"></div>
+            <div class="modal__content">
+                <form class = "form" action="/api/users/mySpace" method="POST" enctype="multipart/form-data">
 
+                    <h3>Upload Your Video</h3>
 
-    <div id ="card-copy" class="card-container">
-        <div id="card">
-        <div id="card-title"></div>
-            <div class="sub-container">
-            <div id="card-place-time" class='card-info'></div>
-            <div id="card-people" class='card-info'></div>
+                    <label for="inpFile">Choose Video</label>
+                    <input type="file" value = "Choose your Video" name = "video" id = "inpFile"/>
+
+                    <div class="image-preview" id ="image-preview">
+                        <img src="" alt="Video preview" class="image-preview__image">
+                        <br/>
+                        <span class="image-preview__default-text">Video Preview</span>
+                    </div>
+
+                    <button type="submit" id="submit-btn" class='btn-deactive'>Submit</button>
+                    
+                </form>
             </div>
         </div>
-      <div class="open-update"><div class="card-button btn-update">수정하기</div><div class="card-button btn-delete">삭제하기</div>
-    </div>
-</div>
-
-    <div class="modalcontainer">
-    </div>
-    <div id="modal" class="delete-modal modal-hide">
-        <div class="modal-header">정말 삭제할거에요? ㅠㅠ</div>
-        <div class="modal-main">
-          <button id='del-yes'>Yes?</button>
-          <button id='del-no'>No?</button>
-        </div>
-    </div>
-
+    </main>
+    <footer>
+        <button id = "open">+_+</button>
+    </footer>
+    <script src="../../cssjs/mypage/mySpace.js"></script> 
     <script type="text/javascript">
-
-        function onTabClick(event) {
-        let activeTabs = document.querySelectorAll('.active');
-        // deactivate existing active tab and panel
-        // for( let i = 0; i < activeTabs.length; i++) {
-        //   activeTabs[i].className = activeTabs[i].className.replace('active', '');
-        // }
-        activeTabs.forEach(function(tab) {
-            tab.className = tab.className.replace('active', '').replace(' ','');
-        });
-        // activate new tab and panel
-        event.target.parentElement.className += ' active';
-        document.getElementById(event.target.href.split('#')[1]).className += ' active';
-        }
-        const element = document.getElementById('nav-tab');
-        element.addEventListener('click', onTabClick, false);
         
     </script>
-
-    <script src="../../cssjs/mypage/myspace.js"></script>
-    
-
 </body>
 
 </html>

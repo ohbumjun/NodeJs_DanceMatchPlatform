@@ -1,6 +1,6 @@
 /*active button class onclick*/
 $('nav a').click(function(e) {
-  e.preventDefault();
+  // e.preventDefault();
   $('nav a').removeClass('active');
   $(this).addClass('active');
   if(this.id === !'payment'){
@@ -52,7 +52,6 @@ buttons.forEach(function(button)
         xhr.addEventListener('load',function()
         {
             var result = JSON.parse(xhr.responseText);
-            
             if(result.result!=='ok'){
               console.log('currenttarget',e.currentTarget)
               return
@@ -75,8 +74,6 @@ buttons.forEach(function(button)
 
 
 //user image preview
-
-
 var uplbtn = document.body.querySelector("#upload-btn")
 var clrbtn =document.body.querySelector("#clear-btn")
 var sbmbtn =  document.body.querySelector("#submit-btn")
@@ -90,28 +87,28 @@ function handleImageUpload()
     reader.onload = function(e) {
       document.getElementById("display-image").src = e.target.result;
     }
+    
 
     reader.readAsDataURL(image);
     uplbtn.classList.toggle('btn-deactive')
     clrbtn.classList.toggle('btn-deactive')
     sbmbtn.classList.toggle('btn-deactive')
+    //위에까지가 preview 해주기
+
+
 } 
 
+// undo btn
 clrbtn.addEventListener('click',function(e){
   var uplbtn = document.body.querySelector("#upload-btn")
   e.currentTarget.classList.toggle('btn-deactive')
   uplbtn.classList.toggle('btn-deactive')
   sbmbtn.classList.toggle('btn-deactive')
   //원래 기본 이미지로 되돌려줘야됨
-  document.getElementById("display-image").src= "https://source.unsplash.com/random/1"
-
-
+  document.getElementById("display-image").src= "https://images.unsplash.com/photo-1511715282680-fbf93a50e721?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60"
 })
 
-
-
 //내 게시물 가져오기
-console.log('hahahahah')
 var url='http://localhost:4000/my_posts'
 var xhr_2=new XMLHttpRequest()
 xhr_2.open('POST',url);

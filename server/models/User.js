@@ -53,8 +53,11 @@ var userSchema = mongoose.Schema({
         minlength : 7,
         required: true
     },
-
-    image : String,
+    username : {
+        type: String,
+        default: '',
+        required: true
+    },
     // 아래와 같은 token을 이용해서, 유효성 같은 것들을 관리할 수 있다
     token : {
         type: String
@@ -69,9 +72,10 @@ var userSchema = mongoose.Schema({
         default : ''
     },
     age : {
-        type : Number,
+        type : String,
         default : ''
     },
+    
     place : {
         type : String,
         default : ''
@@ -80,17 +84,21 @@ var userSchema = mongoose.Schema({
         type : String,
         default : ''
     },
-    contact:{
+    Kakaotalk:{
+        type : String,
+        default : ''
+    },
+    Instagram:{
         type : String,
         default : ''
     },
     profile_img:{
         type : String,
-        default : ''
+        default : 'https://images.unsplash.com/photo-1511715282680-fbf93a50e721?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60'
     }, 
     profile_videos:{
-        type : String,
-        default : ''
+        type : Array,
+        default: []
     }, 
     friends:{
         type : String,

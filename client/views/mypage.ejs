@@ -19,48 +19,64 @@
     <title>Document</title>
 </head>
 <body>
+    <header>
+      <nav>
+        <ul>
+          <li><a href="http://localhost:4000">같이추장께</a></li>
+          <li><a href="http://localhost:4000/api/users/mypage">Search</a></li>
+          <li><a href="http://localhost:4000/api/users/mySpace">MySpace</a></li>
+        </ul>
+      </nav>
+    </header>
+    <main>
       <div class="container">
-            <div id="logo"><h1 class="logo"><a href="/main"><i class="fa fa-home" aria-hidden="true"></i></a></h1>
+            <div id="logo">
+              <h1 class="logo"><a href="/main">
+            </a></h1>
       </div>
             <div class="leftbox">
               <nav>
                 <a id="profile" class="active"><i class="fa fa-user"></i></a>
                 <a id="privacy"><i class="fa fa-tasks"></i></a>
-                <a id="payment"><i class="fa fa-credit-card"></i></a>
-                <a id="subscription"><i class="fa fa-tv"></i></a>
-                <a id="settings"><i class="fa fa-cog"></i></a>
+                <!-- <a id="payment"><i class="fa fa-credit-card"></i></a> -->
               </nav>
             </div>
             <div class="rightbox">
               <div class="profile">
                 <div class="user-img">
-                    <!-- <% if(profile_img) { %>
-                    <img id="display-image" src=<%= profile_img %>>
-                    <% }
-                    else{ %>
-                      <img id="display-image" src="https://source.unsplash.com/random/1">
-                     <% } %> -->
+                    <img id="display-image" src="<%= profile_img %>">
+
                     <div class="container-btn">
-                    <button id='upload-btn'>
+
+                    <button id='upload-btn' >
                     <label for="upload">
                       upload
                      </label>
                     </button>
-                    <button id='clear-btn' class="btn-deactive">
-                        Clear
+
+                    <button id='clear-btn' class="btn-deactive" >
+                        Undo
                     </button>
+
+                    <!-- image 관련된 upload버튼은 mypage router로 내용을 보내버린다 -->
                     <form action="/api/users/mypage" method="POST" enctype="multipart/form-data">
-                      <input type="file" name="image" id="upload" onChange="handleImageUpload()" class="btn-deactive"/>
-                      <input type="submit" id="submit-btn" class='btn-deactive' />
+
+                      <input type="file" name = "image" id="upload" onChange="handleImageUpload()" class="btn-deactive"/>
+
+                      <button type="submit" id="submit-btn" class='btn-deactive'>Submit</button>
+
                     </form>
                     </div>
+
                 </div>
                 <h2>User Name</h2>
                 <p><input type="text" name="username" value="<%= username %>"> <button class="btn">update</button></p>
                 <h2>Email</h2>
                 <p><input type="text" name="age" value="<%= email %>"> <button class="btn">update</button></p>
-                <h2>Contact</h2>
-                <p><input type="text" name="contact" value="<%= contact %>"> <button class="btn">update</button></p>
+                <h2>Kakaotalk</h2>
+                <p><input type="text" name="contact" value="<%= Kakaotalk %>"> <button class="btn">update</button></p>
+                <h2>Instagram</h2>
+                <p><input type="text" name="contact" value="<%= Instagram %>"> <button class="btn">update</button></p>
               </div>
               <div class="privacy noshow">
                 <h1>Other Info</h1>
@@ -152,66 +168,8 @@
                     Songpa-gu 송파구</option>
                   <option value="Gangdong-gu">Gangdong-gu 강동구</option>
                 </select> <button class="btn">update</button></p>
-                <h2>Genre</h2>
-                <p>
-                  <select id="genre1" class="genre" name="genre">
-                      <option value="K_Pop">K_Pop</option>
-                      <option value="Hip_Hop">Hip_Hop</option>
-                      <option value="Girlish">Girlish</option>
-                      <option value="Girls_HipHop">Girls_HipHop</option>
-                      <option value="Girls_HipHop">Girls_HipHop</option>
-                      <option value="Poppin">Poppin</option>
-                      <option value="Locking">Locking</option>
-                      <option value="House">House</option>
-                      <option value="Breaking">Breaking</option>
-                      <option value="Ballet">Ballet</option>
-                      <option value="Korea_Dance">Korea_Dance(한국무용)</option>
-                      <option value="Modern_Dance">Modern_Dance(현대무용)</option>
-                      <option value="Choreography">Choreography</option>
-                      <option value="Salsa">Salsa</option>
-                      <option value="Dance_Sports">Dance_Sports</option>
-                      <option value="Etc">Etc( 그외 )</option>
-                </select>
-                <select id="genre2" class="genre" name="genre">
-                    <option value="K_Pop">K_Pop</option>
-                    <option value="Hip_Hop">Hip_Hop</option>
-                    <option value="Girlish">Girlish</option>
-                    <option value="Girls_HipHop">Girls_HipHop</option>
-                    <option value="Girls_HipHop">Girls_HipHop</option>
-                    <option value="Poppin">Poppin</option>
-                    <option value="Locking">Locking</option>
-                    <option value="House">House</option>
-                    <option value="Breaking">Breaking</option>
-                    <option value="Ballet">Ballet</option>
-                    <option value="Korea_Dance">Korea_Dance(한국무용)</option>
-                    <option value="Modern_Dance">Modern_Dance(현대무용)</option>
-                    <option value="Choreography">Choreography</option>
-                    <option value="Salsa">Salsa</option>
-                    <option value="Dance_Sports">Dance_Sports</option>
-                    <option value="Etc">Etc( 그외 )</option>
-              </select>
-              <select id="genre3" class="genre" name="genre">
-                  <option value="K_Pop">K_Pop</option>
-                  <option value="Hip_Hop">Hip_Hop</option>
-                  <option value="Girlish">Girlish</option>
-                  <option value="Girls_HipHop">Girls_HipHop</option>
-                  <option value="Girls_HipHop">Girls_HipHop</option>
-                  <option value="Poppin">Poppin</option>
-                  <option value="Locking">Locking</option>
-                  <option value="House">House</option>
-                  <option value="Breaking">Breaking</option>
-                  <option value="Ballet">Ballet</option>
-                  <option value="Korea_Dance">Korea_Dance(한국무용)</option>
-                  <option value="Modern_Dance">Modern_Dance(현대무용)</option>
-                  <option value="Choreography">Choreography</option>
-                  <option value="Salsa">Salsa</option>
-                  <option value="Dance_Sports">Dance_Sports</option>
-                  <option value="Etc">Etc( 그외 )</option>
-            </select>
-                <button class="btn">update</button></p>
               </div>
-              
-              <div class="payment noshow">
+              <!-- <div class="payment noshow">
                 <h1>내 게시물</h1>
                <div id="cards-container">
                 </div>
@@ -237,10 +195,9 @@
                 <p>None <button class="btn">manage</button></p>
                 <h2>Monthly Recurring Total </h2>
                 <p>$7.99/month</p>
-              </div>
+              </div> -->
           
-             
-           <div class="settings noshow">
+           <!-- <div class="settings noshow">
                 <h1>Account Settings</h1>
                 <h2>Sync Watchlist to My Stuff<button class="btn">sync</button></h2>
                 <p></p>
@@ -252,12 +209,11 @@
                 <p></p>
                 <h2>Referrals <button class="btn">get $10</button></h2>
              <p></p>
-              </div>
-              
+              </div> -->
             </div>
           </div>
         </div>
-
+      </main>
           <div class="modalcontainer">
             </div>
             <div id="modal" class="delete-modal modal-hide">
@@ -267,15 +223,9 @@
                   <button>No?</button>
                 </div>
             </div>
-
           <script>
-            
                   var gender = "<%= gender %>";
                   document.body.querySelector('#gender').value=gender;
-                  var genres_gui = document.body.querySelectorAll('.genre');
-                  // var genres_data = <%-JSON.stringify(genre)%>;
-                  
-          
           </script>
           <script src="../../cssjs/mypage/mypage.js"></script> 
 </body>

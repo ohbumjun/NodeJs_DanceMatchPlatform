@@ -30,11 +30,8 @@ router.post('/api/users/activateAccount/:token', function( req , res){
              }
             const { k_name, e_name , email, password ,  username, role } = decodedToken;
                 // 해당 이메일이 DB에 있는 확인하기
-                
-                if( role === '1'){
                     console.log("Registration process of 'User' is going on" );
                     User.findOne({ email }).exec( ( err , user ) => {
-
                         var reigster_who = 'profileUser'
                         if(user){
                             console.log("User with this email already exist")
@@ -48,36 +45,13 @@ router.post('/api/users/activateAccount/:token', function( req , res){
                             message : "Signup success", "success" : "true",'register_who':reigster_who
                         })
                     }) // User.findOne
-
-                }// if : user 일 경우
-                else{
-                    // else: Dancer 일 경우 
-                    Dancer.findOne({ email}).exec( ( err , user ) => {
-                        if(user){
-                            console.log("user with this email already exist")
-                            return res.status(200).json( { 'result' : "User with this email already exist"});
-                        }
-                        //logout 때문에 token도 저장해줘야됨
-    
-                        //user 혹은 dancer profile창으로 redirect하기 위한 get parameter
-                        
-
-                        console.log("Signup Success . Your info is saved into cookie")
-
-                        //user profile 정보 저장을 위해 token 저장
-                        return res.cookie("x_auth" ,token).status(200).json({
-                            message : "Signup success", "success" : "true",'register_who':reigster_who
-
-                    }) // newUser.save
-                }) // Dancer.findOne
-            }
             }) // jwt.verify 
         }else{
             // token 이 없다면 
             console.log("No token exist")
             return res.status(200).json({ 'result' : 'no token'})
             }
-        }, 1000)
+        }, 200)
     }) // app.post('/api/users/activateAccount 끝
 
     module.exports = router;

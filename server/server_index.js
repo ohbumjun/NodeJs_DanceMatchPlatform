@@ -56,9 +56,9 @@ app.use( activeAccount)
 const login = require('./router/login.js');
 app.use( login)
 
-// Password Find, Reset route
-const forget = require('./router/Password.js');
-app.use( forget )
+// // Password Find, Reset route
+// const forget = require('./router/Password.js');
+// app.use( forget )
 
 // Profile Dancer, User Route
 const profile = require('./router/profile.js');
@@ -68,8 +68,3 @@ app.use( profile )
 const mypage = require('./router/mypage.js');
 app.use( mypage )
 
-// file_upload ( 연습용 )
-const file_upload = require('./router/file_upload.js')
-app.use(file_upload)
-const board = require('./router/board.js')
-app.use(board)

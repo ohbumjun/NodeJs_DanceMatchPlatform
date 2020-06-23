@@ -36,7 +36,7 @@ mobileclose.addEventListener('click',function(e)
 
 
 //initial loading 최근순으로 정렬
-var url='http://localhost:4000/recent_posts'
+var url='/recent_posts'
 var xhr=new XMLHttpRequest()
 xhr.open('POST',url);
 xhr.setRequestHeader('Content-Type','application/json')

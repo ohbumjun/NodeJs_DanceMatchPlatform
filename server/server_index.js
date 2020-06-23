@@ -72,3 +72,5 @@ app.use( mypage )
 const board = require('./router/board.js');
 app.use( board )
 
+
+exports.domainURL = config.domainURL;

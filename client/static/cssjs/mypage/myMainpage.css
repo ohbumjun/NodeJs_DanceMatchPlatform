@@ -334,6 +334,38 @@ main .modal__content {
   background-color: #f5f0f0;
 }
 
+main .modal__content label {
+  position: relative;
+  cursor: pointer;
+  display: inline-block;
+  vertical-align: middle;
+  overflow: hidden;
+  width: 50%;
+  height: 100%;
+  background-color: lightgrey;
+  color: gray;
+  text-align: center;
+  line-height: 20px;
+  font-size: 15px;
+}
+
+main .modal__content label input {
+  position: absolute;
+  width: 0;
+  height: 0;
+  overflow: hidden;
+}
+
+main .modal__content input[type=text] {
+  vertical-align: middle;
+  display: inline-block;
+  width: 400px;
+  height: 28px;
+  line-height: 28px;
+  font-size: 11px;
+  padding: 0;
+}
+
 main .modal__content .form {
   margin: 0 auto;
   width: 80%;
@@ -586,6 +618,36 @@ main #submit-btn.hover:after {
     background-position: center;
     border: 1px solid transparent;
     border-radius: 20%;
+  }
+  main .modal .image-preview {
+    width: 95%;
+    min-height: 50px;
+    font-size: 13px;
+    /* Image */
+  }
+  main .modal .image-preview .image-preview__image {
+    display: none;
+    width: 100%;
+  }
+  main .modal__overlay {
+    background-color: rgba(0, 0, 0, 0.6);
+    width: 100%;
+    height: 100%;
+    position: absolute;
+  }
+  main .modal__content {
+    width: 60%;
+  }
+  main .modal__content h3 {
+    font-size: 12px;
+  }
+  main .modal__content label {
+    width: 90%;
+    font-size: 10px;
+    white-space: nowrap;
+  }
+  main .modal__content .form {
+    width: 90%;
   }
 }
 

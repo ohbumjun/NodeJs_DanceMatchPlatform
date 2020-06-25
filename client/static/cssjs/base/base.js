@@ -215,7 +215,7 @@ function search(event)
     }
     data = JSON.stringify(filterall);
 
-    var url='http://localhost:4000/ajax_send_test'
+    var url='/ajax_send_test'
     
     var xhr=new XMLHttpRequest()
     xhr.open('POST',url);

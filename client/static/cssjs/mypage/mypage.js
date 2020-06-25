@@ -42,7 +42,7 @@ buttons.forEach(function(button)
         var data = {'name':name,'value':value}
         data = JSON.stringify(data);
 
-        var url='http://localhost:4000/profile/update_user'
+        var url='/profile/update_user'
         
         var xhr=new XMLHttpRequest()
         xhr.open('POST',url);
@@ -109,7 +109,7 @@ clrbtn.addEventListener('click',function(e){
 })
 
 //내 게시물 가져오기
-var url='http://localhost:4000/my_posts'
+var url='/my_posts'
 var xhr_2=new XMLHttpRequest()
 xhr_2.open('POST',url);
 xhr_2.setRequestHeader('Content-Type','application/json')

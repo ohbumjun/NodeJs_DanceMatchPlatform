@@ -36,7 +36,7 @@ mobileclose.addEventListener('click',function(e)
 
 
 //initial loading 최근순으로 정렬
-var url='http://localhost:4000/recent_posts'
+var url='/recent_posts'
 var xhr=new XMLHttpRequest()
 xhr.open('POST',url);
 xhr.setRequestHeader('Content-Type','application/json')
@@ -81,8 +81,26 @@ popup.forEach(function(e,idx){
 //     //modal template clone 한 다음에 modal 정보 입력
     var clone = document.body.querySelector('#modal').cloneNode(true)
     //모달 정보 채워넣어야됨
-    clone.querySelector('.modal-header-text').innerHTML=data[idx]['author']
+    clone.querySelector('.modal-header-text').innerHTML=data[idx]['title']
     clone.id = 'modal'+ e.id
+
+
+
+
+
+    //video upload 했을 때는??
+    let iframe = document.createElement('iframe');
+    iframe.src =data[idx]['video']
+
+    clone.querySelector('.modal-video-container').appendChild(iframe)
+
+
+    clone.querySelector('.main-content').innerHTML=data[idx]['contents']
+    clone.querySelector('.modal-author').innerHTML='글쓴이: '+data[idx]['author']
+    clone.querySelector('.modal-place').innerHTML='장소: '+data[idx]['place']
+    clone.querySelector('.modal-time').innerHTML='시간: '+data[idx]['time']
+    clone.querySelector('.modal-people').innerHTML='인원: '+data[idx]['people']
+
 
 
     //comment 저장할 때 boardid 필요함
@@ -96,6 +114,7 @@ popup.forEach(function(e,idx){
     
 
     //신규 코멘트 처리
+    //리팩토링해야됨
     let comment_submit_btn = clone.querySelector('.comment-submit-btn')
     comment_submit_btn.addEventListener("click",function(e)
     {
@@ -234,14 +253,18 @@ function draw_comment(comment_data,commentcontainer,boardid)
     let single_comment_container = document.createElement('div')
     single_comment_container.classList.add('single-comment')
     let single_comment =  document.createElement('div')
+    let comment_author =  document.createElement('div')
+
     single_comment.classList.add('content')
     single_comment.id = 'comment'+comment_data['_id']
     let update_comment = document.createElement('button')
     let delete_comment = document.createElement('button')
     let comment_id = comment_data['_id']
 
-    single_comment_container.appendChild(single_comment)
+    comment_author.innerHTML=comment_data['author']+': '
     single_comment.innerHTML=comment_data['contents']
+    single_comment_container.appendChild(comment_author)
+    single_comment_container.appendChild(single_comment)
 
     user = document.body.querySelector('#user').innerHTML
   
@@ -250,8 +273,8 @@ function draw_comment(comment_data,commentcontainer,boardid)
               
         single_comment_container.appendChild(delete_comment)
         single_comment_container.appendChild(update_comment)
-        delete_comment.innerHTML="삭제하기"
-        update_comment.innerHTML="수정하기"
+        delete_comment.innerHTML="삭제"
+        update_comment.innerHTML="수정"
         
         delete_comment.addEventListener('click',
         function(e)

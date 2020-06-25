@@ -70,6 +70,17 @@ router.post('/recent_posts',function(req,res)
 
 })
 
+
+router.post('/api/users/search_board',function(req,res)
+{
+  Board.find(req.body,function (err, docs) {
+    //docs는 array
+    console.log(docs)
+    res.json({'result':docs,'nums':docs.length})
+ })
+
+})
+
 //내 post 가져오기
 router.post('/my_posts',function(req,res)
 {
@@ -205,5 +216,7 @@ router.post('/api/users/board', function (req, res) {
       });
     })
     })
+
+
 
 module.exports = router;

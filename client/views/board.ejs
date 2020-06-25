@@ -43,6 +43,16 @@
         </nav>
 
         <main>
+                <div class="board-search">
+                    <div class="search-container">
+                    <select class="board-select" id='search-board' name='genre'><option value="place">장소</option><option value="author">글쓴이</option>
+                    </select>     
+                    <input id='search-text' type='text' />
+                    <button id='search-button'>검색하기</button>
+                    </div>
+                    <div id='search-result' class="result"></div>
+                </div>
+
             <div class="main-container">
 
                     <a id="make-post" class='post' href="/board/write"><p>글올리기!</p></a>

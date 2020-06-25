@@ -52,7 +52,9 @@ xhr.addEventListener('load',function()
 
 function drawing(data)
 {
+    
     let cards_container = document.body.querySelector('#cards-container');
+    cards_container.innerHTML=''
     data.reverse().forEach(function(e,idx)
     {
         //id도 복사되네?
@@ -290,4 +292,41 @@ function draw_comment(comment_data,commentcontainer,boardid)
         })
         }
         commentcontainer.appendChild(single_comment_container)  
+}
+
+
+//검색 관련
+
+let searchbutton = document.body.querySelector('#search-button')
+searchbutton.addEventListener('click',function(e){search(e)})
+
+
+function search(event)
+{
+    event.preventDefault();
+    let option = document.body.querySelector('select').value
+    let search_text = document.body.querySelector('#search-text').value
+
+    console.log('option',option)
+    console.log('search_text',search_text)
+
+    let url = '/api/users/search_board'
+    let data = {}
+    data[option]= { "$regex": search_text, "$options": "i" }
+    data = JSON.stringify(data)
+    console.log('data',data)
+
+    xhr.open('POST',url);
+    xhr.setRequestHeader('Content-Type','application/json')
+    xhr.send(data)
+    xhr.addEventListener('load',function(){
+        var result = JSON.parse(xhr.responseText);
+        //게시글 만들기
+        drawing(result.result);
+        //모달 만들기
+        makemodal(result.result);
+
+        let num_result = document.body.querySelector('#search-result')
+        num_result.innerHTML=String(result.nums)+' Results'
+    })
 }

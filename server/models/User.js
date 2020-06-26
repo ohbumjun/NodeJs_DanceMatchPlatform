@@ -115,6 +115,10 @@ var userSchema = mongoose.Schema({
     Major:{
         type : String,
         default : ''
+    },
+    pass :{
+        type: Boolean,
+        default : true
     }
 })
 

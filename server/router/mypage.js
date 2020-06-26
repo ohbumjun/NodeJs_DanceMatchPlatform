@@ -33,8 +33,10 @@ router.post('/profile/update_user',function(req,res)
     console.log('name')
     //x-auth token으로 찾아서 update
     connection.db.collection("users", function(err, collection){
+        
         collection.updateOne({'token':x_auth},{$set:{[name]:value}}, //변수명을 mongoose column 명으로 사용하고 싶을 때 [name]->e_name
         {upsert:true });
+
         if(err)
         {
             console.log(err)
@@ -43,14 +45,16 @@ router.post('/profile/update_user',function(req,res)
         var result='ok'
         var respondData={'result':result}
         res.json(respondData)
-})
+
+    })
 })
 
 // < mypage route >
 
 router.get('/api/users/mypage', function( req , res){
-
+    
     var x_auth = req.cookies.x_auth
+
     console.log('x_auth',x_auth)
     connection.db.collection("users", function(err, collection){
         collection.find({token:x_auth}).toArray(function(err, data){
@@ -67,8 +71,7 @@ router.post('/api/users/mypage',function( req, res){
 
     var x_auth = req.cookies.x_auth;
     const { email } = x_auth;
-
-
+    
     // singleUpload라는 function을 제공한다 
     ImagesingleUpload( req, res, function( err ){   
 
@@ -104,13 +107,18 @@ router.post('/api/users/mypage',function( req, res){
 
 // < mySpace Route >
 router.get('/api/users/mySpace', function( req , res){
+
     var x_auth = req.cookies.x_auth
+
     connection.db.collection("users", function(err, collection){
+
         collection.find({token:x_auth}).toArray(function(err, data){
             //data는 내가 찾은 token에 해당하는 데이터이다
             // 즉, 내가 찾는 댄서에 대한 정보가 data로 들어오는데
             // array 형식으로 들어오기 때문에, data[0]이라고 작성하는 것이다 
+
         res.render('mySpace',data[0])
+
         })   
     });
 });
@@ -119,6 +127,8 @@ router.get('/api/users/mySpace', function( req , res){
 router.post('/api/users/mySpace',function( req, res){
     var x_auth = req.cookies.x_auth;
     const { email } = x_auth;
+
+    console.log(req)
 
     // VideosingleUpload 라는  function을 제공한다 
     VideosingleUpload( req, res, function( err ){   
@@ -131,9 +141,7 @@ router.post('/api/users/mySpace',function( req, res){
             
             return res.status(422).send({ errors : [ { title : 'File Upload Error', detail : err.message }]});
         }
-
-        console.log(req.file.location)
-        
+ 
         // location에는 url of our image 이 들어있을 것이다 
         console.log("Updating Video url in MongoDb")
 
@@ -146,16 +154,14 @@ router.post('/api/users/mySpace',function( req, res){
                 console.log(err)
                 res.status(404)
             }
+
             console.log("Video Push success")
-        
             res.redirect(req.originalUrl)
     })
     });   
 })
 
 module.exports = router;
-
-
 /* 
 
 < GridFs 안쓰는 route >

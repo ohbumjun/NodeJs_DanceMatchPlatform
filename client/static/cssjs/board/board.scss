@@ -126,7 +126,6 @@ header{
     }
 
     .modal-main{
-        height:150%;
         background:white;
         margin: 4vw;
         padding: 1em;
@@ -145,22 +144,30 @@ header{
             flex-direction:column;
             justify-content: center;
             background:lightgray;
-            height: 30vh;
-            overflow: scroll;
             padding: 1em;
             margin-bottom:1em;
             overflow-x: hidden;
 
             .single-comment{
                 display:flex;
-                flex-direction:row;
+                flex-direction:column;
                 justify-content: space-around;
                 border-bottom: solid 1px black;
                 padding:1em;
+                padding-right:0;
+
+                .comment-author{
+                    margin-bottom:0.5em;
+                    font-weight: bold;
+                }
 
                 .content
                 {
                     margin-right:auto;
+                }
+
+                button{
+                        border:none;
                 }
             }
         }
@@ -268,6 +275,11 @@ iframe{
     margin-bottom:1em;
 }
 
+.fa-spin{
+    position: fixed;
+    top: 25%;
+    font-size: 10vh;
+}
 
 @media only screen and (max-width: 600px) {
     header{
@@ -295,6 +307,12 @@ iframe{
      }
  
     }
+    }
+
+    .fa-spin{
+
+        left: 39%;
+
     }
 } 
 
@@ -337,11 +355,21 @@ nav{
     transition:transform 0.5s;
 }
 
+.icon-hide{
+    display:none;
+}
+
 
 
 @media only screen and (min-width: 600px)
 {
     #search-text{
         width:30vw;
+    }
+
+    .fa-spin{
+
+        left: 47%;
+
     }
 }

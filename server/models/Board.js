@@ -9,6 +9,9 @@ var commentSchema = new Schema({
     comment_date: {type: Date, default: Date.now()}
 });
 
+commentSchema.add({ comments: [commentSchema] });
+
+
 var boardSchema = new Schema({
     title: String,
     contents: String,
@@ -25,6 +28,7 @@ var boardSchema = new Schema({
 });
 
 
-boardSchema.plugin(require('mongoose-beautiful-unique-validation'));
+//recursive한거 때문에 콜스택 에러 발생??
+// boardSchema.plugin(require('mongoose-beautiful-unique-validation')); 
 
 module.exports = mongoose.model('board', boardSchema);

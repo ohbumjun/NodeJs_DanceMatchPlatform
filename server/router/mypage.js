@@ -52,7 +52,7 @@ router.post('/profile/update_user',function(req,res)
 // < mypage route >
 
 router.get('/api/users/mypage', function( req , res){
-    
+
     var x_auth = req.cookies.x_auth
 
     console.log('x_auth',x_auth)
@@ -157,11 +157,17 @@ router.post('/api/users/mySpace',function( req, res){
 
             console.log("Video Push success")
             res.redirect(req.originalUrl)
-    })
+        })
     });   
 })
 
 module.exports = router;
+
+
+
+
+
+
 /* 
 
 < GridFs 안쓰는 route >

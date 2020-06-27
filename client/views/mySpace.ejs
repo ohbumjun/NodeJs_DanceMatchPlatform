@@ -95,19 +95,20 @@
         <div class="modal hidden">
             <div class="modal__overlay"></div>
             <div class="modal__content">
-                <form class = "form" enctype = "multipart/form-data">
+                <form class = "form" enctype = "multipart/form-data" method = 'POST' action = "/api/users/mySpace" id = 'upload_form'>
                     <h3>Upload Your Video</h3>
                     <label for="inpFile">Choose Video
-                        <input type="file" value = "Choose your Video" specllcheck = 'false' name = "video" id = "inpFile" accept="video/mp4"/>
-                            <video id="video-element" controls>
-                                <source type = "video/mp4" >
-                            </video>
-                            <canvas id="canvas-element"></canvas>
+                        <input type="file" value = "Choose your Video" specllcheck = 'false' name = "video" id = "inpFile" accept ="video/mp4" />
                     </label>
                     <div class="image-preview" id ="image-preview">
                         <img src="" alt="Video preview" class="image-preview__image">
                         <br/>
                         <span class="image-preview__default-text">Video Preview</span>
+                    </div>
+                    <div class="video-preview">
+                        <video id="video-element" controls autoplay muted>
+                            <source type="video/mp4">
+                        </video>
                     </div>
                     <button type="submit" id="submit-btn" class='btn-deactive'>Submit
                     </button>

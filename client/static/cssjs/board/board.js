@@ -52,7 +52,9 @@ xhr.addEventListener('load',function()
 
 function drawing(data)
 {
+    
     let cards_container = document.body.querySelector('#cards-container');
+    cards_container.innerHTML=''
     data.reverse().forEach(function(e,idx)
     {
         //id도 복사되네?
@@ -244,8 +246,10 @@ function change_comment(e,comment,comment_contianer,comment_id,boardid,commentco
         
     })
 
-    comment_contianer.appendChild(update_button)
-    comment_contianer.appendChild(cancel_button)
+    let button_container = comment_contianer.querySelector('#btn-container')
+
+    button_container.appendChild(cancel_button)
+    button_container.appendChild(update_button)
 }
 
 function draw_comment(comment_data,commentcontainer,boardid)
@@ -254,25 +258,30 @@ function draw_comment(comment_data,commentcontainer,boardid)
     single_comment_container.classList.add('single-comment')
     let single_comment =  document.createElement('div')
     let comment_author =  document.createElement('div')
+    comment_author.classList.add('comment-author')
 
     single_comment.classList.add('content')
     single_comment.id = 'comment'+comment_data['_id']
     let update_comment = document.createElement('button')
     let delete_comment = document.createElement('button')
+    let button_container = document.createElement('div')
+    button_container.id = 'btn-container'
     let comment_id = comment_data['_id']
 
-    comment_author.innerHTML=comment_data['author']+': '
+    comment_author.innerHTML=comment_data['author']
     single_comment.innerHTML=comment_data['contents']
+
     single_comment_container.appendChild(comment_author)
     single_comment_container.appendChild(single_comment)
+    single_comment_container.appendChild(button_container)
+
 
     user = document.body.querySelector('#user').innerHTML
   
         if(user===comment_data.author)
         {
-              
-        single_comment_container.appendChild(delete_comment)
-        single_comment_container.appendChild(update_comment)
+        button_container.appendChild(update_comment)
+        button_container.appendChild(delete_comment)
         delete_comment.innerHTML="삭제"
         update_comment.innerHTML="수정"
         
@@ -290,4 +299,51 @@ function draw_comment(comment_data,commentcontainer,boardid)
         })
         }
         commentcontainer.appendChild(single_comment_container)  
+}
+
+
+//검색 관련
+
+let searchbutton = document.body.querySelector('#search-button')
+searchbutton.addEventListener('click',function(e){search(e)})
+
+
+function search(event)
+{
+    event.preventDefault();
+
+
+    let icon = document.body.querySelector('.icon-hide')
+
+    icon.classList.toggle('icon-hide')
+
+    let option = document.body.querySelector('select').value
+    let search_text = document.body.querySelector('#search-text').value
+
+
+
+    let url = '/api/users/search_board'
+    let data = {}
+    data[option]= { "$regex": search_text, "$options": "i" }
+    data = JSON.stringify(data)
+    console.log('data',data)
+
+    xhr.open('POST',url);
+    xhr.setRequestHeader('Content-Type','application/json')
+    xhr.send(data)
+    xhr.addEventListener('load',function(){
+
+        console.log('icon',icon)
+        
+        icon.classList.add('icon-hide')
+
+        var result = JSON.parse(xhr.responseText);
+        //게시글 만들기
+        drawing(result.result);
+        //모달 만들기
+        makemodal(result.result);
+
+        let num_result = document.body.querySelector('#search-result')
+        num_result.innerHTML=String(result.nums)+' Results'
+    })
 }

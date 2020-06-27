@@ -7,4 +7,7 @@ var commentSchema = new Schema({
     comment_date: {type: Date, default: Date.now()}
 });
 
+
+commentSchema.add({ comments: [commentSchema]});
+
 module.exports = mongoose.model('comment', commentSchema);

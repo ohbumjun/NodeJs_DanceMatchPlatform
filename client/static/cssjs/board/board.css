@@ -81,6 +81,39 @@ header .header-right div:hover {
   border-bottom: black solid 5px;
 }
 
+.board-search {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  margin-top: 9vh;
+}
+
+.search-container {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  margin-bottom: 1em;
+}
+
+.search-container * {
+  height: 2em;
+  margin: auto 0.2em;
+}
+
 .popup-modal {
   height: 100vh;
   width: 100vw;
@@ -139,7 +172,6 @@ header .header-right div:hover {
 }
 
 .popup-modal .modal-main {
-  height: 150%;
   background: white;
   margin: 4vw;
   padding: 1em;
@@ -166,9 +198,8 @@ header .header-right div:hover {
       -ms-flex-pack: center;
           justify-content: center;
   background: lightgray;
-  height: 30vh;
-  overflow: scroll;
   padding: 1em;
+  margin-bottom: 1em;
   overflow-x: hidden;
 }
 
@@ -176,18 +207,28 @@ header .header-right div:hover {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  -webkit-box-orient: horizontal;
+  -webkit-box-orient: vertical;
   -webkit-box-direction: normal;
-      -ms-flex-direction: row;
-          flex-direction: row;
+      -ms-flex-direction: column;
+          flex-direction: column;
   -ms-flex-pack: distribute;
       justify-content: space-around;
   border-bottom: solid 1px black;
   padding: 1em;
+  padding-right: 0;
+}
+
+.popup-modal .modal-main .modal-comment .single-comment .comment-author {
+  margin-bottom: 0.5em;
+  font-weight: bold;
 }
 
 .popup-modal .modal-main .modal-comment .single-comment .content {
   margin-right: auto;
+}
+
+.popup-modal .modal-main .modal-comment .single-comment button {
+  border: none;
 }
 
 .popup-modal .modal-main .modal-new-comment {
@@ -324,6 +365,12 @@ iframe {
   margin-bottom: 1em;
 }
 
+.fa-spin {
+  position: fixed;
+  top: 25%;
+  font-size: 10vh;
+}
+
 @media only screen and (max-width: 600px) {
   header {
     display: none;
@@ -353,6 +400,9 @@ iframe {
   }
   header.mobile .nav-bar i {
     margin-right: 1em;
+  }
+  .fa-spin {
+    left: 39%;
   }
 }
 
@@ -416,4 +466,16 @@ nav .dropdown .close {
   transition: transform 0.5s;
   transition: transform 0.5s, -webkit-transform 0.5s;
 }
-/*# sourceMappingURL=board.css.map */
+
+.icon-hide {
+  display: none;
+}
+
+@media only screen and (min-width: 600px) {
+  #search-text {
+    width: 30vw;
+  }
+  .fa-spin {
+    left: 47%;
+  }
+}

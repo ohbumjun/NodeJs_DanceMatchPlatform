@@ -5,6 +5,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta http-equiv="X-UA-Compatible" content="ie=edge">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+        <script src="https://kit.fontawesome.com/a076d05399.js"></script>
         <link rel="stylesheet" type="text/css" href="../../cssjs/board/board.css" />
         <title>Connect2Dance</title>
     </head>
@@ -43,6 +44,16 @@
         </nav>
 
         <main>
+                <div class="board-search">
+                    <div class="search-container">
+                    <select class="board-select" id='search-board' name='genre'><option value="place">장소</option><option value="author">글쓴이</option>
+                    </select>     
+                    <input id='search-text' type='text' />
+                    <button id='search-button'>검색하기</button>
+                    </div>
+                    <div id='search-result' class="result"></div>
+                </div>
+
             <div class="main-container">
 
                     <a id="make-post" class='post' href="/board/write"><p>글올리기!</p></a>
@@ -97,6 +108,9 @@
                 <div class="modal-date"></div>
             </footer>
         </div>
+
+
+        <i class="fas fa-spinner fa-spin icon-hide"></i>
 
     <script src='../../cssjs/board/board.js'></script>
     </body>

@@ -84,7 +84,8 @@
             </div>
 
             <div class = "tab-pane" id = "mboard">
-                <span>Mi board</span>
+                <div id="cards-container">
+                </div>
             </div>
 
             <div class = "tab-pane" id = "tboard">
@@ -117,6 +118,29 @@
             </div>
         </div>
     </main>
+
+    
+    <div id ="card-copy" class="card-container">
+        <div id="card">
+        <div id="card-title"></div>
+            <div class="sub-container">
+            <div id="card-place-time" class='card-info'></div>
+            <div id="card-people" class='card-info'></div>
+            </div>
+        </div>
+      <div class="open-update"><div class="card-button btn-update">수정하기</div><div class="card-button btn-delete">삭제하기</div>
+    </div>
+</div>
+
+    <div class="modalcontainer">
+    </div>
+    <div id="modal" class="delete-modal modal-hide">
+        <div class="modal-header">정말 삭제할거에요? ㅠㅠ</div>
+        <div class="modal-main">
+          <button id='del-yes'>Yes?</button>
+          <button id='del-no'>No?</button>
+        </div>
+    </div>
 
     <footer>
         <button id = "open">+_+</button>

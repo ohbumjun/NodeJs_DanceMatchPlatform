@@ -125,21 +125,22 @@ router.get('/api/users/mySpace', function( req , res){
 
 // post : aws-sdk > Videos
 router.post('/api/users/mySpace',function( req, res){
+
     var x_auth = req.cookies.x_auth;
     const { email } = x_auth;
-
-    console.log(req)
 
     // VideosingleUpload 라는  function을 제공한다 
     VideosingleUpload( req, res, function( err ){   
 
         console.log("Request for uploading image");
+
+        // client에 보낼 정보를 object 형식으로 만든다
         
         if(err){
             console.log("Error during uploading image");
             console.log(err)
             
-            return res.status(422).send({ errors : [ { title : 'File Upload Error', detail : err.message }]});
+            return res.status(403).send({ errors : [ { title : 'File Upload Error', detail : err.message }]});
         }
  
         // location에는 url of our image 이 들어있을 것이다 
@@ -147,18 +148,41 @@ router.post('/api/users/mySpace',function( req, res){
 
         //x-auth token으로 찾아서 update( 해당 user 의 db video list에 넣는다 )
         connection.db.collection("users", function(err, collection){
+
+            // 해당 동영상 link를 array 에 추가하기 
             collection.updateOne({'token':x_auth},{$push : {'profile_videos':req.file.location} },{new:true});
+
             if(err)
             {
-                console.log("Error happened")
+                console.log("Update Error happened")
                 console.log(err)
                 res.status(404)
-            }
+
+            }else{
+                // 만약 video update 에 성공한다면 
+
+                // 클라이언트 측에 전달할 video link를 찾아서 전달해준다
+                collection.find({token:x_auth}).toArray(function(err, data){
+                    //data는 내가 찾은 token에 해당하는 데이터이다
+                    // 즉, 내가 찾는 댄서에 대한 정보가 data로 들어오는데
+                    // array 형식으로 들어오기 때문에, data[0]이라고 작성하는 것이다 
+                    if(err){
+                        console.log("Finding Video links Error happened")
+                        console.log(err)
+                        res.status(405)
+                    }
+
+                    console.log("Got the data")
+                    res.status(200).render('mySpace', data[0] )
+        
+                    })// find
+
+                }// else
 
             console.log("Video Push success")
-            res.redirect(req.originalUrl)
+            
         })
-    });   
+    });   // VideosingleUpload
 })
 
 module.exports = router;

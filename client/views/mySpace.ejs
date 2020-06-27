@@ -73,23 +73,24 @@
         </ul>
 
         <div class = "tab-content">
+
             <div class = "tab-pane active" id = "Videos">
-                <div class ="video"></div>
-                <div class ="video"></div>
-                <div class ="video"></div>
-                <div class ="video"></div>
-                <div class ="video"></div>
-                <div class ="video"></div>
-                <div class ="video"></div>
-                <div class ="video"></div>
-                <div class ="video"></div>
+                <% for ( var i = 0; i < profile_videos.length; i++){ %>
+                    <div class = "video">
+                        <video width ="100%" height = "100%" controls muted src = <%=profile_videos[i] %> > 
+                        </video>
+                    </div>
+                  <% } %>
             </div>
+
             <div class = "tab-pane" id = "mboard">
                 <span>Mi board</span>
             </div>
+
             <div class = "tab-pane" id = "tboard">
                 <span>Tu board</span>
             </div>
+
         </div>
 
         <div class="modal hidden">

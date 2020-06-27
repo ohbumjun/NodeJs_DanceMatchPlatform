@@ -51,14 +51,54 @@ inpForm.onsubmit = function(){
     var xhr = new XMLHttpRequest()
 
     // video를 입력하지 않으면 alert 띄우고  redirect
-    if( inpFile.files[0] == undefined ){
+    if( inpFile.files[0] === undefined ){
         alert("Put in your video")
         return false;
     }
 
-    xhr.open('POST',inpForm.getAttribute('action'), true)
-    xhr.send(formData)
+    // response 처리하기
+    xhr.onload = function(){
+        if(xhr.status === 200){
+            console.log("Server responded appropriately with 200 status")
 
+            // 동영상 url 링크를 받는다
+            console.log(xhr.responseText)
+            alert("Video Upload Success")
+            // make_video()
+            window.location.href = "/api/users/mySpace"
+        }
+        else if( xhr.status === 403){
+            alert("Error while uploading to AWS")
+        }
+        else if( xhr.status === 404){
+            alert("Update Error while updating DB")
+        }
+        else if( xhr.status === 405){
+            alert("Finding Video links in DB Error")
+        }
+
+    }
+
+    xhr.open('POST',inpForm.getAttribute('action'), true)
+
+    xhr.send(formData)
+}
+
+function make_video(profile_videos){
+
+    var Video_lists = document.getElementById("Videos")
+
+    for(let  i in profile_videos){
+
+        let video_html = `<div class = "video">\
+            <video src = ${profile_videos[i]} controls autoplay muted >\
+                
+            </video>\
+                        </div>`;
+        
+        Video_lists.appendChild(Video_lists)
+    
+    }
 }
 
 
@@ -90,7 +130,6 @@ inpFile.addEventListener("change", function(){
     
     if( file ){
 
-
         fileReader.readAsDataURL(file)
         fileReader.onload = function(){
 
@@ -100,37 +139,9 @@ inpFile.addEventListener("change", function(){
             previewContainer.style.display = "none"
             VideoContainer.style.display = "block"
 
-        }
-
-        // // 2. video
-        // var _CANVAS = document.querySelector('#canvas-element');
-        // var _CTX = Canvas.getContext('2d')
-        
-        // // validate wheter MP4
-        // if(['video/mp4'].indexOf(document.querySelector("#video_upload").files[0].type) == -1){
-        //     alert("Error: Only Mp4 format allowed")
-        //     return;
-        // }
-
-        // // object url as the video source
-        // document.querySelector("#video-element source")
-        //             .setAttribute('src', URL.createObjectURL(inpFile.files[0]));
-
-        // // Load the Video and show
-        // _VIDEO.load();
-        // _VIDEO.style.display = "inline"  
-        // _VIDEO.play();
-
+            }
             
-              /*
-            The dimensions (width / height) of the generated thumbnail will depend on the dimensions of the <canvas> element. The dimensions of the <canvas> element will in turn depend on the dimensions of the video.
-
-            Please note that dimensions of video refers to the actual video, and not the CSS dimensions of the <video> element.
-
-            To get the dimensions of the video, you need to wait for the video metadata to load. This can be done through the loadedmetadata event.
-              */
-              
-        }else{
+    }else{
             // null을 함으로써 css 설정 default값을 따르도록 할 것이다 
             previewDefaultText.style.display = null;
             previewImage.style.display = null;

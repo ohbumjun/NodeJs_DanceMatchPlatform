@@ -48,7 +48,7 @@ var upload = multer({
       cb(null,fullPath)
     },
     // 파일 사이즈의 크기를 제한한다: 20000000 bytes = 20MB
-    limits: { fileSize: 20000000 },
+    // limits: { fileSize: 20000000 },
     fileFilter : function( req, file, cb){
       checkFileType(file, cb);
     }

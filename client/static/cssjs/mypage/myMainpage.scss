@@ -73,7 +73,7 @@ header{
 
 main{
     width: 85%;
-    height: 110%;
+    height: 500vh;
     margin: 0 auto;
     padding-top: 3vh;
     background-color: #FFFAF0;
@@ -186,17 +186,66 @@ main{
             display : none;
         }
         .tab-pane.active{
-            width: 90%;
-            margin: 0 auto;
+            width: 100%;
             display: grid;
             grid-template-columns: repeat(3, 1fr);
             gap: 3vh;
             grid-auto-rows: 19rem;
             
             .video{
+                
                 width: 100%;
                 height: 18.125rem;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+                border: 2.5px solid white;
+
+                video{
+                    justify-self: center;
+                    width : 100% ; 
+                    height : 70% ;
+                    top : 0;
+                }
                 
+                .video__text{
+                    color: gray;
+                    background-color: #FFFAF0 ;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;                
+                    width: 100%;
+                    height: 20%;
+                    bottom:10%;
+                }
+
+                .video__btn{
+                    
+                    display: flex;
+                    align-items: center;
+                    justify-content: space-around;
+                    width: 100%;
+                    height: 10%;
+                    bottom: 0;
+                    background-color: white;
+                    gap: 2px;
+
+                    span{
+                        width:50%;
+                        text-align: center;
+                        
+                        &:first-child{
+                            border-right: 1px solid lightgray;
+                        }
+                        a {
+                            color: gray;
+                            text-decoration: none;
+                        }
+                    }
+
+                }
+
             }
         }
     } // Content
@@ -213,37 +262,6 @@ main{
         justify-content: center;
         align-items: center;
         // image preview
-        .image-preview{
-            width: 80%;
-            min-height: 100px;
-            border: 2px solid lightgray;
-            margin-top: 10px;
-
-            /* Default text */
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: bold;
-            color:gray;
-
-            /* Image */
-            .image-preview__image{
-                display: none;
-                width: 100%;
-            }
-        }// image-preview
-
-        .video-preview{
-            display: none;
-            width: 80%;
-            min-height: 100px;
-            border: 2px solid lightgray;
-            margin-top: 10px;
-            #video-element{
-                width: 100%;
-                height: 100%;
-            }
-        }
 
     }
     .modal__overlay{
@@ -256,63 +274,101 @@ main{
         position: relative;
         padding: 50px 10px;
         text-align: center;
-        width: 30%;
+        width: 50%;
+        height: 70%;
         border-radius: 10px;
         box-shadow: 0px 5px 10px 0px rgba(0,0,0,.25);
         -o-box-shadow: 0px 5px 10px 0px rgba(0,0,0,.25);
         -ms-box-shadow: 0px 5px 10px 0px rgba(0,0,0,.25);
         -moz-box-shadow: 0px 5px 10px 0px rgba(0,0,0,.25);
         background-color: rgb(245, 240, 240);
-        label{
-            position: relative;
-            cursor: pointer;
-            display: inline-block;
-            vertical-align: middle;
-            overflow: hidden;
-            width: 50%;
-            height: 100%;
-            background-color: lightgrey;
-            color:gray;
-            text-align: center;
-            line-height: 20px;
-            font-size: 15px;
-            input{
-                position: absolute;
-                width: 0;
-                height:0;
-                overflow: hidden;
-            }
-            
-        }
-        input[type=text]{
-            vertical-align: middle;
-            display: inline-block;
-            width: 400px;
-            height: 28px;
-            line-height: 28px;
-            font-size: 11px;
-            padding: 0;
-        }
         
         .form{
             margin: 0 auto;
+            top: 0;
             width:90%;
-            height:90%;
+            height:105%;
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
-        }
-
-    }
+            label{
+                position: relative;
+                cursor: pointer;
+                display: inline-block;
+                vertical-align: middle;
+                overflow: hidden;
+                width: 50%;
+                height: 15%;
+                background-color: lightgrey;
+                color:gray;
+                text-align: center;
+                line-height: 20px;
+                font-size: 1.5vw;
+                input{
+                    position: absolute;
+                    width: 0;
+                    height:0;
+                    overflow: hidden;
+                }
+                
+            }
     
+            .image-preview{
+                width: 80%;
+                min-height: 100px;
+                border: 2px solid lightgray;
+                margin-top: 10px;
+    
+                /* Default text */
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                font-weight: bold;
+                color:gray;
+    
+                /* Image */
+                .image-preview__image{
+                    display: none;
+                    width: 100%;
+                }
+            }// image-preview
+    
+            .video-preview{
+                display: none;
+                width: 80%;
+                min-height: 100px;
+                border: 2px solid lightgray;
+                margin-top: 10px;
+                #video-element{
+                    width: 100%;
+                    height: 100%;
+                }
+            }
+    
+            .video-text{
+                width: 80%;
+                height: 130%;
+                margin-bottom: 3vh;
+                input{
+                    text-align : center;
+                    border: 2px solid lightgray;
+                    background-color: rgb(245, 240, 240);;
+                    margin-top: 10px;
+                    width: 100% ;
+                    height: 100%;
+                    font-size: 1.5 vw;
+                }
+            }
+
+            .video-num{
+                display: none;
+            }
+        }// form
+    }
     .hidden{
         display: none;
     }
-    
-    
-    
-
     // submit btn
     #submit-btn{
         background-color: lightgray;
@@ -405,21 +461,53 @@ main{
         }
     }// Infos
 
+    .modal__content{
+        #upload_form{
+            height: 90%;
+            label{
+                height: 5%;
+            }
+            .image-preview{
+                height: 40%;
+            }
+            .video-preview{
+                height: 40%;
+            }
+            .video-text{
+                height: 40%;
+            }
+        }
+    }
+
     .tab-content{
         #Videos{
             grid-template-columns: repeat(2,1fr);
             gap: 1vh;
             grid-auto-rows: 17rem;
-            div{
-                width: 18rem;
-                margin:0 auto;
-                height: 100%;
-            }
+                .video{
+                    width: 100%;
+                    margin:0 auto;
+                    height: 100%;
+                    video{
+                        width: 15rem;
+                    }
+                    
+                    .video__text{
+                        color: gray;
+                        background-color: #FFFAF0 ;
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;                
+                        width: 100%;
+                        height: 20%;
+                        bottom:0;
+                    }
+                }
         }
     }
 }
     // cellphone 용
-    @media screen and (min-width: 320px) and (max-width: 426px){
+    @media screen and (min-width: 319px) and (max-width: 426px){
         width: 90%;
         .Infos{
             padding-top: 0.1vh;
@@ -507,52 +595,83 @@ main{
                 grid-template-columns: 1fr;
                 gap: 3vh;
                 grid-auto-rows: 12.5rem;
-                div{
-                    width: 100%;
-                    height: 12.125rem;
+                .video{
+                    width: 18rem;
+                    height: 12.25rem;
+                    margin: 0 auto;
                     
+                    .video__text{
+                        color: gray;
+                        background-color: #FFFAF0 ;
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;                
+                        width: 100%;
+                        height: 20%;
+                        bottom:0;
+                    }
                 }
             }
         }
+        // modal 
+        .modal{
+            // image preview
+            .image-preview{
+                width: 95%;
+                min-height: 50px;
+                font-size: 13px;
+                /* Image */
+                .image-preview__image{
+                    display: none;
+                    width: 100%;
+                }
+            }
+        }
+        .modal__overlay{
+            background-color: rgba(0, 0, 0, 0.6);
+            width:100%;
+            height:100%;
+            position: absolute;
+        }
 
-    // modal 
-    .modal{
-        
-        // image preview
-    .image-preview{
-        width: 95%;
-        min-height: 50px;
-        font-size: 13px;
-        /* Image */
-        .image-preview__image{
-            display: none;
-            width: 100%;
-        }
-    }
-    }
-    .modal__overlay{
-        background-color: rgba(0, 0, 0, 0.6);
-        width:100%;
-        height:100%;
-        position: absolute;
-    }
-    .modal__content{
-        width: 60%;
-        h3{
-            font-size: 12px;
-        }
-        label{
-            width: 90%;
-            font-size: 10px;
-            white-space:nowrap;
-        }
-        
-        .form{
-            width:90%;
-        }
-    }
+        .modal__content{
+            #upload_form{
 
-    }
+                height: 100%;
+
+                h3{
+                    font-size: 1.6vh;
+                }
+
+                label{
+                    height: 10%;
+                }
+
+                .image-preview{
+                    
+                    height: 37%;
+                }
+
+                .video-preview{
+                        
+                    height: 37%;
+                }
+
+                .video-text{
+                    height: 50%;
+                    input{
+                        height: 100%;
+                    }
+                }
+                
+                .btn-deactive{
+                    height: 15%;
+                }
+            }
+        }
+        
+
+    } // cellphone
 } // main
 
 

@@ -1,13 +1,15 @@
-
 // 1. tab -----
 function onTabClick(event) {
+
   event.preventDefault()
      
   let activeTabs = document.querySelectorAll('.active');
+  
   // deactivate existing active tab and panel
   activeTabs.forEach(function(tab) {
       tab.className = tab.className.replace('active', '').replace(' ','');
   });
+
   // activate new tab and panel
   event.target.parentElement.className += ' active';
   document.getElementById(event.target.href.split('#')[1]).className += ' active';
@@ -17,6 +19,7 @@ function onTabClick(event) {
 }
   const element = document.getElementById('nav-tab');
   element.addEventListener('click', onTabClick);
+
 
 // 2. modal ------
 const openButton = document.getElementById("open")
@@ -39,13 +42,18 @@ closeBtn.addEventListener("click",closeModal)
 
 openButton.addEventListener("click",openModal)
 
+// 3. video, text ajax server sending -----
 
+const inpForm = document.getElementById('upload_form');
 
-// 3. image, video ajax server sending -----
-const inpForm = document.getElementById('upload_form')
 const inpFile = document.getElementById("inpFile");
 
+const inpText = document.getElementById("inpText");
+
+const inpNum = document.getElementById("inpNum");
+
 inpForm.onsubmit = function(){
+
 
     var formData = new FormData(inpForm);
     var xhr = new XMLHttpRequest()
@@ -60,7 +68,6 @@ inpForm.onsubmit = function(){
     xhr.onload = function(){
         if(xhr.status === 200){
             console.log("Server responded appropriately with 200 status")
-
             // 동영상 url 링크를 받는다
             console.log(xhr.responseText)
             alert("Video Upload Success")
@@ -76,33 +83,17 @@ inpForm.onsubmit = function(){
         else if( xhr.status === 405){
             alert("Finding Video links in DB Error")
         }
-
     }
 
     xhr.open('POST',inpForm.getAttribute('action'), true)
 
     xhr.send(formData)
-}
-
-function make_video(profile_videos){
-
-    var Video_lists = document.getElementById("Videos")
-
-    for(let  i in profile_videos){
-
-        let video_html = `<div class = "video">\
-            <video src = ${profile_videos[i]} controls autoplay muted >\
-                
-            </video>\
-                        </div>`;
-        
-        Video_lists.appendChild(Video_lists)
     
-    }
+    event.preventDefault()
+    return ;
 }
 
-
-// 4. video------
+// 4. video preview ------
 
 // Image Preview 창 
 const previewContainer = document.getElementById("image-preview");
@@ -116,14 +107,13 @@ const previewDefaultText = previewContainer.querySelector(".image-preview__defau
 // Video Preview 창
 const VideoContainer = document.querySelector(".video-preview");
 
-
 inpFile.addEventListener("change", function(){
 
     if(['video/mp4'].indexOf(inpFile.files[0].type) == -1){
             alert("Error: Only Mp4 format allowed")
             return;
         }
-    
+        
     // upload 된 구체적 data type
     const file = this.files[0];
     const fileReader = new FileReader();
@@ -138,7 +128,6 @@ inpFile.addEventListener("change", function(){
 
             previewContainer.style.display = "none"
             VideoContainer.style.display = "block"
-
             }
 
     }else{
@@ -149,8 +138,12 @@ inpFile.addEventListener("change", function(){
         }
     })
 
-    // 5. get my posts
-    let main =document.body.querySelector('main')
+// 5. Get requeset to EDIT
+
+
+
+// 6. get my posts
+let main =document.body.querySelector('main')
 let modalbg =document.body.querySelector('.modalcontainer')
 
 

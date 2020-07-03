@@ -96,10 +96,25 @@ var userSchema = mongoose.Schema({
         type : String,
         default : 'https://images.unsplash.com/photo-1511715282680-fbf93a50e721?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60'
     }, 
-    profile_videos:{
-        type : Array,
-        default: []
-    }, 
+    profile__info: {
+        type : [
+            {
+        order : Number,
+        profile_videos: String,
+        profile_videos_text : String
+            }
+        ],
+
+        default : [
+            {
+                order : 0 ,
+                profile_videos : "",
+                profile_videos_text : ""
+            }
+        ]
+        
+        },
+    
     friends:{
         type : String,
         default : ''

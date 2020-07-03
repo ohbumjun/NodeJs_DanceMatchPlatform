@@ -159,7 +159,8 @@ router.post('/api/users/mySpace',function( req, res){
             collection.updateOne(
                 {'token':x_auth},
                 {$push : { 
-                    'profile__info' : { 'profile_num' : req.body.profile_num ,
+                    'profile__info' : { 
+                    'profile_videos_num' : req.body.profile_videos_num ,
                     'profile_videos':req.file.location,
                     'profile_videos_text':req.body.profile_videos_text
                 } 
@@ -233,7 +234,7 @@ router.post('/api/users/mySpace/edit/:id' , function( req, res, next ){
     console.log("req.params : " , req.params)
     console.log("req.body " , req.body)
 
-    var Num = parseInt(req.body.Num);
+    var Num = req.body.Num;
     var Link = req.body.Link;
     var Text = req.body.Text;
     var profile__place = util.format('profile__info[%d]', Num)
@@ -256,16 +257,17 @@ router.post('/api/users/mySpace/edit/:id' , function( req, res, next ){
         collection.updateOne(
             {
                 "_id" : new ObjectId(req.params.id) ,
-                "profile__info.profile_videos" : Link
+                "profile__info.profile_videos_num" : Num
 
             },{ $set : { 
+                // "profile__info.$.profile_videos" : Link,
                 'profile__info.$.profile_videos_text' : Text,
+                "profile__info.$.profile_videos_num" : Num
                 }
             }, 
             (err,doc)=>{
 
                 // console.log('doc',doc)
-
                 if(err)
                 {
                     console.log("Update Error happened")
@@ -310,12 +312,24 @@ router.post('/api/users/mySpace/edit/:id' , function( req, res, next ){
 // mySpace : Delete
 router.get('/api/users/mySpace/delete/:id' , function( req, res, next){
 
-    Club.findByIdAndDelete({ _id : req.params.id} ,( err, docs ) => {
+    console.log("params is ",req.params)
+    console.log("query is ", req.query)
+
+    User.findByIdAndUpdate({
+        "_id" : req.params.id
+    },{ 
+        $pull : { 
+        'profile__info' : {
+            'profile_videos_num' : req.query.Num
+            }
+        }
+    }, { safe : true, upsert : true } ,( err, docs ) => {
         if(err){
             console.log('Something went wrong to delete data')
+            return;
         }else{
             console.log("Deleted Successfully")
-            res.redirect('/')
+            res.redirect('/api/users/mySpace')
         }
     })
 })

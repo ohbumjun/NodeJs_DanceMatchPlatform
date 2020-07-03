@@ -41,13 +41,6 @@ var userSchema = mongoose.Schema({
         unique: 1,
         required: true
     },
-    email: {
-        type : String,
-        // 어떤 분이, john ahn@naver.com 이렇게 쳤고, john 다음에 들어간 빈칸을 사라지게 해준다
-        trim : true,
-        unique: 1,
-        required: true
-    },
     password : {
         type : String ,
         minlength : 7,
@@ -99,7 +92,7 @@ var userSchema = mongoose.Schema({
     profile__info: {
         type : [
             {
-        order : Number,
+        profile_videos_num : String,
         profile_videos: String,
         profile_videos_text : String
             }
@@ -107,7 +100,7 @@ var userSchema = mongoose.Schema({
 
         default : [
             {
-                order : 0 ,
+                order : "" ,
                 profile_videos : "",
                 profile_videos_text : ""
             }

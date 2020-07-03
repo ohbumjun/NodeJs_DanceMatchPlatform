@@ -91,7 +91,7 @@
                                 <span class="Edit" >Edit</span>
                             </span>
                             <span>
-                                <span class="Delete" >Delete</span>
+                                <a class="Delete" href = "/api/users/mySpace/delete/<%= _id %>?Num=<%=profile__info.length-1 %> ">Delete</a>
                             </span>
                         </div>
                     </div>
@@ -133,7 +133,7 @@
                         <input type="text" value = "Describe Your Video" name = "profile_videos_text" id = "inpText"/>
                     </div>
                     <div class="video-num">
-                        <input type="number" value = <%= profile__info.length %> name = "profile_videos_num" id = "inpNum"/>
+                        <input type="number" value = "<%= profile__info.length %>"  name = "profile_videos_num" id = "inpNum"/>
                     </div>
                     <button type="submit" id="submit-btn" class='btn-deactive'>Submit
                     </button>

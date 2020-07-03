@@ -468,7 +468,8 @@ main .modal__content .form .video-text input {
   margin-top: 10px;
   width: 100%;
   height: 100%;
-  font-size: 1.5 vw;
+  font-size: 1.5vw;
+  white-space: normal;
 }
 
 main .modal__content .form .video-num {
@@ -591,6 +592,9 @@ main #submit-btn.hover:after {
   }
   main .modal__content #upload_form .video-text {
     height: 40%;
+  }
+  main .modal__content #upload_form .video-text input {
+    white-space: normal;
   }
   main .tab-content #Videos {
     -ms-grid-columns: (1fr)[2];
@@ -768,7 +772,7 @@ main #submit-btn.hover:after {
   main .modal__overlay {
     background-color: rgba(0, 0, 0, 0.6);
     width: 100%;
-    height: 100%;
+    height: 1000vh;
     position: absolute;
   }
   main .modal__content #upload_form {

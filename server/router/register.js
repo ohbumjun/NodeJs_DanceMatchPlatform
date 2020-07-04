@@ -7,8 +7,8 @@ const jwt = require('jsonwebtoken');
 // mailgun, email account acivation
 const _ = require('lodash'); 
 const mailgun = require("mailgun-js");
-const DOMAIN = 'sandboxbb6bc74926b942a59d3a57aa4ef125cb.mailgun.org';
-const mg = mailgun({ apiKey: "dfdc195b79c8b6b34660247f60937e06-7fba8a4e-a6d4194a", domain: DOMAIN });
+const DOMAIN = 'sandbox7de21197a67843cba3b19ca2e899ec14.mailgun.org';
+const mg = mailgun({ apiKey: "07424c709ace08ce574c0895c854437e-913a5827-c6a0af4b", domain: DOMAIN });
 
 
 //  회원가입 Route
@@ -20,6 +20,7 @@ router.post('/api/users/register', function( req , res ){
 
     // 회원 가입 할 때 필요한 정보들을 client에서 가져오면, 그것들을 DB에 넣어준다
     const { k_name, e_name , email, password , username } = req.body;
+
         console.log("User registration process ongoing")
 
             User.findOne( { email }).exec( ( err, user ) => {
@@ -41,6 +42,7 @@ router.post('/api/users/register', function( req , res ){
 
                     // create Token using data sent from user : 즉, 접속이메일로 링크가 보내지고, 그 순간 token이 만들어지는데, 이 token을 통해, user가 자기 이메일에서 링크로 이동하게 되면, 그 링크를 통해 들어온 token을 verify해서, 회원가입을 시키는 원리
                     const token = jwt.sign({ k_name, e_name , email, password , username}, "accountactivatekey123", { expiresIn : "30m"})
+                    console.log(token)
                     const data = {
                         from: "danceprojectmb@naver.com" ,
                         to : email,
@@ -52,8 +54,8 @@ router.post('/api/users/register', function( req , res ){
                     };
                     mg.messages().send(data, function (error, body) {
                         if(error){
-                            console.log(error.message);
-                            return res.status(200).json({
+                            console.log("Err : " , error.message);
+                            return res.status(400).json({
                                 error : error.message,
                                 "success":"message error"
                             })

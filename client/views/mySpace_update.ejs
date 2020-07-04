@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href = "/../../cssjs/mypage/myMainpage_edit.css" rel = "stylesheet"/>
+    <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.2/css/all.min.css"
+  />
+    <title>Edit your Video</title>
+</head>
+
+<body>
+    <div class="container">
+        <div class="modal">
+            <div class="modal__content">
+
+                    <span>Edit your info<a href="/api/users/mySpace"><i class="fas fa-undo"></i></a>
+                    </span>
+
+                <form class = "form" enctype = "multipart/form-data" method = 'POST' action = "/api/users/mySpace/edit/<%= _id %>" id = 'upload_form'>
+                    
+                    <div class="video-preview">
+                        <video id="video-element2" controls autoplay muted>
+                            <source src = "<%= query.Link %>" type="video/mp4">
+                        </video>
+                    </div>
+                    <div class="video-view">
+                        <video id="video-element1" controls autoplay muted>
+                            <source src = "" type="video/mp4">
+                        </video>
+                    </div>
+                    <!-- <label for="inpFile">
+                        Upload Other Video
+                        <input type="file" value = "Choose your Video" specllcheck = 'false' name = "video" id = "inpFile" accept ="video/mp4" />
+                    </label> -->
+                    
+                    <div class="video-text">
+                        <input type="text" value = "<%= query.Text %>" name = "profile_videos_text" id = "inpText"/>
+                    </div>
+
+                    <div class="video-number">
+                        <input type="text" value = "<%= query.Num %>" name = "profile_videos_num" id = "inpNum"/>
+                    </div>
+
+                    <button type="submit" id="submit-btn" class='btn-deactive'>
+                        Submit
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script type = "text/javascript">
+/*
+// 1. video preview --------------------------
+
+console.log("preview in update")
+
+// form
+const inpForm = document.getElementById('upload_form');
+
+// uplaod input file
+const inpFile = document.getElementById("inpFile");
+
+// Video Preview 창 
+const previewContainer = document.querySelector(".video-preview");
+
+const preVideoSRC = document.getElementById("video-element2")
+
+// Video View 창
+const VideoContainer = document.querySelector(".video-view");
+const VideoSRC = document.querySelector('#video-element1')
+
+inpFile.addEventListener("change", function(){
+
+    // mp4 가 아니라면, error 메시지 출력 
+    if(['video/mp4'].indexOf(inpFile.files[0].type) == -1){
+            alert("Error: Only Mp4 format allowed")
+            return;
+        }
+
+    // upload 된 구체적 data type
+    const file = this.files[0];
+    const fileReader = new FileReader();
+    
+    if( file ){
+
+        fileReader.readAsDataURL(file)
+
+        fileReader.onload = function(){
+
+            VideoSRC.src = fileReader.result
+            previewContainer.style.display = "none"
+            VideoContainer.style.display = "block"
+
+        }
+    
+}else{
+
+        VideoSRC.src = preVideoSRC.src;
+        previewContainer.style.display = "none"
+        VideoContainer.style.display = "block"
+
+        }
+    })
+
+*/
+
+// 2. Submit to Server -------------------------
+const inpForm = document.getElementById('upload_form');
+const inpText = document.getElementById("inpText");
+const inpNum = document.getElementById("inpNum");
+const submit_btn = document.getElementById('submit-btn')
+const preVideo = document.getElementById("video-element2")
+const preVideoSRC = preVideo.querySelector("source")
+
+submit_btn.addEventListener('click', function(){
+
+    alert("Content Edited")
+
+    const form = {
+
+        Link : preVideoSRC.src, 
+        Text : inpText.value,
+        Num : inpNum.value
+
+    }
+    // console.log(preVideoSRC.src)
+    // console.log(inpText.value)
+    // console.log(inpNum.value)
+
+    var xhr = new XMLHttpRequest();
+
+    // var formData = new FormData();
+    var requestData = `Link=${form.Link}&Text=${form.Text}&Num=${form.Num}`
+    console.log(requestData)
+
+    xhr.onload = () => {
+        if( xhr.status == 200)
+            console.log("Good response")
+            location.href = '/api/users/mySpace'
+
+    }
+
+    xhr.open('POST',inpForm.getAttribute('action'), true)
+    xhr.setRequestHeader('Content-type' , 'application/x-www-form-urlencoded')
+    xhr.send(requestData)
+    
+    event.preventDefault()
+    return ;
+})
+
+    </script> 
+</body>
+</html>

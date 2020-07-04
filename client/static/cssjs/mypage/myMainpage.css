@@ -86,7 +86,7 @@ header nav ul li {
 
 main {
   width: 85%;
-  height: 110%;
+  height: 500vh;
   margin: 0 auto;
   padding-top: 3vh;
   background-color: #FFFAF0;
@@ -253,8 +253,7 @@ main .tab-content .tab-pane {
 }
 
 main .tab-content .tab-pane.active {
-  width: 90%;
-  margin: 0 auto;
+  width: 100%;
   display: -ms-grid;
   display: grid;
   -ms-grid-columns: (1fr)[3];
@@ -266,9 +265,75 @@ main .tab-content .tab-pane.active {
 main .tab-content .tab-pane.active .video {
   width: 100%;
   height: 18.125rem;
-  background-image: url("https://source.unsplash.com/random");
-  background-size: cover;
-  background-position: center;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  border: 2.5px solid white;
+}
+
+main .tab-content .tab-pane.active .video video {
+  -ms-grid-column-align: center;
+      justify-self: center;
+  width: 100%;
+  height: 70%;
+  top: 0;
+}
+
+main .tab-content .tab-pane.active .video .video__text {
+  color: gray;
+  background-color: #FFFAF0;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  width: 100%;
+  height: 20%;
+  bottom: 10%;
+}
+
+main .tab-content .tab-pane.active .video .video__btn {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -ms-flex-pack: distribute;
+      justify-content: space-around;
+  width: 100%;
+  height: 10%;
+  bottom: 0;
+  background-color: white;
+  gap: 2px;
+}
+
+main .tab-content .tab-pane.active .video .video__btn span {
+  width: 50%;
+  text-align: center;
+}
+
+main .tab-content .tab-pane.active .video .video__btn span:first-child {
+  border-right: 1px solid lightgray;
+}
+
+main .tab-content .tab-pane.active .video .video__btn span a {
+  color: gray;
+  text-decoration: none;
 }
 
 main .modal {
@@ -288,7 +353,71 @@ main .modal {
           align-items: center;
 }
 
-main .modal .image-preview {
+main .modal__overlay {
+  background-color: rgba(0, 0, 0, 0.6);
+  width: 100%;
+  height: 100%;
+  position: absolute;
+}
+
+main .modal__content {
+  position: relative;
+  padding: 50px 10px;
+  text-align: center;
+  width: 50%;
+  height: 70%;
+  border-radius: 10px;
+  -webkit-box-shadow: 0px 5px 10px 0px rgba(0, 0, 0, 0.25);
+          box-shadow: 0px 5px 10px 0px rgba(0, 0, 0, 0.25);
+  -o-box-shadow: 0px 5px 10px 0px rgba(0, 0, 0, 0.25);
+  -ms-box-shadow: 0px 5px 10px 0px rgba(0, 0, 0, 0.25);
+  -moz-box-shadow: 0px 5px 10px 0px rgba(0, 0, 0, 0.25);
+  background-color: #f5f0f0;
+}
+
+main .modal__content .form {
+  margin: 0 auto;
+  top: 0;
+  width: 90%;
+  height: 105%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+
+main .modal__content .form label {
+  position: relative;
+  cursor: pointer;
+  display: inline-block;
+  vertical-align: middle;
+  overflow: hidden;
+  width: 50%;
+  height: 15%;
+  background-color: lightgrey;
+  color: gray;
+  text-align: center;
+  line-height: 20px;
+  font-size: 1.5vw;
+}
+
+main .modal__content .form label input {
+  position: absolute;
+  width: 0;
+  height: 0;
+  overflow: hidden;
+}
+
+main .modal__content .form .image-preview {
   width: 80%;
   min-height: 100px;
   border: 2px solid lightgray;
@@ -308,49 +437,43 @@ main .modal .image-preview {
   /* Image */
 }
 
-main .modal .image-preview .image-preview__image {
+main .modal__content .form .image-preview .image-preview__image {
   display: none;
   width: 100%;
 }
 
-main .modal__overlay {
-  background-color: rgba(0, 0, 0, 0.6);
+main .modal__content .form .video-preview {
+  display: none;
+  width: 80%;
+  min-height: 100px;
+  border: 2px solid lightgray;
+  margin-top: 10px;
+}
+
+main .modal__content .form .video-preview #video-element {
   width: 100%;
   height: 100%;
-  position: absolute;
 }
 
-main .modal__content {
-  position: relative;
-  padding: 50px 10px;
-  text-align: center;
-  width: 30%;
-  border-radius: 10px;
-  -webkit-box-shadow: 0px 5px 10px 0px rgba(0, 0, 0, 0.25);
-          box-shadow: 0px 5px 10px 0px rgba(0, 0, 0, 0.25);
-  -o-box-shadow: 0px 5px 10px 0px rgba(0, 0, 0, 0.25);
-  -ms-box-shadow: 0px 5px 10px 0px rgba(0, 0, 0, 0.25);
-  -moz-box-shadow: 0px 5px 10px 0px rgba(0, 0, 0, 0.25);
-  background-color: #f5f0f0;
-}
-
-main .modal__content .form {
-  margin: 0 auto;
+main .modal__content .form .video-text {
   width: 80%;
-  height: 90%;
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-orient: vertical;
-  -webkit-box-direction: normal;
-      -ms-flex-direction: column;
-          flex-direction: column;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
-  -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
+  height: 130%;
+  margin-bottom: 3vh;
+}
+
+main .modal__content .form .video-text input {
+  text-align: center;
+  border: 2px solid lightgray;
+  background-color: #f5f0f0;
+  margin-top: 10px;
+  width: 100%;
+  height: 100%;
+  font-size: 1.5vw;
+  white-space: normal;
+}
+
+main .modal__content .form .video-num {
+  display: none;
 }
 
 main .hidden {
@@ -455,20 +578,57 @@ main #submit-btn.hover:after {
   main .Infos .Info__content .personal__content {
     font-size: 14px;
   }
+  main .modal__content #upload_form {
+    height: 90%;
+  }
+  main .modal__content #upload_form label {
+    height: 5%;
+  }
+  main .modal__content #upload_form .image-preview {
+    height: 40%;
+  }
+  main .modal__content #upload_form .video-preview {
+    height: 40%;
+  }
+  main .modal__content #upload_form .video-text {
+    height: 40%;
+  }
+  main .modal__content #upload_form .video-text input {
+    white-space: normal;
+  }
   main .tab-content #Videos {
     -ms-grid-columns: (1fr)[2];
         grid-template-columns: repeat(2, 1fr);
     gap: 1vh;
     grid-auto-rows: 17rem;
   }
-  main .tab-content #Videos div {
-    width: 18rem;
+  main .tab-content #Videos .video {
+    width: 100%;
     margin: 0 auto;
-    height: 90%;
+    height: 100%;
+  }
+  main .tab-content #Videos .video video {
+    width: 15rem;
+  }
+  main .tab-content #Videos .video .video__text {
+    color: gray;
+    background-color: #FFFAF0;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
+    -webkit-box-pack: center;
+        -ms-flex-pack: center;
+            justify-content: center;
+    width: 100%;
+    height: 20%;
+    bottom: 0;
   }
 }
 
-@media screen and (min-width: 320px) and (max-width: 426px) {
+@media screen and (min-width: 319px) and (max-width: 426px) {
   main {
     width: 90%;
   }
@@ -578,15 +738,145 @@ main #submit-btn.hover:after {
     gap: 3vh;
     grid-auto-rows: 12.5rem;
   }
-  main .tab-content #Videos div {
-    width: 100%;
-    height: 12.125rem;
-    background-image: url("https://source.unsplash.com/random");
-    background-size: cover;
-    background-position: center;
-    border: 1px solid transparent;
-    border-radius: 20%;
+  main .tab-content #Videos .video {
+    width: 18rem;
+    height: 12.25rem;
+    margin: 0 auto;
   }
+  main .tab-content #Videos .video .video__text {
+    color: gray;
+    background-color: #FFFAF0;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
+    -webkit-box-pack: center;
+        -ms-flex-pack: center;
+            justify-content: center;
+    width: 100%;
+    height: 20%;
+    bottom: 0;
+  }
+  main .modal .image-preview {
+    width: 95%;
+    min-height: 50px;
+    font-size: 13px;
+    /* Image */
+  }
+  main .modal .image-preview .image-preview__image {
+    display: none;
+    width: 100%;
+  }
+  main .modal__overlay {
+    background-color: rgba(0, 0, 0, 0.6);
+    width: 100%;
+    height: 1000vh;
+    position: absolute;
+  }
+  main .modal__content #upload_form {
+    height: 100%;
+  }
+  main .modal__content #upload_form h3 {
+    font-size: 1.6vh;
+  }
+  main .modal__content #upload_form label {
+    height: 10%;
+  }
+  main .modal__content #upload_form .image-preview {
+    height: 37%;
+  }
+  main .modal__content #upload_form .video-preview {
+    height: 37%;
+  }
+  main .modal__content #upload_form .video-text {
+    height: 50%;
+  }
+  main .modal__content #upload_form .video-text input {
+    height: 100%;
+  }
+  main .modal__content #upload_form .btn-deactive {
+    height: 15%;
+  }
+}
+
+#cards-container {
+  -ms-grid-column: 1;
+  -ms-grid-column-span: 3;
+  grid-column: 1 / span 3;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+
+.card-container {
+  border: black solid 1px;
+  width: 70vw;
+  height: 20vh;
+  margin-bottom: 10vh;
+}
+
+#card-copy {
+  display: none;
+}
+
+#card {
+  padding: 1vh;
+}
+
+.card-info {
+  margin-bottom: 1em;
+}
+
+.open-update {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-pack: distribute;
+      justify-content: space-around;
+}
+
+.delete-modal {
+  background: white;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  position: fixed;
+  left: 25%;
+  top: 30%;
+  z-index: 1;
+  border: solid 1px black;
+}
+
+.delete-modal .modal-main {
+  padding: 1em;
+}
+
+.delete-modal .modal-header {
+  padding: 1em;
+}
+
+.modal-hide {
+  display: none;
+}
+
+.blackout {
+  -webkit-filter: blur(1px);
+          filter: blur(1px);
 }
 
 footer {

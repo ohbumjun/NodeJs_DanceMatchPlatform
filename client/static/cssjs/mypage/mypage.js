@@ -87,14 +87,12 @@ function handleImageUpload()
     reader.onload = function(e) {
       document.getElementById("display-image").src = e.target.result;
     }
-    
 
     reader.readAsDataURL(image);
     uplbtn.classList.toggle('btn-deactive')
     clrbtn.classList.toggle('btn-deactive')
     sbmbtn.classList.toggle('btn-deactive')
     //위에까지가 preview 해주기
-
 
 } 
 

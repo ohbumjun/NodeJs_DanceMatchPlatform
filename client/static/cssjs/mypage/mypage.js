@@ -87,12 +87,14 @@ function handleImageUpload()
     reader.onload = function(e) {
       document.getElementById("display-image").src = e.target.result;
     }
+    
 
     reader.readAsDataURL(image);
     uplbtn.classList.toggle('btn-deactive')
     clrbtn.classList.toggle('btn-deactive')
     sbmbtn.classList.toggle('btn-deactive')
     //위에까지가 preview 해주기
+
 
 } 
 
@@ -131,7 +133,11 @@ function mydrawing(data)
       card.querySelector('#card-place').innerHTML='안녕'
       card.querySelector('#card-writer').innerHTML=e['author']
       card.querySelector('#card-time').innerHTML=e['board_date']
-      card.querySelector('#card-genre').innerHTML='ㅋㅋ'
+
+      let iframe = document.createElement('iframe');
+      let video_url = e['video']
+      iframe.src = video_url
+      card.querySelector('.video').appendChild(iframe);
       cards_container.appendChild(card)
   })
 }

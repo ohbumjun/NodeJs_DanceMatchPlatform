@@ -197,7 +197,14 @@ router.post('/api/users/board', function (req, res) {
     board.contents = req.body.contents;
     board.time=req.body.time
     board.place=req.body.place
-    board.video=req.body.video
+    let video_url = req.body.video
+    //https://www.youtube.com/watch?v=8M4i8pxOLjo
+    if(!video_url.includes('embed'))
+    {
+      let video_url_split = video_url.split('=')
+      video_url = "https://www.youtube.com/embed/"+video_url_split[video_url_split.length-1]
+    }
+    board.video=video_url
     board.people = req.body.number
     board.current_people = 1
     User.find({token:x_auth},function(err,docs)

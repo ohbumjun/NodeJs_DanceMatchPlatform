@@ -23,10 +23,11 @@ socket.on('connect',function()
 socket.on('NewMember', function(message){
 
     let message_icon = document.body.querySelector('#message-icon')
-    message_icon.classList.toggle('message-arrive')
-
     let mesage_icon_desktop = document.body.querySelector('#message-icon-desktop')
+
+    message_icon.classList.toggle('message-arrive')
     mesage_icon_desktop.classList.toggle('message-arrive')
+
 
     console.log('message',message);
 });

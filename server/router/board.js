@@ -10,8 +10,6 @@ const config = require( '../config/key' );
 var mongoose = require('mongoose');
 const jwt = require('jsonwebtoken');
 
-
-
 // 1) DB 접속
 mongoose.connect( config.mongoURI , {
     useNewUrlParser : true ,

@@ -41,13 +41,6 @@ var userSchema = mongoose.Schema({
         unique: 1,
         required: true
     },
-    email: {
-        type : String,
-        // 어떤 분이, john ahn@naver.com 이렇게 쳤고, john 다음에 들어간 빈칸을 사라지게 해준다
-        trim : true,
-        unique: 1,
-        required: true
-    },
     password : {
         type : String ,
         minlength : 7,
@@ -96,10 +89,25 @@ var userSchema = mongoose.Schema({
         type : String,
         default : 'https://images.unsplash.com/photo-1511715282680-fbf93a50e721?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60'
     }, 
-    profile_videos:{
-        type : Array,
-        default: []
-    }, 
+    profile__info: {
+        type : [
+            {
+        profile_videos_num : String,
+        profile_videos: String,
+        profile_videos_text : String
+            }
+        ],
+
+        default : [
+            {
+                order : "" ,
+                profile_videos : "",
+                profile_videos_text : ""
+            }
+        ]
+        
+        },
+    
     friends:{
         type : String,
         default : ''
@@ -115,6 +123,10 @@ var userSchema = mongoose.Schema({
     Major:{
         type : String,
         default : ''
+    },
+    pass :{
+        type: Boolean,
+        default : true
     }
 })
 

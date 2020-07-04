@@ -8,6 +8,9 @@ const cookieParser = require( 'cookie-parser' );
 
 let auth = (req, res, next) => {
 
+    
+    
+
     // 인증 처리를 하는 곳
     // 1. client에서 쿠키에서 토큰을 가져오기
     // 저번에 cookie를 넣을 때, x_auth 라는 이름으로 넣었었다
@@ -34,7 +37,11 @@ let auth = (req, res, next) => {
             req.token = token;
             req.user = user;
             console.log('auth user id',req.user._id)
-            next();
+
+            // response.setHeader("Content-Type", "text/html");
+            // response.write("<p>Hello World</p>");
+            // response.end();
+            next()
             })
         })
     }

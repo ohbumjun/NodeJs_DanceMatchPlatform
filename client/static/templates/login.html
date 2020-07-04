@@ -9,6 +9,8 @@
   <script src="/../cssjs/all/bg.js" defer ></script>
   <link href = "/../cssjs/login/login.css" rel = "stylesheet"/>
 
+
+  <script src="/socket.io/socket.io.js"></script>
   <script type = "text/javaScript">
 
     function login(){
@@ -58,6 +60,17 @@
                         return;
                       }
                       else if( response["message"] === 'success' ){
+
+                      // socket.io 서버에 접속한다
+                      var socket = io();
+                      // 서버로 자신의 정보를 전송한다.
+                      socket.on('connect',function()
+                      {
+                          socket.id = response['email']
+                          console.log('socket.id',socket.id)
+                      })
+                      
+              
                         swal({text:'Login Success',
 				              	icon : 'success'})
                         setTimeout(() => {

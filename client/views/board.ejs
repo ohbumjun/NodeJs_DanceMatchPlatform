@@ -16,6 +16,8 @@
             <div class="header-right">
                 <div id="user" style="display:none"><%= author%></div>
                     <% if(login) { %>
+                <!-- <div class="message-icon-num-container"><span class="meassage-icon-num"></span></div> -->
+                <i id="message-icon-desktop" class="fa fa-envelope" aria-hidden="true"></i>
                 <div class="menu"><a href="/api/users/mySpace">My Page</a></div>
                 <div class="menu"><a href="/api/users/logout">Logout</a></div>
                 <% }
@@ -25,9 +27,12 @@
             </div>
         </header>
 
-        <header class='mobile'>
+        <header class='mobile'> 
             <div class='mobile-header-left'>Connect2Dance</div>
-            <div class="nav-bar"><i class="fa fa-bars"></i>
+            <div class="nav-bar">
+                <!-- <div class="message-icon-num-container"><span class="meassage-icon-num"></span></div> -->
+                <i id="message-icon" class="fa fa-envelope" aria-hidden="true"></i>
+                <i id='menu-bar' class="fa fa-bars"></i>
             </div>
         </header>
         <nav>
@@ -68,7 +73,10 @@
                         <div class="sub-container">
                         <div id="card-place-time" class='card-info'></div>
                         <div id="card-people" class='card-info'></div>
-                     </div>
+                        </div>
+                        <div class="join-container">
+                            <div class="join-text">Join!</div>
+                        </div>
                     </div>
                 </div>
          </div>
@@ -110,8 +118,28 @@
         </div>
 
 
+        
         <i class="fas fa-spinner fa-spin icon-hide"></i>
 
+    <div id='join-parent' class="join-modal-container">
+        <div class="header">
+            <div class="join-close-container"><span>Back</span></div>
+        </div>
+        <div class="join-middle">
+            <span>Do you want to Join this Dance ? </span>
+        </div>
+        <div class="join-btn-container">
+            <div class="join-yes left">Yes</div>
+            <div class="join-no">No</div>
+
+            <div class="join-waiting left icon-hide">신청대기중</div>
+            <div class="join-cancel icon-hide">신청취소</div>
+        </div>
+    </div>
+
+    <div style="display:none" id='user-info'><%= email%></div>
+
+    <script src="/socket.io/socket.io.js"></script>
     <script src='../../cssjs/board/board.js'></script>
     </body>
 

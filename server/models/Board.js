@@ -1,16 +1,17 @@
 var mongoose = require('mongoose');
+const {User}   = require('./User')
+const {Comment}= require('./Comment')
 var Schema = mongoose.Schema;
 
 
-//왜 commentschema를 두 번 정의?
-var commentSchema = new Schema({
-    contents: String,
-    author: String,
-    comment_date: {type: Date, default: Date.now()}
-});
+// //왜 Comment를 두 번 정의?
+// var Comment = new Schema({
+//     contents: String,
+//     author: String,
+//     comment_date: {type: Date, default: Date.now()}
+// });
 
-commentSchema.add({ comments: [commentSchema] });
-
+// Comment.add({ comments: [Comment] });
 
 var boardSchema = new Schema({
     title: String,
@@ -24,7 +25,9 @@ var boardSchema = new Schema({
     current_people :Number,
     email:String,
     board_date: {type: Date, default: Date.now()},
-    comments: [commentSchema]
+    comments: [Comment.schema],
+    members:[User.schema],
+    tmp_members:[User.schema]
 });
 
 

@@ -46,16 +46,14 @@ router.post('/api/users/login', function(req,res){
                         if(err) {
                             console.log("Token not made")
                             return res.status(400).send(err);
-                        }
-                        // 토큰을 저장한다. 이번에는 쿠키에 저장한다 . x_auth 라는 이름으로
-                        console.log("Login Success")
-                        console.log('login token',user.token)
-                        res.cookie('role',user.role)
+                        }              
                         return res.cookie("x_auth" , user.token).status(200).json( { 
                             loginSuccess : true , 
+                            email:user.email,
                             userId : user._id ,
                             message : "success"
-                            })
+        
+                        })
                         })
                     }) 
                 })// User.findOneAndUpdate

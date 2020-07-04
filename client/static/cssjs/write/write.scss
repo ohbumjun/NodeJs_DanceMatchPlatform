@@ -33,8 +33,12 @@ input:not([type='submit']){
     width:60vw;
 }
 
-.btn-submit{
-    display:flex;
+
+.btn-container{
+    display: flex;
     justify-content: center;
-    margin-bottom:1vh;
+}
+
+.btn-submit{
+    margin-right:1em;
 }

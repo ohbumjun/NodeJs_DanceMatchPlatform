@@ -4,7 +4,7 @@ const path = require('path');
 const { dancer }   = require('../models/Dancer');
 const { User }   = require('../models/User');
 var Board = require('../models/Board');
-var Comment = require('../models/Comment');
+var { Comment } = require('../models/Comment');
 
 const config = require( '../config/key' );
 var mongoose = require('mongoose');
@@ -47,8 +47,9 @@ router.get('/api/users/board', function( req , res){
           else
           {
             let author = data[0]['e_name']
+            let email = data[0]['email']
             //검색 개수 보여주기
-            res.render('board',{login:login,author:author})
+            res.render('board',{login:login,author:author,email:email})
           }
         })   
     });
@@ -176,14 +177,13 @@ router.post('/api/users/delete_comment', function (req, res) {
 
 router.post('/api/users/update_comment',function (req, res) {
   Board.findOneAndUpdate({'_id':req.body.boardid,'comments._id':req.body.commentid},{$set:{"comments.$.contents":req.body.content}},{new:true},(err,doc)=>{
+
     if(err)
     {
       console.log(err)
     }
 
-    console.log("comment here")
     console.log(doc)
-
     res.json({'result':doc})
 })
   })
@@ -218,5 +218,26 @@ router.post('/api/users/board', function (req, res) {
     })
 
 
+router.post('/api/users/join',function(req,res)
+{
+  let x_auth = req.cookies.x_auth
+  let board_id = req.body.board_id
+  User.find({token:x_auth},function(err,docs)
+  {
+    let user = docs[0]
+    Board.findOneAndUpdate({_id:board_id},{$push:{tmp_members:user}},{new:true},(err,doc)=>{
+      if(err)
+      {
+        console.log(err)
+      }
+      res.json({'result':true})
+  })
+
+
+
+  })
+
+
+})
 
 module.exports = router;

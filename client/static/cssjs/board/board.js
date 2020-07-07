@@ -36,6 +36,7 @@ const socket = io.connect("http://localhost:4000");
 
 socket.on("connect", function () {
   let data = {
+    //email을 고유키로 socket전송 => 이 부분 해결해야될 것 같다. 보안에 문제가 없는 고유키 필요함
     email: document.body.querySelector("#user-info").innerHTML,
     socket_id: socket.id,
   };
@@ -86,9 +87,22 @@ xhr.addEventListener("load", function () {
   // 게시글 만들기
   drawing(result.result);
   // 모달 만들기
+
   makemodal(result.result);
+
+
+  //user 바탕으로 소켓이랑 메세지박스 정리하기 
+  console.log('user',result.user)
+  // let author_boards = result.result.filter((e)=>{return e})
+
 });
 
+
+//메세지 박스 만드는 함수
+function MakeMessage(data)
+{
+  console.log('hi')
+}
 function drawing(data) {
   const cards_container = document.body.querySelector("#cards-container");
   cards_container.innerHTML = "";
@@ -217,7 +231,7 @@ popup.forEach(function(e,idx){
 
 
     clone.querySelector('.main-content').innerHTML=data[idx]['contents']
-    clone.querySelector('.modal-author').innerHTML='글쓴이: '+  
+    clone.querySelector('.modal-author').innerHTML='글쓴이: '+  data[idx]['author']['e_name']
     clone.querySelector('.modal-place').innerHTML='장소: '+data[idx]['place']
     clone.querySelector('.modal-time').innerHTML='시간: '+data[idx]['time']
     clone.querySelector('.modal-people').innerHTML='인원: '+data[idx]['people']

@@ -64,18 +64,22 @@ router.post('/recent_posts',function(req,res)
     //로그인확인
     let x_auth = req.cookies.x_auth
     let login = Object.keys(req.cookies).includes('x_auth')?true:false
+    User.find({token:x_auth},function(err,user){
 
-    Board.find({board_date: {$lt: tomorrow}},function (err, docs) {
-        //docs는 array,author object아닌거 필터링
-        docs = docs.filter((e)=>{return e['author']&&typeof(e['author']!=='string')})
-        if(!login)
-        {
-          res.json({'result':docs})
-        }
-        else{
-          
-          res.json({'result':docs})        }
-     })
+      Board.find({board_date: {$lt: tomorrow}},function (err, docs) {
+          //docs는 array,author object아닌거 필터링
+          docs = docs.filter((e)=>{return e['author']&&typeof(e['author']!=='string')})
+          if(!login)
+          {
+            res.json({'result':docs})
+          }
+          else{
+            
+            res.json({'result':docs,'user':user[0]}) 
+          }
+       })
+
+    })
 
 })
 

@@ -1,5 +1,10 @@
 var express = require('express')
 var app = express();
+
+
+
+
+
 var bodyParser = require('body-parser')
 const config = require( './config/key' );
 const port = 4000
@@ -23,8 +28,40 @@ app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({extended:true}))
 app.use(cookieParser())
 
+
+var server = require('http').createServer(app);
+var io = require('socket.io')(server)
+
+
+let clients = {}
+
+
+app.set('socketio', io);
+io.on('connection', function(socket){
+
+  socket.on('StoreInfo',function(data)
+  
+  {
+    clients[data.email] = data.socket_id
+    console.log('clients',clients)
+  }
+  )
+  socket.on('NewJoin',function(data)
+  {
+    console.log('send message to',data['email'])
+    console.log('send message to',clients[data.email])
+    socket.to(clients[data.email]).emit('NewMember',data)
+  })
+
+  socket.on('disconnect', function(){
+  console.log('user disconnected');
+  });
+  
+  });
+
+
 // app 실행하기. 4000 port를 listen 하게 되면, 뒤의 내용을 출력하기
-app.listen(port , () => console.log(`Example app Listening on port ${port}!`))
+server.listen(port , () => console.log(`Example app Listening on port ${port}!`))
 
 // ERR_EMPTY_RESPONSE 방지
 app.use(function(req, res, next) {

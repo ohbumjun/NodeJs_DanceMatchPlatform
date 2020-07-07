@@ -1,6 +1,6 @@
 //mobile nav bar
 var navbar= document.querySelector('.nav-bar')
-var mobieldropdown = document.querySelector('i')
+var mobieldropdown = document.querySelector('#menu-bar')
 var mobileclose = document.querySelector('.close')
 var dropdown = document.querySelector('.dropdown')
 
@@ -9,9 +9,34 @@ var background =document.body.querySelector('.supreme-container')
 var modalbg =document.body.querySelector('.modalcontainer')
 var flag =true
 
+
+
+//socket
+var socket = io.connect('http://localhost:4000')
+
+socket.on('connect',function()
+{   
+    data = {'email':document.body.querySelector('#user-info').innerHTML,'socket_id':socket.id}
+    socket.emit('StoreInfo',data)    
+})
+
+socket.on('NewMember', function(message){
+
+    let message_icon = document.body.querySelector('#message-icon')
+    let mesage_icon_desktop = document.body.querySelector('#message-icon-desktop')
+
+    message_icon.classList.toggle('message-arrive')
+    mesage_icon_desktop.classList.toggle('message-arrive')
+
+
+    console.log('message',message);
+});
+    
+
 background.addEventListener('click',function(e)
 {
     flag = true
+    console.log('blocking click')
     if(e.currentTarget.classList.contains('body-blackout'))
     {
         var targetmodal = document.body.querySelector('.is-visible')
@@ -57,19 +82,116 @@ function drawing(data)
     cards_container.innerHTML=''
     data.reverse().forEach(function(e,idx)
     {
-        //id도 복사되네?
-        let card = document.body.querySelector('#card-copy').cloneNode(true)
-        card.id = 'card'+String(idx)
-        card.querySelector('#card-title').innerHTML=e['title']
-        card.querySelector('#card-place-time').innerHTML=e['time']+' '+e['place'] //시간 장소
-        card.querySelector('#card-people').innerHTML=e['current_people']+'명'+'/'+e['people']+'명'//인원
-
-        var iframe = document.createElement('iframe');
-        iframe.src =e['video']
-        card.querySelector('.video').appendChild(iframe);
-        // card.querySelector('#card-writer').innerHTML=e['author']
-        cards_container.appendChild(card)
+            //id도 복사되네?
+            let card = document.body.querySelector('#card-copy').cloneNode(true)
+            card.id = 'card'+String(idx)
+            card.querySelector('#card-title').innerHTML=e['title']
+            card.querySelector('#card-place-time').innerHTML=e['time']+' '+e['place'] //시간 장소
+            card.querySelector('#card-people').innerHTML=e['current_people']+'명'+'/'+e['people']+'명'//인원
+    
+            let join_btn = card.querySelector('.join-container')
+    
+            let join_modal = MakeSmallModal(e);
+    
+            join_btn.addEventListener('click',function(event){
+                OpenJoinModal(event,join_modal);
+            })
+    
+    
+            var iframe = document.createElement('iframe');
+            iframe.src =e['video']
+            card.querySelector('.video').appendChild(iframe);
+            // card.querySelector('#card-writer').innerHTML=e['author']
+            cards_container.appendChild(card)
+        
     })
+}
+
+function OpenJoinModal(e,modal)
+{
+    //e.preventDefault();
+    e.stopPropagation(); //bubbling
+    modal.classList.add('is-visible')
+    background.classList.add('body-blackout')
+
+
+}
+
+function MakeSmallModal(board)
+{
+    let joinmodal_container = document.body.querySelector('#join-parent').cloneNode(true)
+    let boardid  = board._id
+    joinmodal_container.id = 'join_id-'+boardid
+    //joinmodal_container.innerHTML=boardid
+
+    let join_modal_text= joinmodal_container.querySelector('.join-middle span')
+    let close_btn = joinmodal_container.querySelector('.join-close-container')
+
+    let yes_btn = joinmodal_container.querySelector('.join-yes')
+    let no_btn = joinmodal_container.querySelector('.join-no')
+
+
+    let waiting_btn = joinmodal_container.querySelector('.join-waiting')
+    let cancel_btn = joinmodal_container.querySelector('.join-cancel')
+
+
+    yes_btn.addEventListener('click',()=>{
+
+        //xhr로 날리기
+        let data = {board_id:boardid}
+        let url = '/api/users/join'
+        data = JSON.stringify(data)
+        var xhr = new XMLHttpRequest()
+        
+        xhr.open('POST',url);
+        xhr.setRequestHeader('Content-Type','application/json')
+        xhr.send(data)
+        xhr.addEventListener('load',function(){
+            var result = JSON.parse(xhr.responseText);
+            if(result.result) //if(true)
+            {
+                    // 서버로 자신의 정보를 전송한다.
+                    socket.emit("NewJoin", {
+                        to:'?',
+                        msg:'NewRequest',
+                        email:board.email
+                    });
+                //socket io 날려야됨
+            }
+            
+        })
+
+        //make notification
+        join_modal_text.innerHTML = '신청대기중!'
+        waiting_btn.classList.toggle('icon-hide')
+        cancel_btn.classList.toggle('icon-hide')
+        yes_btn.classList.toggle('icon-hide')
+        no_btn.classList.toggle('icon-hide')
+        //joinmodal_container.classList.remove('is-visible')
+        //background.classList.remove('body-blackout')
+    })
+
+
+    close_btn.addEventListener('click',()=>{
+        closevisible(joinmodal_container)
+    })
+
+    no_btn.addEventListener('click',()=>{
+        closevisible(joinmodal_container)
+    })
+
+    
+    document.body.appendChild(joinmodal_container)
+
+    return joinmodal_container
+
+}
+
+function closevisible(modal)
+{
+    modal.classList.remove('is-visible')
+    background.classList.remove('body-blackout')
+
 }
 
 function makemodal(data)
@@ -85,10 +207,6 @@ popup.forEach(function(e,idx){
     //모달 정보 채워넣어야됨
     clone.querySelector('.modal-header-text').innerHTML=data[idx]['title']
     clone.id = 'modal'+ e.id
-
-
-
-
 
     //video upload 했을 때는??
     let iframe = document.createElement('iframe');
@@ -128,6 +246,7 @@ popup.forEach(function(e,idx){
     //모달창 껐다 켜지기
     e.addEventListener('click',function()
     {   
+        console.log('clicking main modal')
         //이미지가 꺼졌다 바로 켜지는 것 방지
         if(flag)
         {

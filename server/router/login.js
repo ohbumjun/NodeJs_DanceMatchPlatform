@@ -88,7 +88,6 @@ router.get('/api/users/logout' , auth , ( req , res ) => {
     let token = req.cookies.x_auth;
     console.log("token brought")
 
-    // token에서 role을 빼내서, user인지, dancer 인지를 파악한다
     jwt.verify(token, "accountactivatekey123", function( err, decodedToken){
 
         if(err){

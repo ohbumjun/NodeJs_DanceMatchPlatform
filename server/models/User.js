@@ -138,7 +138,6 @@ userSchema.methods.uppercase = function(){
     return this.e_name;
 }
 
-
 // 아래와 같이 index.js 에서, 정보를 DB에 save ( user.save((err , doc) 를 하기 전에, 암호화를 거친다
 // 아래를 거친 후에 위의 코드 user.save 가 실행되는 원리이다
 userSchema.pre('save', function(next) {
@@ -165,6 +164,7 @@ userSchema.pre('save', function(next) {
             });
         });
     } // isModified 
+    
     else{ // 비밀번호를 바꾸는 게 아니라, 다른 것을 바꿀 때는 그냥 next 로 가게 한다
         next();
     }
@@ -220,7 +220,9 @@ userSchema.methods.comparePassword = function(plainPassword , cb){
 
 // findByToken 함수를 만든다
 userSchema.statics.findByToken = function( token , cb){
+
     var user = this;
+
     // 토큰을 복호화(decode) 하는 과정 
     jwt.verify( token , 'accountactivatekey123', function(err , decoded){
         console.log('token',token)

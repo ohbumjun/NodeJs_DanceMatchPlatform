@@ -217,7 +217,7 @@ popup.forEach(function(e,idx){
 
 
     clone.querySelector('.main-content').innerHTML=data[idx]['contents']
-    clone.querySelector('.modal-author').innerHTML='글쓴이: '+data[idx]['author']['e_name']
+    clone.querySelector('.modal-author').innerHTML='글쓴이: '+  
     clone.querySelector('.modal-place').innerHTML='장소: '+data[idx]['place']
     clone.querySelector('.modal-time').innerHTML='시간: '+data[idx]['time']
     clone.querySelector('.modal-people').innerHTML='인원: '+data[idx]['people']

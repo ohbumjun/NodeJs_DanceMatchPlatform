@@ -27,7 +27,7 @@ header {
 }
 
 header nav {
-  background-color: #FFFAF0;
+  background-color: lightgray;
   width: 80%;
   height: 100%;
   display: -ms-grid;
@@ -89,7 +89,7 @@ main {
   height: 500vh;
   margin: 0 auto;
   padding-top: 3vh;
-  background-color: #FFFAF0;
+  background-color: whitesmoke;
 }
 
 main .Infos {
@@ -337,7 +337,7 @@ main .tab-content .tab-pane.active .video .video__btn span a {
 }
 
 main .modal {
-  position: absolute;
+  position: fixed;
   top: 0;
   left: 0;
   width: 100%;
@@ -882,7 +882,7 @@ main #submit-btn.hover:after {
 footer {
   position: fixed;
   height: 6vh;
-  background-color: #fffef0;
+  background-color: gray;
   width: 95%;
   z-index: 1;
   left: 2.5%;

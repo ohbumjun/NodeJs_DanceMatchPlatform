@@ -52,6 +52,7 @@ router.post('/api/users/activateAccount/:token', function( req , res){
             return res.status(200).json({ 'result' : 'no token'})
             }
         }, 200)
+        
     }) // app.post('/api/users/activateAccount 끝
 
     module.exports = router;

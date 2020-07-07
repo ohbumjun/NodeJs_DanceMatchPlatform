@@ -61,16 +61,20 @@ router.post('/profile/update_user',function(req,res)
 router.get('/api/users/mypage', function( req , res){
 
     var x_auth = req.cookies.x_auth
+    if(x_auth){
+        console.log('x_auth',x_auth)
+        connection.db.collection("users", function(err, collection){
+            collection.find({token:x_auth}).toArray(function(err, data){
+                //검색 개수 보여주기
+                // data는 collection에서 user , 혹은 dancer 정보를 받아오는 것이고, 그것을 mypageDancer 라는 router 에다가 넘겨주는 것이다 
+                // 아래 코드를 통해, mypage.ejs 에서, mongodb에 있는 내용의 data 들을 value 값으로 넣어줄 수가 있는 것이다 
+            res.render('mypage',data[0])
+            })   
+        });
+    }else{
+        res.redirect('/api/users/login')
+    }
 
-    console.log('x_auth',x_auth)
-    connection.db.collection("users", function(err, collection){
-        collection.find({token:x_auth}).toArray(function(err, data){
-            //검색 개수 보여주기
-            // data는 collection에서 user , 혹은 dancer 정보를 받아오는 것이고, 그것을 mypageDancer 라는 router 에다가 넘겨주는 것이다 
-            // 아래 코드를 통해, mypage.ejs 에서, mongodb에 있는 내용의 data 들을 value 값으로 넣어줄 수가 있는 것이다 
-        res.render('mypage',data[0])
-        })   
-    });
 });
 
 // post : aws-sdk
@@ -116,19 +120,25 @@ router.post('/api/users/mypage',function( req, res){
 router.get('/api/users/mySpace', function( req , res){
 
     var x_auth = req.cookies.x_auth
+    if(x_auth){
 
-    connection.db.collection("users", function(err, collection){
+        connection.db.collection("users", function(err, collection){
+    
+            collection.find({token:x_auth}).toArray(function(err, data){
+                //data는 내가 찾은 token에 해당하는 데이터이다
+                // 즉, 내가 찾는 댄서에 대한 정보가 data로 들어오는데
+                // array 형식으로 들어오기 때문에, data[0]이라고 작성하는 것이다 
+            console.log(data[0])
+    
+            res.render('mySpace',data[0])
+    
+            })   
+        });
 
-        collection.find({token:x_auth}).toArray(function(err, data){
-            //data는 내가 찾은 token에 해당하는 데이터이다
-            // 즉, 내가 찾는 댄서에 대한 정보가 data로 들어오는데
-            // array 형식으로 들어오기 때문에, data[0]이라고 작성하는 것이다 
-        console.log(data[0])
+    }else{
+        res.redirect('/api/users/login')
+    }
 
-        res.render('mySpace',data[0])
-
-        })   
-    });
 });
 
 // post : aws-sdk > Videos
@@ -201,28 +211,35 @@ router.post('/api/users/mySpace',function( req, res){
 // mySpace : Edit
 router.get('/api/users/mySpace/edit/:id', ( req, res, next) => {
 
-    console.log("Get Edit page working")
+    var x_auth = req.cookies.x_auth;
+    if(x_auth){
+        console.log("Get Edit page working")
+        console.log( "queries are : ", req.query )
+        console.log( "id is " +req.params.id )
 
-    console.log( "queries are : ", req.query )
-    console.log( "id is " +req.params.id )
+        // 해당 요소를 찾는다 
+        User.findOneAndUpdate( {_id : req.params.id}, req.body, { new : true}, (err, docs) =>{
 
-    // 해당 요소를 찾는다 
-    User.findOneAndUpdate( {_id : req.params.id}, req.body, { new : true}, (err, docs) =>{
+            if( err ){
 
-        if( err ){
+                console.log("Can't retrieve data and edit becuase of some database problem")
+                // 그저 error 을 pass 시키기 
+                next(err);
 
-            console.log("Can't retrieve data and edit becuase of some database problem")
-            // 그저 error 을 pass 시키기 
-            next(err);
+            }else{
 
-        }else{
+                // console.log("docs is : " ,docs)
+                res.render('mySpace_update', { data : docs , query : req.query , _id : req.params.id });
 
-            // console.log("docs is : " ,docs)
-            res.render('mySpace_update', { data : docs , query : req.query , _id : req.params.id });
+            }
+        });
+        return;
 
-        }
-    });
-    return;
+    }else{
+        res.redirect('/api/users/login')
+    }
+
+    
 })
 
 // mySpace_Edit post
@@ -260,7 +277,6 @@ router.post('/api/users/mySpace/edit/:id' , function( req, res, next ){
                 "profile__info.profile_videos_num" : Num
 
             },{ $set : { 
-                // "profile__info.$.profile_videos" : Link,
                 'profile__info.$.profile_videos_text' : Text,
                 "profile__info.$.profile_videos_num" : Num
                 }

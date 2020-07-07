@@ -54,7 +54,6 @@ const inpNum = document.getElementById("inpNum");
 
 inpForm.onsubmit = function(){
 
-
     var formData = new FormData(inpForm);
     var xhr = new XMLHttpRequest()
 
@@ -66,6 +65,7 @@ inpForm.onsubmit = function(){
 
     // response 처리하기
     xhr.onload = function(){
+
         if(xhr.status === 200){
             console.log("Server responded appropriately with 200 status")
             // 동영상 url 링크를 받는다
@@ -74,15 +74,19 @@ inpForm.onsubmit = function(){
             // make_video()
             window.location.href = "/api/users/mySpace"
         }
+
         else if( xhr.status === 403){
             alert("Error while uploading to AWS")
         }
+
         else if( xhr.status === 404){
             alert("Update Error while updating DB")
         }
+
         else if( xhr.status === 405){
             alert("Finding Video links in DB Error")
         }
+        
     }
 
     xhr.open('POST',inpForm.getAttribute('action'), true)

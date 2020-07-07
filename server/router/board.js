@@ -61,10 +61,20 @@ router.post('/recent_posts',function(req,res)
     var tomorrow = new Date();
     tomorrow.setDate(tomorrow.getDate() + 1);
 
+    //로그인확인
+    let x_auth = req.cookies.x_auth
+    let login = Object.keys(req.cookies).includes('x_auth')?true:false
+
     Board.find({board_date: {$lt: tomorrow}},function (err, docs) {
-        //docs는 array
-        console.log(docs)
-        res.json({'result':docs})
+        //docs는 array,author object아닌거 필터링
+        docs = docs.filter((e)=>{return e['author']&&typeof(e['author']!=='string')})
+        if(!login)
+        {
+          res.json({'result':docs})
+        }
+        else{
+          
+          res.json({'result':docs})        }
      })
 
 })
@@ -134,6 +144,8 @@ router.post('/api/users/update_board',function(req,res)
   Board.findOneAndUpdate({_id:req.body._id},{$set:req.body},(err,doc)=>{
     res.redirect('/api/users/myspace')
 })
+
+
 })
 
 
@@ -209,14 +221,19 @@ router.post('/api/users/board', function (req, res) {
     board.current_people = 1
     User.find({token:x_auth},function(err,docs)
     {
-      
-      board.author = docs[0]['e_name']
-      board.email = docs[0]['email']
+      board.author = docs[0]
       board.save(function (err) {
-        if(err){
+        console.log('saved')
+        if(err)
+        {
+          console.log('err',err)
+        }
+        if(!login){
           res.redirect('/api/users/board')
         }
+        {
           res.redirect('/api/users/board')
+        }
         //   res.render('board',{login:login})
       });
     })

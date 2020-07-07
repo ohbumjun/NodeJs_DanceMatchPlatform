@@ -4,26 +4,16 @@ const {Comment}= require('./Comment')
 var Schema = mongoose.Schema;
 
 
-// //왜 Comment를 두 번 정의?
-// var Comment = new Schema({
-//     contents: String,
-//     author: String,
-//     comment_date: {type: Date, default: Date.now()}
-// });
-
-// Comment.add({ comments: [Comment] });
 
 var boardSchema = new Schema({
     title: String,
     contents: String,
     place:String,
-    author:String,
+    author:User.schema,
     video: String,
     time:String,
     people : Number,
-    email : String,
     current_people :Number,
-    email:String,
     board_date: {type: Date, default: Date.now()},
     comments: [Comment.schema],
     members:[User.schema],

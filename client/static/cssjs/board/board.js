@@ -8,60 +8,6 @@ const dropdown = document.querySelector(".dropdown");
 const background = document.body.querySelector(".supreme-container");
 const modalbg = document.body.querySelector(".modalcontainer");
 
-let flag = true;
-let current_user;
-
-
-let UserInfo = {
-  current_user:'',
-  waiting_board_ids:[],
-  approved_board_ids:[]
-
-}
-
-
-//메세지 박스 처리
-const message_icon = document.body.querySelector("#message-icon");
-const mesage_icon_desktop = document.body.querySelector("#message-icon-desktop");
-const message_container = document.body.querySelector('#messages-container')
-const notification_box = document.body.querySelector('#messages-modal')
-
-//메세지 클릭하면 알림창 등장
-message_icon.addEventListener('click',function(){
-
-    notification_box.classList.toggle('message-notify')
-
-})
-
-mesage_icon_desktop.addEventListener('click',function(){
-
-    notification_box.classList.toggle('message-notify')
-
-})
-
-
-let socket;
-
-function SetupSocket(){
-  // socket
-socket = io.connect("http://localhost:4000");
-
-socket.on("connect", function () {
-  let data = {
-    //email을 고유키로 socket전송 => 이 부분 해결해야될 것 같다. 보안에 문제가 없는 고유키 필요함
-    email: UserInfo.current_user.email,
-    socket_id: socket.id,
-  };
-  socket.emit("StoreInfo", data);
-});
-//상대방이 소켓 보냈을 때 메세지 blinking효과
-socket.on("NewMember", function (message) {
-  message_icon.classList.toggle("message-arrive");
-  mesage_icon_desktop.classList.toggle("message-arrive")
-  console.log("message", message);
-});
-}
-
 background.addEventListener(
   "click",
   function (e) {
@@ -87,6 +33,60 @@ mobileclose.addEventListener("click", function (e) {
   dropdown.classList.toggle("active");
 });
 
+
+let flag = true;
+let domain;
+let UserInfo = {
+  current_user:'',
+  waiting_board_ids:[],
+  approved_board_ids:[]
+}
+
+const message_container = document.body.querySelector('#messages-container')
+
+let socket;
+
+//메세지 박스 처리
+function SetupMessageBox(){
+  
+  const message_icon = document.body.querySelector("#message-icon");
+  const mesage_icon_desktop = document.body.querySelector("#message-icon-desktop");
+  const notification_box = document.body.querySelector('#messages-modal')
+  
+  //메세지 클릭하면 알림창 등장
+  message_icon.addEventListener('click',function(){
+      notification_box.classList.toggle('message-notify')
+  })
+  
+  mesage_icon_desktop.addEventListener('click',function(){
+      notification_box.classList.toggle('message-notify')
+  })
+
+}
+
+
+function SetupSocket(){
+  // socket
+socket = io.connect(domain);
+
+socket.on("connect", function () {
+  let data = {
+    //email을 고유키로 socket전송 => 이 부분 해결해야될 것 같다. 보안에 문제가 없는 고유키 필요함
+    email: UserInfo.current_user.email,
+    socket_id: socket.id,
+  };
+  socket.emit("StoreInfo", data);
+});
+//상대방이 소켓 보냈을 때 메세지 blinking효과
+socket.on("NewMember", function (message) {
+  message_icon.classList.toggle("message-arrive");
+  mesage_icon_desktop.classList.toggle("message-arrive")
+  console.log("message", message);
+});
+}
+
+
+
 // initial loading 최근순으로 정렬
 const url = "/recent_posts";
 const xhr = new XMLHttpRequest();
@@ -96,20 +96,26 @@ xhr.send();
 xhr.addEventListener("load", function () {
   const result = JSON.parse(xhr.responseText);
 
-  console.log('result.board_waiting',result.board_waiting)
-
   UserInfo.current_user = result.user;
   UserInfo.waiting_board_ids = result.board_waiting.map((e)=>{return e['_id']}) //신청대기중인 모임
   UserInfo.approved_board_ids = result.board_approved.map((e)=>{return e['_id']}) //신청완료된 모임
-  // 게시글 만들기
   drawing(result.result);
   // 모달 만들기
   makemodal(result.result);
   //user 바탕으로 소켓이랑 메세지박스 정리하기 
-  DrawMessageBox(result.myposts)
+  
+  if(UserInfo.current_user)
+  {
 
-  //소켓 설정
-  SetupSocket()
+    SetupMessageBox();
+    // 게시글 만들기
+    DrawMessageBox(result.myposts)
+  
+    //소켓 설정
+    domain = result.url
+    SetupSocket()
+
+  }
 
 
 });
@@ -117,8 +123,6 @@ xhr.addEventListener("load", function () {
 //메세지 박스 만드는 함수
 function DrawMessageBox(data)
 {
-
-
   let boards_with_waitings = data.filter((e)=>{return e.tmp_members.length>0})
 
   boards_with_waitings.forEach((e)=>{
@@ -290,7 +294,7 @@ function Apply(JoinModalInfo)
           socket.emit("NewJoin", {
             to: "?",
             msg: "NewRequest",
-            email: board.author.email,
+            email: JoinModalInfo.board.author.email,
           });
           // socket io 날려야됨
         }

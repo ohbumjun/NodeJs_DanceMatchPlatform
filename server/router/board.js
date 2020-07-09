@@ -7,6 +7,9 @@ var Board = require('../models/Board');
 var { Comment } = require('../models/Comment');
 
 const config = require( '../config/key' );
+
+let url = config.domainURL
+
 var mongoose = require('mongoose');
 const jwt = require('jsonwebtoken');
 
@@ -34,7 +37,6 @@ router.get('/api/users/board', function( req , res){
 
 
     let x_auth = req.cookies.x_auth
-    
     let login = Object.keys(req.cookies).includes('x_auth')?true:false
     
     //Register 입력시 이메일,pw 등등 정보 토큰
@@ -45,14 +47,13 @@ router.get('/api/users/board', function( req , res){
           if(!login)
           {
             let author = 'nobody'
-            res.render('board',{login:login,author:author})
+            res.render('board',{login:login,author:author,url:url})
           }
           else
           {
             let author = data[0]['e_name']
             let email = data[0]['email']
-            //검색 개수 보여주기
-            res.render('board',{login:login,author:author,email:email})
+            res.render('board',{login:login,author:author,email:email,url:url})
           }
         })   
     });
@@ -102,7 +103,7 @@ router.post('/recent_posts',function(req,res)
 
             })
             let myposts = docs.filter((e)=>{return e.author.email===author.email})
-            res.json({'result':docs,'user':user[0],'myposts':myposts,'board_waiting':board_waiting,'board_approved':board_approved}) 
+            res.json({'result':docs,'user':user[0],'myposts':myposts,'board_waiting':board_waiting,'board_approved':board_approved,'url':url}) 
           }
        })
 

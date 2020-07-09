@@ -128,7 +128,8 @@ var userSchema = mongoose.Schema({
     pass :{
         type: Boolean,
         default : true
-    }
+    },
+    message:[String]
 })
 
 userSchema.plugin(require('mongoose-beautiful-unique-validation'));

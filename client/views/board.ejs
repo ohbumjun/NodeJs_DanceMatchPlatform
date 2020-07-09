@@ -11,7 +11,7 @@
     </head>
     <body>
         <div class="supreme-container">
-        <header>
+        <header id="desktop-header">
             <div class="header-left">Connect2Dance</div>
             <div class="header-right">
                 <div id="user" style="display:none"><%= author%></div>
@@ -142,8 +142,6 @@
         <main id="messages-container">
         </main>
     </section>
-
-    <div style="display:none" id='user-info'><%= email%></div>
 
     <script src="/socket.io/socket.io.js"></script>
     <script src='../../cssjs/board/board.js'></script>

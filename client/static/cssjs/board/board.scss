@@ -16,11 +16,15 @@ header.mobile{
     display:none;
 }
 
-header{
+#desktop-header{
     display:flex;
     flex-direction:row;
     justify-content: flex-end;
     border-bottom: black solid 1px;
+    position:fixed;
+    z-index:100;
+    top:0;
+    width:100%;
     height: 8vh;
     background:white;
     font-weight:bold;
@@ -432,16 +436,73 @@ nav{
 
 }
 
+section#messages-modal{
+    position:fixed;
+    z-index:-1;
+    background:darkgray;
+    top:0;
+    height:100vh;
+    width:100%;
+    border:solid black 1px;
+    opacity:0;
+
+    &.message-notify{
+        z-index:1;
+        -webkit-animation: slideDown 1.0s 1 ease forwards;
+        -moz-animation:    slideDown 1.0s 1 ease forwards;
+    }
+}
+
+article{
+    background: white;
+    border:solid 1px #787276;
+    width: 80%;
+    height: 10vh;
+    margin: auto;
+    margin-top:1em;
+
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    align-items: center;
+
+    &:last-child{
+        margin-bottom:1em;
+    }
+
+    .msg{
+        margin-right:auto;
+        padding:1em;
+    }
+}
+
+.message-container{
+    display:flex;
+    .msg-btn-container{
+        margin-right:1em;
+        display:flex;
+        flex-direction:row;
+        align-items:center;
+        
+        button{
+            margin:0 auto;
+            height:50%;
+        }
+    }
+}
+
+
 @media only screen and (max-width: 600px) {
-    header{
+    #desktop-header{
         display:none;
     }
  
     header.mobile{
-        width:100%;
-     position:fixed;
-     z-index:100;
-     top:0;
+    background-color:white;
+    width:100%;
+    position:fixed;
+    z-index:100;
+    top:0;
     height: 5vh;
     display:flex;
  
@@ -480,63 +541,22 @@ nav{
         font-size: 0.8rem;
     }
 
-    section#messages-modal{
-        position:fixed;
-        z-index:-1;
-        background:darkgray;
-        top:5vh;
-        height:100vh;
-        width:100%;
-        border:solid black 1px;
-        opacity:0;
 
-        &.message-notify{
-            z-index:1;
-            -webkit-animation: slideDown 1.0s 1 ease forwards;
-            -moz-animation:    slideDown 1.0s 1 ease forwards;
-        }
+    @keyframes slideDown {
+        0% {transform: translateY(-5vh);
+             opacity:0; }
+        100% { transform: translateY(5vh);
+             opacity:1; }
     }
-
-    article{
-        background: white;
-        border:solid 1px #787276;
-        width: 80%;
-        height: 10vh;
-        margin: auto;
-        margin-top:1em;
-        &:last-child{
-            margin-bottom:1em;
-        }
+    @-moz-keyframes slideDown {
+        0% {transform: translateY(-5vh);
+            opacity:0; }
+       100% { transform: translateY(5vh);
+            opacity:1; }
     }
-
-    .message-container{
-        display:flex;
-        .msg-btn-container{
     
-            display:flex;
-            flex-direction:row;
-            align-items:center;
-            
-            button{
-                margin:0 auto;
-                height:50%;
-            }
-        }
-    }
 } 
 
-@keyframes slideDown {
-    0% {transform: scale(0.1) rotate(90deg);
-         opacity:0; }
-    100% { transform: scale(1) rotate(0deg);
-         opacity:1; }
-}
-@-moz-keyframes slideDown {
-    0% {transform: scale(0.1) rotate(90deg);
-        opacity:0; }
-   100% { transform: scale(1) rotate(0deg);
-        opacity:1; }
-}
 
 @media only screen and (min-width: 600px)
 {
@@ -554,5 +574,19 @@ nav{
     #message-icon-desktop{
         margin : auto 0;
     }
+
+    @keyframes slideDown {
+        0% {transform: translateY(-8vh);
+             opacity:0; }
+        100% { transform: translateY(8vh);
+             opacity:1; }
+    }
+    @-moz-keyframes slideDown {
+        0% {transform: translateY(-8vh);
+            opacity:0; }
+       100% { transform: translateY(8vh);
+            opacity:1; }
+    }
+    
 
 }

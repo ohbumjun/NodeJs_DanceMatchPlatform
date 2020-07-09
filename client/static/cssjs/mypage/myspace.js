@@ -144,8 +144,6 @@ inpFile.addEventListener("change", function(){
 
 // 5. Get requeset to EDIT
 
-
-
 // 6. get my posts
 let main =document.body.querySelector('main')
 let modalbg =document.body.querySelector('.modalcontainer')

@@ -5,3 +5,5 @@ cancel_btn.addEventListener('click',
         console.log('herer')
         window.location.href='/api/users/board'
     }
+
+)

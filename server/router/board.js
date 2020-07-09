@@ -7,6 +7,9 @@ var Board = require('../models/Board');
 var { Comment } = require('../models/Comment');
 
 const config = require( '../config/key' );
+
+let url = config.domainURL
+
 var mongoose = require('mongoose');
 const jwt = require('jsonwebtoken');
 
@@ -24,12 +27,16 @@ console.log("MongoDB Connected...in board.js")}).catch( err => console.log( err 
 let connection = mongoose.connection;
 connection.on('error', console.error.bind(console, 'connection error:'));
 
+//author가 object형태가아니면 filtering
+function FilterDoc(docs)
+{
+  return docs.filter((e)=>{return e['author']&&typeof(e['author']!=='string')})
+}
 //게시판
 router.get('/api/users/board', function( req , res){
 
 
     let x_auth = req.cookies.x_auth
-    
     let login = Object.keys(req.cookies).includes('x_auth')?true:false
     
     //Register 입력시 이메일,pw 등등 정보 토큰
@@ -40,14 +47,13 @@ router.get('/api/users/board', function( req , res){
           if(!login)
           {
             let author = 'nobody'
-            res.render('board',{login:login,author:author})
+            res.render('board',{login:login,author:author,url:url})
           }
           else
           {
             let author = data[0]['e_name']
             let email = data[0]['email']
-            //검색 개수 보여주기
-            res.render('board',{login:login,author:author,email:email})
+            res.render('board',{login:login,author:author,email:email,url:url})
           }
         })   
     });
@@ -61,11 +67,47 @@ router.post('/recent_posts',function(req,res)
     var tomorrow = new Date();
     tomorrow.setDate(tomorrow.getDate() + 1);
 
-    Board.find({board_date: {$lt: tomorrow}},function (err, docs) {
-        //docs는 array
-        console.log(docs)
-        res.json({'result':docs})
-     })
+    //로그인확인
+    let x_auth = req.cookies.x_auth
+    let login = Object.keys(req.cookies).includes('x_auth')?true:false
+    User.find({token:x_auth},function(err,user){
+
+      Board.find({board_date: {$lt: tomorrow}},function (err, docs) {
+          //docs는 array,author object아닌거 필터링
+          docs = FilterDoc(docs)
+          if(!login)
+          {
+            res.json({'result':docs})
+          }
+          else{
+            let author = user[0]
+            let board_waiting = []
+            let board_approved = []
+            
+            ///승인 대기 중인 보드 찾기
+            docs.forEach((e)=>{
+              e.tmp_members.forEach((tmp_member)=>{
+                  if(tmp_member.email === author.email)
+                  {
+                    board_waiting.push(e)
+                  }
+              })
+              
+              //승인된 보드 찾기
+              e.members.forEach((member)=>{
+                if(member.email === author.email)
+                {
+                  board_approved.push(e)
+                }
+            })
+
+            })
+            let myposts = docs.filter((e)=>{return e.author.email===author.email})
+            res.json({'result':docs,'user':user[0],'myposts':myposts,'board_waiting':board_waiting,'board_approved':board_approved,'url':url}) 
+          }
+       })
+
+    })
 
 })
 
@@ -74,7 +116,7 @@ router.post('/api/users/search_board',function(req,res)
 {
   Board.find(req.body,function (err, docs) {
     //docs는 array
-    console.log(docs)
+    docs = FilterDoc(docs)
     res.json({'result':docs,'nums':docs.length})
  })
 
@@ -134,6 +176,8 @@ router.post('/api/users/update_board',function(req,res)
   Board.findOneAndUpdate({_id:req.body._id},{$set:req.body},(err,doc)=>{
     res.redirect('/api/users/myspace')
 })
+
+
 })
 
 
@@ -209,19 +253,56 @@ router.post('/api/users/board', function (req, res) {
     board.current_people = 1
     User.find({token:x_auth},function(err,docs)
     {
-      
-      board.author = docs[0]['e_name']
-      board.email = docs[0]['email']
+      board.author = docs[0]
       board.save(function (err) {
-        if(err){
+        console.log('saved')
+        if(err)
+        {
+          console.log('err',err)
+        }
+        if(!login){
           res.redirect('/api/users/board')
         }
+        {
           res.redirect('/api/users/board')
+        }
         //   res.render('board',{login:login})
       });
     })
     })
 
+
+router.post('/api/users/cancel_apply',function(req,res)
+{
+
+  let board_id = req.body.board_id
+  let user_id = req.body.user_id
+  let approved = req.body.approved
+
+  //tmp member에서 샂게
+  if(!approved)
+  {
+
+    console.log(1,req.body)
+    Board.findOneAndUpdate({_id:board_id},{$pull:{tmp_members:{_id:user_id}}},{new:true},(err,doc)=>{
+      if(err)
+      {
+        console.log(err)
+      }
+      res.json({'result':true})
+  })
+  } //cur memeber에서 삭제
+  else{
+    console.log(2,req.body)
+    Board.findOneAndUpdate({_id:board_id},{$pull:{members:{_id:user_id}},$inc:{current_people:-1}},{new:true},(err,doc)=>{
+      if(err)
+      {
+        console.log(err)
+      }
+      res.json({'result':true})
+  })
+  }
+})
 
 router.post('/api/users/join',function(req,res)
 {
@@ -237,12 +318,31 @@ router.post('/api/users/join',function(req,res)
       }
       res.json({'result':true})
   })
-
-
-
   })
 
 
+})
+
+router.post('/api/users/approve',function(req,res){
+
+  let board_data =req.body.board_data
+  let user_data =req.body.user_data
+  let user = User(user_data)
+
+  let approve = req.body.approve
+
+  Board.findOneAndUpdate({_id:board_data._id},{$pull:{tmp_members:user}},{new:true},(err,doc)=>{
+    
+    if(approve)
+    {
+      Board.findOneAndUpdate({_id:board_data._id},{$push:{members:user},$inc:{current_people:1}},{new:true},(err,doc)=>{
+        res.json({'result':true})
+      })
+    } //거절하는경우
+    else{
+      res.json({'result':true})
+    }
+  })
 })
 
 module.exports = router;

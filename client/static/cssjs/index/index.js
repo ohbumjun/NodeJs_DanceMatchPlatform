@@ -15,7 +15,7 @@ teacherimg.style.backgroundRepeat="no-repeat"
 teacherimg.style.backgroundPosition='center center'
 
 
-studentimg.style.backgroundImage=`url("image/main${student}.jpg")`
+studentimg.style.backgroundImage=`url("image/main${teacher}.jpg")`
 studentimg.style.backgroundRepeat="no-repeat"
 studentimg.style.backgroundPosition='center center'
 

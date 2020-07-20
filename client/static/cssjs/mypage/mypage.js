@@ -56,7 +56,6 @@ buttons.forEach(function(button)
               console.log('currenttarget',e.currentTarget)
               return
               }
-          
           //changed가 call stack에서 빠지므로 즉시실행함수
           (function (changed)
           {
@@ -65,13 +64,9 @@ buttons.forEach(function(button)
             changed.classList.toggle('changing')
           },3000)
           })(changed)
-
         })
-
-        
     })
 })
-
 
 //user image preview
 var uplbtn = document.body.querySelector("#upload-btn")
@@ -87,15 +82,12 @@ function handleImageUpload()
     reader.onload = function(e) {
       document.getElementById("display-image").src = e.target.result;
     }
-    
 
     reader.readAsDataURL(image);
     uplbtn.classList.toggle('btn-deactive')
     clrbtn.classList.toggle('btn-deactive')
     sbmbtn.classList.toggle('btn-deactive')
     //위에까지가 preview 해주기
-
-
 } 
 
 // undo btn
@@ -110,7 +102,7 @@ clrbtn.addEventListener('click',function(e){
 
 //내 게시물 가져오기
 var url='/my_posts'
-var xhr_2=new XMLHttpRequest()
+var xhr_2 = new XMLHttpRequest()
 xhr_2.open('POST',url);
 xhr_2.setRequestHeader('Content-Type','application/json')
 xhr_2.send()
@@ -125,7 +117,9 @@ xhr_2.addEventListener('load',function()
 function mydrawing(data)
 {
   let cards_container = document.body.querySelector('#cards-container');
+
   data.reverse().forEach(function(e,idx)
+  
   {
       //id도 복사되네?
       let card = document.body.querySelector('#card-copy').cloneNode(true)
@@ -139,12 +133,14 @@ function mydrawing(data)
       iframe.src = video_url
       card.querySelector('.video').appendChild(iframe);
       cards_container.appendChild(card)
+
   })
 }
 
-
 var background =document.body.querySelector('body')
+
 var modalbg =document.body.querySelector('.modalcontainer')
+
 var flag =true
 
 function drawDelModal(data)
@@ -175,6 +171,5 @@ document.body.querySelector('.container').addEventListener('click',function(e)
       modalActive.classList.toggle('modal-hide')
       document.body.querySelector('.container').classList.toggle('blackout')
     }
-
 })
 }

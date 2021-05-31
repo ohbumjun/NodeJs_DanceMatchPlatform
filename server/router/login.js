@@ -6,6 +6,11 @@ const { Dancer } = require('../models/Dancer')
 // auth 라는 middleware 을 가져온다 ( 인증처리 )
 const { auth } = require( '../middleware/auth' );
 const jwt = require('jsonwebtoken');
+// mailgun, email account acivation
+const _ = require('lodash'); 
+const mailgun = require("mailgun-js");
+const DOMAIN = 'sandbox7de21197a67843cba3b19ca2e899ec14.mailgun.org';
+const mg = mailgun({ apiKey: "07424c709ace08ce574c0895c854437e-913a5827-c6a0af4b", domain: DOMAIN });
 
 // 로그인 기능 : login
 router.get('/api/users/login', function( req , res){
@@ -109,7 +114,7 @@ router.get('/api/users/logout' , auth , ( req , res ) => {
 
                     console.log("cookie deleted")
 
-                    res.redirect('/main')
+                    res.redirect('/')
                     
                 })
              });
@@ -215,7 +220,10 @@ if( resetLink ){
             // error : user exist but user with same token does not exist
             if( error || !user){
                 console.log("User with this token does not exist")
-                return res.status(400).json( { error : "User with this token does not exist", "result": "User with this token does not exist"});
+                alert("Token Expired, Retry please")
+                setTimeout(() => {
+                    return res.status(400).json( { error : "User with this token does not exist", "result": "User with this token does not exist"});
+                }, 2000);
             }
             // no error : update a password with new password
             // create an object which includes password field which we can pass a new password
@@ -223,7 +231,6 @@ if( resetLink ){
             const obj = {
                 password : newPass
             }
-
             // update object in DB, when we pass any kind of properties
             // by below code, new password is going to be updatd within this user
             user = _.extend(user, obj )

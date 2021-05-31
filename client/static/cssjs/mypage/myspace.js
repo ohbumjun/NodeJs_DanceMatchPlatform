@@ -5,21 +5,20 @@ function onTabClick(event) {
      
   let activeTabs = document.querySelectorAll('.active');
   
-  // deactivate existing active tab and panel
-  activeTabs.forEach(function(tab) {
-      tab.className = tab.className.replace('active', '').replace(' ','');
-  });
+// deactivate existing active tab and panel
+activeTabs.forEach(function(tab) {
+    tab.className = tab.className.replace('active', '').replace(' ','');
+});
 
-  // activate new tab and panel
-  event.target.parentElement.className += ' active';
-  document.getElementById(event.target.href.split('#')[1]).className += ' active';
+// activate new tab and panel
+event.target.parentElement.className += ' active';
+document.getElementById(event.target.href.split('#')[1]).className += ' active';
 
-  console.log("Scroll working")
-  window.scrollTo(0,0); 
+console.log("Scroll working")
+window.scrollTo(0,0); 
 }
-  const element = document.getElementById('nav-tab');
-  element.addEventListener('click', onTabClick);
-
+const element = document.getElementById('nav-tab');
+element.addEventListener('click', onTabClick);
 
 // 2. modal ------
 const openButton = document.getElementById("open")
@@ -147,7 +146,6 @@ inpFile.addEventListener("change", function(){
 // 6. get my posts
 let main =document.body.querySelector('main')
 let modalbg =document.body.querySelector('.modalcontainer')
-
 
 var url='http://localhost:4000/my_posts'
 var xhr_2=new XMLHttpRequest()

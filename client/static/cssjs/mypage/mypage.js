@@ -88,6 +88,7 @@ function handleImageUpload()
     clrbtn.classList.toggle('btn-deactive')
     sbmbtn.classList.toggle('btn-deactive')
     //위에까지가 preview 해주기
+    
 } 
 
 // undo btn

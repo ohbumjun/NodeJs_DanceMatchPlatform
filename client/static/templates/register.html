@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="/../cssjs/all/bg.js" defer></script>
+
+  <link href = "/../cssjs/register/register.css" rel = "stylesheet"/>
+
+  <title>Register</title>
+	<script type = "text/javascript">
+	
+		function get_user(){
+		// 1. 데이터 입력하기 : name, email, username, password, confirm password
+
+		let K_name = $('#k_name').val();
+		let E_name = $('#e_name').val();
+		let Email = $('#email').val();
+		let Username = $('#username').val();
+		let Password = $('#password').val();
+		let Confirmpassword = $('#confirmpassword').val();
+
+		// 2. 입력사항 검사하기
+			// 2.1 해당 요소 중 하나라도 입력하지 않았을 경우 alert를 띄운다
+			if ( E_name === ''){
+				swal({
+				text:'Please Enter Your E_Name',
+				icon : 'info'});
+				$('#e_name').focus();
+				return ;
+			} 
+			if ( Email === '') {
+				swal({text:'Please Enter Your Email',
+				icon : 'info'});
+				$('#email').focus();
+				return ;
+			} 
+			if ( Username === '') {
+				swal({text:'Please Enter Your Username',
+				icon : 'info'});
+				$('#username').focus();
+				return ;
+			} 
+			if ( Password === ''){
+				swal({text:"Please Enter Your Password",
+				icon : 'info'});
+				$('#password').focus();
+				return ;
+			} 
+			if ( Confirmpassword === ''){
+				swal({text:"Please Enter Your ConfirmPassword",
+				icon : 'info'});
+				$('#confirmpassword').focus();
+				return ;
+			}
+			if( Confirmpassword !==  Password){
+				console.log('Password',Password)
+				console.log('Confirmpassword',Confirmpassword)
+				swal({text:"Check the ConfirmPassword Again",
+				icon : 'info'});
+				$('#confirmpassword').focus();
+				return ;
+			}
+		// 입력 영어이름을 대문자로 바꾸기 
+		E_name = E_name.toUpperCase();
+		// Role을 Number 형태로 바꾸기
+		// 2.2 입력내용을 검사한다 
+			// 1) English Name의 길이를 검사한다
+			if( E_name.length < 1 || E_name.length > 50){
+				swal({text:"Name should be written in 1 ~ 50 words",
+				icon : 'info'})
+			}
+			// 2) Password 를 검사한다 
+			check(Password)
+		// 3. POST에 저장을 요청한다 
+		$.ajax({
+			type: "POST",
+			url: '/api/users/register',
+			// name, email, username, password 정보 넘겨주기 
+			data: { 
+				k_name : K_name, 
+				e_name : E_name, 
+				email : Email, 
+				password : Password, 
+				username : Username  
+			} ,
+
+			// 성공시
+			success : function(response){
+				// console.log('res',response['success'] )
+				if( response['success'] === 'true' ){
+					swal({text:'We sent the Authentication Message to your Email. Please Go to your email and follow the instructions',
+				icon : 'success'})
+					// window.location.replace( "http://localhost:4000/api/users/activateAccount.html");
+				}else if( response['success'] === 'emailexists'){
+					swal({text:'Same email already Exist',
+				icon : 'info'})
+					$('#email').focus();
+					return false;
+				}else if( response['success'] === 'usernameexists'){
+					swal({text:'Same username already Exist',
+				icon : 'info'})
+					$('#username').focus();
+					return false;
+				}else if( response['success'] === 'Error in signup while saving user info'){
+					swal({text:'Error in signup while saving user info, contact Us!!',
+				icon : 'info'})
+					return false;
+				}
+			}
+		})
+	} // function get_user
+		// 비밀번호 체크 함수
+		function check(password){
+			if(!/^[a-zA-Z0-9]{7,15}$/.test(password)){
+				alert('7 ~ 15words by combination of number and english');
+				return ;
+			}
+			var checkNumber = password.search(/[0-9]/g);
+			var checkEnglish = password.search(/[a-z]/ig);
+			if(checkNumber <0 || checkEnglish <0){
+				swal("combine number and english");
+				return ;
+			}
+			if(/(\w)\1\1\1/.test(password)){
+				swal('Cannot use word like 444 more than 4 times');
+				return ;
+			}
+				return true;
+		}
+		</script>
+
+</head>
+<body>
+  <div class="cont">
+    <div class="demo">
+      <div class="login">
+        <div class="login__check"></div>
+        <div class="login__form">
+          <div class="login__row">
+            <svg class="login__icon name svg-icon" viewBox="0 0 20 20">
+              <path d="M0,20 a10,8 0 0,1 20,0z M10,0 a4,4 0 0,1 0,8 a4,4 0 0,1 0,-8" />
+            </svg>
+            <input id = "k_name" type="text" class="login__input name" placeholder="Korean Name( Optional )"/>
+		  </div>
+		  <div class="login__row">
+            <svg class="login__icon name svg-icon" viewBox="0 0 20 20">
+              <path d="M0,20 a10,8 0 0,1 20,0z M10,0 a4,4 0 0,1 0,8 a4,4 0 0,1 0,-8" />
+			</svg>
+            <input id = "e_name" type="text" class="login__input name" placeholder="English Name( Required )"/>
+		  </div>
+		  <div class="login__row">
+            <svg class="login__icon name svg-icon" viewBox="0 0 20 20">
+              <path d="M0,20 a10,8 0 0,1 20,0z M10,0 a4,4 0 0,1 0,8 a4,4 0 0,1 0,-8" />
+            </svg>
+            <input id = "email" type="email" class="login__input name" placeholder="Email"/>
+		  </div>
+		  <div class="login__row">
+            <svg class="login__icon name svg-icon" viewBox="0 0 20 20">
+              <path d="M0,20 a10,8 0 0,1 20,0z M10,0 a4,4 0 0,1 0,8 a4,4 0 0,1 0,-8" />
+            </svg>
+            <input id ="username" type="text" class="login__input name" placeholder="Username"/>
+		  </div>
+		  
+		  <div class="login__row">
+            <svg class="login__icon name svg-icon" viewBox="0 0 20 20">
+              <path d="M0,20 a10,8 0 0,1 20,0z M10,0 a4,4 0 0,1 0,8 a4,4 0 0,1 0,-8" />
+			</svg>
+			<span class = "login__description">  7 ~ 15 words by the combination of number and English  </span>
+            <input id = "password" type="password" class="login__input name" placeholder="Password"/>
+		  </div>
+		  <div class="login__row">
+            <svg class="login__icon name svg-icon" viewBox="0 0 20 20">
+              <path d="M0,20 a10,8 0 0,1 20,0z M10,0 a4,4 0 0,1 0,8 a4,4 0 0,1 0,-8" />
+            </svg>
+            <input id = "confirmpassword" type="password" class="login__input name" placeholder="Confirm Password"/>
+		  </div>
+		  
+          <button onclick = "get_user()" type="button" class="login__submit">Sign in</button>
+          <p class="login__signup">Already have an account? &nbsp;<a href = "/api/users/login">Login</a></p>
+        </div>
+      </div>
+     
+          
+        </div>
+        <div class="app__logout">
+          <svg class="app__logout-icon svg-icon" viewBox="0 0 20 20">
+            <path d="M6,3 a8,8 0 1,0 8,0 M10,0 10,12"/>
+          </svg>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

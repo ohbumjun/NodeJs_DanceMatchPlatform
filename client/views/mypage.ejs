@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link href = "../../cssjs/mypage/mypage.css" rel = "stylesheet"/>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+<!-- add to document <head> -->
+  <link href="https://unpkg.com/filepond/dist/filepond.css" rel="stylesheet">
+  <link href="https://unpkg.com/filepond-plugin-image-preview/dist/filepond-plugin-image-preview.css" rel="stylesheet">
+
+  <!-- add before </body> -->
+  <script src="https://unpkg.com/filepond-plugin-image-preview/dist/filepond-plugin-image-preview.js"></script>
+  <!-- add before </body> -->
+  <script src="https://unpkg.com/filepond/dist/filepond.js"></script>
+
+    <title>Document</title>
+</head>
+<body>
+    <header>
+      <nav>
+        <ul>
+          <li><a href="/">같이추장께</a></li>
+          <li><a href="/api/users/mypage">Search</a></li>
+          <li><a href="/api/users/mySpace">MySpace</a></li>
+        </ul>
+      </nav>
+    </header>
+    <main>
+      <div class="container">
+            <div id="logo">
+              <h1 class="logo"><a href="/main">
+            </a></h1>
+      </div>
+            <div class="leftbox">
+              <nav>
+                <a id="profile" class="active"><i class="fa fa-user"></i></a>
+                <a id="privacy"><i class="fa fa-tasks"></i></a>
+                <!-- <a id="payment"><i class="fa fa-credit-card"></i></a> -->
+              </nav>
+            </div>
+            <div class="rightbox">
+              <div class="profile">
+                <div class="user-img">
+                    <img id="display-image" src="<%= profile_img %>">
+
+                    <div class="container-btn">
+
+                    <button id='upload-btn' >
+                    <label for="upload">
+                      upload
+                     </label>
+                    </button>
+
+                    <button id='clear-btn' class="btn-deactive" >
+                        Undo
+                    </button>
+
+                    <!-- image 관련된 upload버튼은 mypage router로 내용을 보내버린다 -->
+                    <form action="/api/users/mypage" method="POST" enctype="multipart/form-data">
+
+                      <input type="file" name = "image" id="upload" onChange="handleImageUpload()" class="btn-deactive"/>
+
+                      <button type="submit" id="submit-btn" class='btn-deactive'>Submit</button>
+
+                    </form>
+                    </div>
+
+                </div>
+                <h2>User Name</h2>
+                <p><input type="text" name="username" value="<%= username %>"> <button class="btn">update</button></p>
+                <h2>Email</h2>
+                <p><input type="text" name="age" value="<%= email %>"> <button class="btn">update</button></p>
+                <h2>Kakaotalk</h2>
+                <p><input type="text" name="contact" value="<%= Kakaotalk %>"> <button class="btn">update</button></p>
+                <h2>Instagram</h2>
+                <p><input type="text" name="contact" value="<%= Instagram %>"> <button class="btn">update</button></p>
+              </div>
+              <div class="privacy noshow">
+                <h1>Other Info</h1>
+                <h2>English Name</h2>
+                <p><input type="text" name="e_name" value="<%= e_name %>"> <button class="btn">update</button></p>
+                <h2>Korean Name</h2>
+                <p><input type="text" name="k_name" value="<%= k_name %>"> <button class="btn">update</button></p>
+                <h2>Age</h2>
+                <p>
+                    <select name='age' id='age'>
+                        <option value="0s">
+                          1 ~ 10
+                        </option>
+                        <option value="10s">
+                          10 ~ 19
+                        </option>
+                        <option value="20s">
+                          20 ~ 29
+                        </option>
+                        <option value="30s">
+                          30 ~ 39
+                        </option>
+                        <option value="40s">
+                          40 ~ 49
+                        </option>
+                        <option value="50s">
+                          50 ~ 59
+                        </option>
+                        <option value="60s">
+                          60 ~ 69
+                        </option>
+                        <option value="70over">
+                          70 ~
+                        </option>
+                        </select>
+                        <button class="btn">update</button>
+                </p>
+                <h2>Gender</h2>
+                <p>                
+                    <select id="gender" name="gender">
+                        <option value="M">Male</option>
+                        <option value="F">Female</option>
+                        <option value="Etc">Etc</option>
+                    </select> <button class="btn">update</button></p>
+                <h2>Place</h2>
+              
+                <p>
+                  <select id="place" name="place">
+                  <option value="Jongno-gu">
+                    Jongno-gu 종로구</option>
+                  <option value="Jung-gu">Jung-gu 중구</option>
+                  <option value="Yongsan-gu">
+                    Yongsan-gu 용산구</option>
+                  <option value="Seongdong-gu">
+                    Seongdong-gu 성동구</option>
+                  <option value="Gwangjin-gu">
+                    Gwangjin-gu 광진구</option>
+                  <option value="Dongdaemun-gu">
+                    Dongdaemun-gu 동대문구</option>
+                  <option value="Jungnang-gu">Jungnang-gu 중랑구</option>
+                  <option value="Seongbuk-gu">
+                    Seongbuk-gu 성북구</option>
+                  <option value="Gangbuk-gu">Gangbuk-gu 강북구</option>
+                  <option value="Dobong-gu">Dobong-gu 도봉구</option>
+                  <option value="Nowon-gu">
+                    Nowon-gu 노원구</option>
+                  <option value="Eunpyeong-gu">
+                    Eunpyeong-gu 은평구</option>
+                  <option value="Seodaemun-gu">Seodaemun-gu 서대문구</option>
+                  <option value="Mapo-gu">Mapo-gu 마포구</option>
+                  <option value="Yangcheon-gu">Yangcheon-gu 양천구</option>
+                  <option value="Gangseo-gu">
+                    Gangseo-gu 강서구</option>
+                  <option value="Guro-gu">
+                    Guro-gu 구로구</option>
+                  <option value="Geumcheon-gu">
+                    Geumcheon-gu 금천구</option>
+                  <option value="Yeongdeungpo-gu">
+                    Yeongdeungpo-gu 영등포구</option>
+                  <option value="Dongjak-gu">
+                    Dongjak-gu 동작구</option>
+                  <option value="Gwanak-gu">
+                    Gwanak-gu 관악구</option>
+                  <option value="Seocho-gu">
+                    Seocho-gu 서초구</option>
+                  <option value="Gangnam-gu">
+                    Gangnam-gu 강남구</option>
+                  <option value="Songpa-gu">
+                    Songpa-gu 송파구</option>
+                  <option value="Gangdong-gu">Gangdong-gu 강동구</option>
+                </select> <button class="btn">update</button></p>
+              </div>
+              
+            </div>
+          </div>
+        </div>
+      </main>
+          <div class="modalcontainer">
+            </div>
+            <div id="modal" class="delete-modal modal-hide">
+                <div class="modal-header">정말 삭제할거에요? ㅠㅠ</div>
+                <div class="modal-main">
+                  <button>Yes?</button>
+                  <button>No?</button>
+                </div>
+            </div>
+          <script>
+                  var gender = "<%= gender %>";
+                  document.body.querySelector('#gender').value=gender;
+          </script>
+          <script src="../../cssjs/mypage/mypage.js"></script> 
+</body>
+</html>
+
+  

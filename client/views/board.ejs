@@ -1,0 +1,150 @@
+<!doctype html>
+<html lang='en'>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+        <script src="https://kit.fontawesome.com/a076d05399.js"></script>
+        <link rel="stylesheet" type="text/css" href="../../cssjs/board/board.css" />
+        <title>Connect2Dance</title>
+    </head>
+    <body>
+        <div class="supreme-container">
+        <header id="desktop-header">
+            <div class="header-left">Connect2Dance</div>
+            <div class="header-right">
+                <div id="user" style="display:none"><%= author%></div>
+                    <% if(login) { %>
+                <!-- <div class="message-icon-num-container"><span class="meassage-icon-num"></span></div> -->
+                <i id="message-icon-desktop" class="fa fa-envelope" aria-hidden="true"></i>
+                <div class="menu"><a href="/api/users/mySpace">My Page</a></div>
+                <div class="menu"><a href="/api/users/logout">Logout</a></div>
+                <% }
+                 else{ %>
+                    <div class="menu"><a href="/api/users/login">Login</a></div>
+                  <% } %>
+            </div>
+        </header>
+
+        <header class='mobile'> 
+            <div class='mobile-header-left'>Connect2Dance</div>
+            <div class="nav-bar">
+                <!-- <div class="message-icon-num-container"><span class="meassage-icon-num"></span></div> -->
+                <i id="message-icon" class="fa fa-envelope" aria-hidden="true"></i>
+                <i id='menu-bar' class="fa fa-bars"></i>
+            </div>
+        </header>
+        <nav>
+        <div class="dropdown hide">
+            <div class='close my-page'>X</div>
+            <% if(login) { %>
+            <div class="my-page"><a href="/api/users/mypage">My Page</a></div>
+            <div class="my-page"><a href="/api/users/logout">Logout</a></div>
+            <% }
+            else{ %>
+                <div class="my-page"><a href="/api/users/login">Login</a></div>
+             <% } %>
+        </div>
+        </nav>
+
+        <main>
+                <div class="board-search">
+                    <div class="search-container">
+                    <select class="board-select" id='search-board' name='genre'><option value="place">장소</option><option value="author">글쓴이</option>
+                    </select>     
+                    <input id='search-text' type='text' />
+                    <button id='search-button'>검색하기</button>
+                    </div>
+                    <div id='search-result' class="result"></div>
+                </div>
+
+            <div class="main-container">
+
+                    <a id="make-post" class='post' href="/board/write"><p>글올리기!</p></a>
+        
+                <div id="cards-container">
+                </div>
+                <div id ="card-copy" class="card-container">
+                    <div id="card">
+                            <div id="card-title"></div>
+                        <div class="video">
+                        </div>
+                        <div class="sub-container">
+                        <div id="card-place-time" class='card-info'></div>
+                        <div id="card-people" class='card-info'></div>
+                        </div>
+                        <div class="join-container">
+                            <div class="join-text">Join!</div>
+                        </div>
+                    </div>
+                </div>
+         </div>
+
+        </main>
+         
+    </div>
+
+
+    <div class="modalcontainer">
+    </div>
+        <div class="popup-modal shadow" id="modal">
+            <div class="modal-header"><div class='modal-header-text'></div><button class='close-modal'>X</button></div>
+            <div class="modal-main">
+                <div class="modal-video-container"></div>
+                <div class="main-content"></div>
+                <div class="info-container">
+                    <div class="modal-author"></div>
+                    <div class="modal-place"></div>
+                    <div class="modal-time"></div>
+                    <div class="modal-people"></div>
+                </div>
+        <div class="modal-comment-container">
+            <h3>Comments</h3>
+            <div class="modal-comment">
+                
+            </div>
+            <div class="modal-new-comment">
+            <input id="boardid" type="hidden" name="boardid" />
+            <textarea name="comment" id="" cols="30" rows="10"></textarea>
+            <button class="comment-submit-btn">댓글달기</button>
+            </div>
+        </div>
+            </div>
+        
+            <footer>
+                <div class="modal-date"></div>
+            </footer>
+        </div>
+
+
+        
+        <i class="fas fa-spinner fa-spin icon-hide"></i>
+
+    <div id='join-parent' class="join-modal-container">
+        <div class="header">
+            <div class="join-close-container"><span>Back</span></div>
+        </div>
+        <div class="join-middle">
+            <span>Do you want to Join this Dance ? </span>
+        </div>
+        <div class="join-btn-container">
+            <div class="join-yes left">Yes</div>
+            <div class="join-no">No</div>
+
+            <div class="join-waiting left icon-hide">신청대기중</div>
+            <div class="join-cancel icon-hide">신청취소</div>
+        </div>
+    </div>
+
+    <section id = 'messages-modal'>
+        <header id="messages-header"></header>
+        <main id="messages-container">
+        </main>
+    </section>
+
+    <script src="/socket.io/socket.io.js"></script>
+    <script src='../../cssjs/board/board.js'></script>
+    </body>
+
+</html>

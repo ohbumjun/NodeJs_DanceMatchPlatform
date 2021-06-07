@@ -1,0 +1,104 @@
+<!doctype html>
+<html lang='en'>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+        <link rel="stylesheet" href="cssjs/base/base.css" />
+        <title>Connect2Dance</title>
+    </head>
+    <body>
+        <div class="supreme-container">
+        <header>
+            <div class="header-left">Connect2Dance</div>
+            <div class="header-right">
+                    <% if(login) { %>
+                <div class="menu"><a href="/api/users/mySpace">My Page</a></div>
+                <div class="menu"><a href="/api/users/logout">Logout</a></div>
+                <% }
+                 else{ %>
+                    <div class="menu"><a href="/api/users/login">Login</a></div>
+                  <% } %>
+            </div>
+        </header>
+
+        <header class='mobile'>
+            <div class='mobile-header-left'>Connect2Dance</div>
+            <div class="nav-bar"><i class="fa fa-bars"></i>
+            </div>
+        </header>
+        <nav>
+        <div class="dropdown hide">
+            <div class='close my-page'>X</div>
+            <% if(login) { %>
+            <div class="my-page"><a href="/api/users/mySpace">My Page</a></div>
+            <div class="my-page"><a href="/api/users/logout">Logout</a></div>
+            <% }
+            else{ %>
+                <div class="my-page"><a href="/api/users/login">Login</a></div>
+             <% } %>
+        </div>
+        </nav>
+
+        <main>
+            <div class="search">
+               
+                <form onsubmit="search(event)" method="post" id="search">
+                <div class="select-title">Genre</div>
+                <select class="search-dance" id='search-genre' name='genre' form="search"><option value="ALL">ALL</option><option value="Hip-Hop">Hip-Hop</option>
+                    <option value="Latin">Latin</option>
+                    <option value="EDM">EDM</option>
+                </select>
+                <div class="select-title">Academy</div>
+                <select class="search-dance" id='search-academy' name='Academy' form="search"><option value="ALL">ALL</option><option value="ONEMILLIONDANCE">ONEMILLIONDANCE</option>
+                </select>
+                <div class="select-title">Location</div>
+                <select class="search-dance" id='search-loc' name='Place' form="search"><option value="ALL">ALL</option><option value="Seoul">Seoul</option></select>
+                <div class="select-title search-name"><span><input id="namecheck" type="checkbox"></span><span>NAME</span></div>
+                <input type="text" id="namevalue" disabled="false" value="ALL">
+                <input type="submit" id="submitdancer" value="검색하기">
+                </form>
+                <div class="result"></div>
+            </div>
+
+            <div class="dancers">
+                <div class="profile" id="img1">
+                <img src="image/1.jpg" alt="">
+                <div class="middle">
+                    <div class="middle-text">Hi</div>
+                </div>
+                </div>
+                <div class="profile" id="img2">
+                <img src="image/2.jpg" alt="">
+                </div>
+                <div class="profile" id="img3">
+                <img src="image/3.jpg" alt="">
+                </div>
+            </div>
+        </main>
+    </div>
+    <div class="modalcontainer">
+    </div>
+    <div class="popup-modal shadow" id="modal">
+        <div class="modal-header"><div class='modal-header-text'></div><button class='close-modal'>X</button></div>
+        <div class="modal-main">
+            <div class="select-container"><div class="select-info modal-active">Info</div><div class="select-video">Video</div></div>
+            <section id="info-section" class="section-active"><div class="container-info">
+                <div class="dancer-genre"></div>
+                <div class="dancer-academy"></div>
+                <div class="dancer-place"></div>
+            </div></section>
+            <section id="video-section" class="section-hide">
+                <div class="container-video">
+                </div>
+                </section>
+        </div>
+        <footer></footer>
+    </div>
+
+    </body>
+
+    <script src='cssjs/base/base.js'></script>
+
+</html>

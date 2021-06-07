@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link href = "../../cssjs/write/write.css" rel = "stylesheet"/>
+    <title>Document</title>
+</head>
+<body>
+    <div class="main-container">
+        <div class="header">
+        <h1>빵댕이 흔들러 갈 사람</h1>
+    </div>
+
+    <div class="input-container">
+        <form action="/api/users/update_board" method="post">
+                <label for='title'>
+                <div class="write-input">
+                    <p class="title-text">제목</p>
+                </div>
+                <input type="text" name="title" value=<%= title %> required oninvalid="this.setCustomValidity('Enter Title')"><br>
+                </label>
+                <label for='title'>
+                        <div class="write-input">
+                            <p class="title-text">비디오</p>
+                        </div>
+                        <input type="text" name="video"  placeholder="ex : 유튜브 url" value=<%= video %>><br>
+                 </label>
+                <label for='contents'>
+                <div class="write-input">
+                        <p class="title-text">내용</p>
+                    </div>
+            <textarea name="contents" value=<%= contents %> ></textarea><br>
+            </label>
+            <label for='place'>
+        <div class="write-input">
+                <p class="title-text">장소</p>
+            </div>
+        <input type="text" name="place"><br>
+        </label>
+        <label for='time'>
+                <div class="write-input">
+                    <p class="title-text">시간</p>
+                </div>
+            <input type="text" name="time" value=<%= time %>><br>
+            </label>
+            <label for='number'>
+                <div class="write-input">
+                    <p class="title-text">모집인원</p>
+                </div>
+                <input type="number" name="people" value=<%= people %>><br>
+         </label>
+         <input type="hidden" name="_id" value="<%= _id %>">
+            <div class="btn-submit">
+            <input type="submit" value="확인">
+        </div>
+        </form>
+    </div>
+</div>
+</body>
+</html>

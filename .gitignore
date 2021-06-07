@@ -1,1 +1,5 @@
 node_modules
+server/config/dev.js
+awsKey_Private
+db_modify.js
+UbuntuKey

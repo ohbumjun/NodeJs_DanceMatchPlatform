@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+  <script src="/../cssjs/all/bg.js" defer ></script>
+  <link href = "/../cssjs/activeAccount/activeAccount.css" rel = "stylesheet"/>
+
+  <title>activateAccount</title>
+  <script src="//code.jquery.com/jquery-3.3.1.min.js"></script>
+  <script type = "text/javaScript">
+    function account(){
+                  var urlname = document.location.href.split('/');
+                  var token = urlname[urlname.length -1];
+                      $.ajax({
+                          type: "POST",
+                          url: '/api/users/activateAccount/:token',
+                          // username, password 정보 넘겨주기 
+                          data: { 
+                          token : token
+                          } ,
+                          // 성공시
+                          success : function(response){
+  
+                        if( response['result'] === "LinkError" ){
+                            swal({
+                              title : 'Link Error',
+                              text : "Incorrect or Expired Link, Signup again",
+                              icon : 'warning'
+                            })
+                            setTimeout(() => {
+                              window.location.replace("http://localhost:4000/api/users/register");
+                            }, 3000);
+                              
+                          // 로그인 페이지로 이동시키기
+                          }else if( response['result'] === "User with this email already exist" ){
+                              swal({
+                                title : 'Email Error',
+                                text : 'User with this email already exist, Reregister',
+                                icon : 'warning'
+                              })
+                              setTimeout(() => {
+                              window.location.replace("http://localhost:4000/api/users/register");
+                            }, 2000);
+                          }else if( response['result'] === "no token" ){
+                              swal({
+                                title : "Retrial",
+                                text : 'Something went wrong. Reregister or Contact us',
+                                icon :'warning'
+                              })
+                              setTimeout(() => {
+                              window.location.replace("http://localhost:4000/api/users/register");
+                            }, 2000);
+
+                          }else if( response['success'] === 'true'){
+                              swal({ 
+                                title : 'Success',
+                                text : "Registration Success. Please write in your specific profiles",
+                                icon : 'success' })
+                              var register_who= response['register_who']
+                              var token = response['token']
+
+                              setTimeout(() => {
+                                window.location.replace("http://localhost:4000/api/users/"+register_who); 
+                              }, 3000);
+                          }
+                          },
+                          error : function(request, status, error ) {
+                            swal({
+                              title: "Time Expired",
+                              text: "Register Again",
+                              icon: "warning",
+                              buttons: true,
+                              dangerMode: true,
+                            })
+                            .then((willDelete) => {
+                              if (willDelete) {
+                                window.location.replace("http://localhost:4000/api/users/register"); 
+                              } 
+                            });
+                            
+                          }
+                      })
+                  } // function get_user
+      </script>
+
+</head>
+<body>
+  <div class="cont">
+    <div class="demo">
+      <div class="login">
+        <div class="login__check"></div>
+        <div class="login__form">
+          <button onclick = "account()" type="button" class="login__submit">Activate Your Account</button>
+        </div>
+      </div>
+      <div class="app">
+        <div class="app__top">
+          <div class="app__menu-btn">
+            <span></span>
+          </div>
+          <svg class="app__icon search svg-icon" viewBox="0 0 20 20">
+            <path d="M20,20 15.36,15.36 a9,9 0 0,1 -12.72,-12.72 a 9,9 0 0,1 12.72,12.72" />
+          </svg>
+          <p class="app__hello">Good Morning!</p>
+          <div class="app__user">
+            <img src="//s3-us-west-2.amazonaws.com/s.cdpn.io/142996/profile/profile-512_5.jpg" alt="" class="app__user-photo" />
+            <span class="app__user-notif">3</span>
+          </div>
+          <div class="app__month">
+            <span class="app__month-btn left"></span>
+            <p class="app__month-name">March</p>
+            <span class="app__month-btn right"></span>
+          </div>
+        </div>
+        <div class="app__bot">
+          <div class="app__days">
+            <div class="app__day weekday">Sun</div>
+            <div class="app__day weekday">Mon</div>
+            <div class="app__day weekday">Tue</div>
+            <div class="app__day weekday">Wed</div>
+            <div class="app__day weekday">Thu</div>
+            <div class="app__day weekday">Fri</div>
+            <div class="app__day weekday">Sad</div>
+            <div class="app__day date">8</div>
+            <div class="app__day date">9</div>
+            <div class="app__day date">10</div>
+            <div class="app__day date">11</div>
+            <div class="app__day date">12</div>
+            <div class="app__day date">13</div>
+            <div class="app__day date">14</div>
+          </div>
+          <div class="app__meetings">
+            <div class="app__meeting">
+              <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/142996/profile/profile-80_5.jpg" alt="" class="app__meeting-photo" />
+              <p class="app__meeting-name">Feed the cat</p>
+              <p class="app__meeting-info">
+                <span class="app__meeting-time">8 - 10am</span>
+                <span class="app__meeting-place">Real-life</span>
+              </p>
+            </div>
+            <div class="app__meeting">
+              <img src="//s3-us-west-2.amazonaws.com/s.cdpn.io/142996/profile/profile-512_5.jpg" alt="" class="app__meeting-photo" />
+              <p class="app__meeting-name">Feed the cat!</p>
+              <p class="app__meeting-info">
+                <span class="app__meeting-time">1 - 3pm</span>
+                <span class="app__meeting-place">Real-life</span>
+              </p>
+            </div>
+            <div class="app__meeting">
+              <img src="//s3-us-west-2.amazonaws.com/s.cdpn.io/142996/profile/profile-512_5.jpg" alt="" class="app__meeting-photo" />
+              <p class="app__meeting-name">FEED THIS CAT ALREADY!!!</p>
+              <p class="app__meeting-info">
+                <span class="app__meeting-time">This button is just for demo ></span>
+              </p>
+            </div>
+          </div>
+        </div>
+        <div class="app__logout">
+          <svg class="app__logout-icon svg-icon" viewBox="0 0 20 20">
+            <path d="M6,3 a8,8 0 1,0 8,0 M10,0 10,12"/>
+          </svg>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>
